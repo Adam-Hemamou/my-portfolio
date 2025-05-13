@@ -16,7 +16,7 @@ export default defineConfig(({ mode }) => ({
       ssr: false,
       static: true,
       prerender: {
-        routes: [],
+        routes: ['/', '/about', '/contact', '/project', '/project/id', '/404'],
       },
     }),
   ],
