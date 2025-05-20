@@ -13,6 +13,9 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     analog({
+      vite: {
+        inlineStylesExtension: 'scss',
+      },
       ssr: false,
       static: true,
       prerender: {
