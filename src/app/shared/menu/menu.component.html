@@ -1,0 +1,41 @@
+<div class="menu">
+  <div class="logo">
+    <div class="title">
+      <div class="black-bgc">
+        <p class="surname">ADAM</p>
+      </div>
+      <div class="white-bgc">
+        <p class="name">HEMAMOU</p>
+      </div>
+    </div>
+    <div class="under-name">
+      <p class="developper">DEVELOPPER</p>
+      <span>
+        <img src="/svg/arrow.svg" alt="fleche" class="fleche" />
+      </span>
+    </div>
+  </div>
+
+  <div class="nav" (click)="toggleMenu()">
+    <img src="/svg/menu.svg" alt="menu" />
+    <p>MENU</p>
+  </div>
+</div>
+
+<div class="menu-overlay" *ngIf="isOpen" (click)="closeMenu()"></div>
+<nav
+  class="menu-drawer"
+  [class.open]="isOpen"
+  (click)="$event.stopPropagation()"
+>
+  <ul>
+    <li *ngFor="let item of menuItems">
+      <a [routerLink]="item.link" (click)="closeMenu()" class="menu-link">
+        <span class="menu-text">{{ item.label }}</span>
+        <span class="menu-icon">
+          <img src="/svg/arrow.svg" alt="flèche" />
+        </span>
+      </a>
+    </li>
+  </ul>
+</nav>
