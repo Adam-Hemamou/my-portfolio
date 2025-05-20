@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { MenuComponent } from '../shared/menu/menu.component';
+import { MenuComponent } from '../shared/components/menu/menu.component';
+import { AnimateBandComponent } from '../shared/components/animate-band/animate-band.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MenuComponent],
+  imports: [MenuComponent, AnimateBandComponent],
   template: `
     <app-menu></app-menu>
     <h1 class="hero-title">
@@ -20,6 +21,9 @@ import { MenuComponent } from '../shared/menu/menu.component';
         <span class="dot"></span>
         <span>Open to work</span>
       </div>
+    </div>
+    <div class="home-band">
+      <app-animate-band></app-animate-band>
     </div>
   `,
 })
