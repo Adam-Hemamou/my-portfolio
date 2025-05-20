@@ -1,0 +1,16 @@
+<div class="project-card">
+  <div class="project-image">
+    <img [src]="project.image" [alt]="project.title" />
+    <span class="project-label">{{ project.label }}</span>
+  </div>
+  <div class="project-content">
+    <div>
+      <span class="project-title">{{ project.title }}</span>
+      <span class="project-subtitle">{{ project.subtitle }}</span>
+    </div>
+    <a class="project-btn" [href]="project.link" target="_blank">
+      <span class="arrow">→</span>
+      Voir le projet
+    </a>
+  </div>
+</div>
