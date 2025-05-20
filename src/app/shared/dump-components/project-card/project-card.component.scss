@@ -1,0 +1,118 @@
+.project-card {
+  background: #fff;
+  border: 2px solid #111;
+  border-bottom: 2px solid var(--color-primary);
+  border-right: 2px solid var(--color-primary);
+  box-shadow: none;
+  border-radius: 0;
+  overflow: hidden;
+  max-width: 370px;
+  margin: 0 auto 2rem auto;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.project-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.1/1;
+  background: #222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  img {
+    width: 85%;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+    border-radius: 0.2em;
+    margin-top: 1.2em;
+    margin-bottom: 1.2em;
+  }
+
+  .project-label {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: var(--color-primary);
+    color: #111;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 0.95rem;
+    padding: 0.18em 1.1em;
+    font-weight: 700;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+    box-shadow: none;
+    text-transform: uppercase;
+  }
+}
+
+.project-content {
+  padding: 1.3em 1.2em 1.2em 1.2em;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1em;
+  border: none;
+}
+
+.project-title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.35rem;
+  font-weight: 900;
+  display: block;
+  margin-bottom: 0.1em;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.project-subtitle {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  color: #444;
+  display: block;
+  margin-bottom: 0.7em;
+  margin-top: -0.2em;
+  letter-spacing: 0.01em;
+}
+
+.project-btn {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  color: #111;
+  border-radius: 2em;
+  border: none;
+  padding: 0;
+  font-size: 1rem;
+  font-family: "Montserrat", sans-serif;
+  text-decoration: none;
+  font-weight: 500;
+  outline: none;
+  cursor: pointer;
+  box-shadow: none;
+
+  .arrow img {
+    width: 1.2em;
+    height: 1.2em;
+    display: block;
+  }
+
+  span:not(.arrow) {
+    border: 1.5px solid #111;
+    border-radius: 0 2em 2em 0;
+    padding: 0.45em 1.2em 0.45em 1.2em;
+    background: #fff;
+    margin-left: -0.3em;
+    font-size: 1rem;
+    font-family: "Montserrat", sans-serif;
+    color: #111;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  &:hover span:not(.arrow) {
+    background: var(--color-primary);
+    color: #111;
+  }
+}
