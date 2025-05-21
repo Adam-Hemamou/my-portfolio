@@ -19,7 +19,7 @@ export class RecentProjectComponent {
       link: 'https://tonlien.com',
     },
     {
-      image: 'assets/img/waw.png',
+      image: '/project-img/test.png',
       label: 'JEU',
       title: 'WAW',
       subtitle: 'The Game',
