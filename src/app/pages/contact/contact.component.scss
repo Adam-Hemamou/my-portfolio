@@ -1,0 +1,36 @@
+.contact-hero {
+  background: #222;
+  color: #fff;
+  margin-top: 0.8em;
+  padding: 2.2rem 1.2rem 2rem 1.2rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-radius: 0;
+
+  .contact-title {
+    color: var(--color-primary, #c6ff1a);
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: "Montserrat", sans-serif;
+    display: block;
+  }
+
+  .contact-subtitle {
+    color: var(--color-primary, #c6ff1a);
+    font-size: 1.6rem;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 200;
+    display: block;
+    margin-bottom: 1.2rem;
+  }
+
+  .contact-desc {
+    font-size: 1rem;
+    font-family: "Montserrat", sans-serif;
+    margin-bottom: 1.5rem;
+    color: #eee;
+    line-height: 1.5;
+  }
+}
