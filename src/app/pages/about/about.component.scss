@@ -1,0 +1,148 @@
+.about-hero {
+  background: #222;
+  color: #fff;
+  margin-top: 0.8em;
+  padding: 2.2rem 1.2rem 2rem 1.2rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.about-name {
+  color: var(--color-primary);
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: "Montserrat", sans-serif;
+  display: block;
+}
+
+.about-job {
+  color: var(--color-primary, #c6ff1a);
+  font-size: 1.6rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 200;
+  display: block;
+  margin-bottom: 1.2rem;
+}
+
+.about-desc {
+  font-size: 1rem;
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 1.5rem;
+  color: #eee;
+  line-height: 1.5;
+}
+
+.about-cta {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  color: #111;
+  font-weight: 500;
+  border-radius: 0;
+  overflow: hidden;
+  width: fit-content;
+  box-shadow: 1.5px 1.5px 0 #111;
+
+  .about-arrow {
+    background: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    img {
+      width: 1.1em;
+      height: 1.1em;
+    }
+  }
+  span:last-child {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 0 1em;
+    font-size: 1rem;
+    background: #fff;
+    border-left: var(--color-dark) 1px solid;
+  }
+}
+
+.about-journey {
+  background: #f7f7f7;
+  padding: 1.5em 1em 2em 1em;
+  margin: 0;
+
+  .journey-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.2em;
+    color: #222;
+    font-family: "Montserrat", sans-serif;
+  }
+
+  .journey-subtitle {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 1em;
+    color: #222;
+    font-family: "Montserrat", sans-serif;
+  }
+
+  p {
+    font-size: 1rem;
+    color: #222;
+    margin-bottom: 1em;
+    font-family: "Montserrat", sans-serif;
+    line-height: 1.5;
+  }
+
+  .journey-rectangles {
+    position: relative;
+    width: 280px; // largeur du plus grand rectangle (ajuste selon ta maquette)
+    height: 370px; // hauteur du plus grand rectangle (ajuste selon ta maquette)
+    margin: 2em auto;
+
+    // Grand rectangle
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 90%;
+      border: 1.5px solid var(--color-primary, #c6ff1a);
+      box-sizing: border-box;
+    }
+
+    // Petit rectangle
+    &::after {
+      content: "";
+      position: absolute;
+      top: 4%;
+      right: 0;
+      width: 95%;
+      height: 91%;
+      border: 1.5px solid var(--color-primary, #c6ff1a);
+      box-sizing: border-box;
+    }
+
+    .journey-photo {
+      position: absolute;
+      bottom: 10%;
+      right: 0;
+      width: 90%;
+      height: 83%;
+      object-fit: cover;
+      z-index: 1;
+      background: #fff;
+    }
+  }
+}
