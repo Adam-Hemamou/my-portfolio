@@ -57,4 +57,16 @@
     </swiper-slide>
   </swiper-container>
 </section>
+<section class="activity-section">
+  <h2 class="activity-title">Mes domaines d’activités</h2>
+  <p class="activity-desc">
+    Apres une premiere experience en tant que freelance et avec mon bagage
+    acquis lors de mon cursus de formation je suis capable de realiser plusieurs
+    taches:
+  </p>
+  <app-activity-card
+    *ngFor="let act of activities"
+    [activity]="act"
+  ></app-activity-card>
+</section>
 <app-footer></app-footer>

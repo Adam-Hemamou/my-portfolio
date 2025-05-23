@@ -5,6 +5,8 @@ import { AnimateBandComponent } from '../../shared/components/animate-band/anima
 import { StacksCardComponent } from '../../shared/dump-components/stacks-card/stacks-card.component';
 import { Stack } from '../../shared/models/stack.type';
 import { NgFor } from '@angular/common';
+import { ActivityCardComponent } from '../../shared/dump-components/activity-card/activity-card.component';
+import { Activity } from '../../shared/models/activity.type';
 
 @Component({
   selector: 'app-about',
@@ -13,6 +15,7 @@ import { NgFor } from '@angular/common';
     MenuComponent,
     AnimateBandComponent,
     StacksCardComponent,
+    ActivityCardComponent,
     FooterComponent,
     NgFor,
   ],
@@ -44,6 +47,33 @@ export class AboutComponent {
     { name: 'HTML5', icon: '/stacks/html5.png' },
     { name: 'CSS3', icon: '/stacks/css3.png' },
     { name: 'SASS', icon: '/stacks/sass.png' },
+  ];
+
+  activities: Activity[] = [
+    {
+      img: '/activities/piratage.png',
+      title: 'DÉVELOPPEMENT BACK-END',
+      description:
+        'Conception de la logique métier et des fonctionnalités complexes, assurant le bon fonctionnement des applications et la gestion des données.',
+    },
+    {
+      img: '/activities/piratage.png',
+      title: 'DÉVELOPPEMENT BACK-END',
+      description:
+        'Conception de la logique métier et des fonctionnalités complexes, assurant le bon fonctionnement des applications et la gestion des données.',
+    },
+    {
+      img: '/activities/piratage.png',
+      title: 'DÉVELOPPEMENT BACK-END',
+      description:
+        'Conception de la logique métier et des fonctionnalités complexes, assurant le bon fonctionnement des applications et la gestion des données.',
+    },
+    {
+      img: '/activities/piratage.png',
+      title: 'DÉVELOPPEMENT BACK-END',
+      description:
+        'Conception de la logique métier et des fonctionnalités complexes, assurant le bon fonctionnement des applications et la gestion des données.',
+    },
   ];
 
   get stackGroups(): Stack[][] {
