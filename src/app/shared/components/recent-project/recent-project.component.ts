@@ -5,6 +5,7 @@ import { ProjectCardComponent } from '../../dump-components/project-card/project
 
 @Component({
   selector: 'app-recent-project',
+  standalone: true,
   imports: [NgFor, ProjectCardComponent],
   templateUrl: './recent-project.component.html',
   styleUrls: ['./recent-project.component.scss'],
