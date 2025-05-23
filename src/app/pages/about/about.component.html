@@ -37,4 +37,24 @@
     <img src="/me/me.png" alt="Adam Hemamou" class="journey-photo" />
   </div>
 </section>
+<section class="skills-section">
+  <h2 class="skills-title">Mes Compétences</h2>
+  <div class="skills-subtitle">Languages et logiciels</div>
+  <swiper-container
+    slides-per-view="1"
+    slides-per-group="1"
+    space-between="20"
+    pagination="true"
+    style="width: 100%; max-width: 320px; margin: 2em auto"
+  >
+    <swiper-slide *ngFor="let group of stackGroups">
+      <div class="stacks-grid">
+        <app-stacks-card
+          *ngFor="let stack of group"
+          [stack]="stack"
+        ></app-stacks-card>
+      </div>
+    </swiper-slide>
+  </swiper-container>
+</section>
 <app-footer></app-footer>

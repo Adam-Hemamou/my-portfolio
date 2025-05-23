@@ -146,3 +146,44 @@
     }
   }
 }
+
+.skills-section {
+  background: var(--color-dark);
+  color: #fff;
+  padding: 2em 1em;
+  margin: 2em auto;
+  max-width: 100%;
+  text-align: start;
+}
+
+.skills-title {
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 0.2em;
+}
+
+.skills-subtitle {
+  color: var(--color-primary, #c6ff1a);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1.5em;
+  font-family: "Montserrat", sans-serif;
+}
+
+.stacks-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1em;
+  justify-items: center;
+  align-items: center;
+}
+
+.swiper-pagination-bullet {
+  background: #c6ff1a !important;
+  opacity: 1 !important;
+}
+.swiper-pagination-bullet-active {
+  background: #c6ff1a !important;
+  border: 1.5px solid #fff !important;
+}
