@@ -13,18 +13,26 @@ import { ProjectCardComponent } from '../../dump-components/project-card/project
 export class RecentProjectComponent {
   projects: Project[] = [
     {
+      id: 'ondeo',
       image: '/project-img/test.png',
       label: 'WEBSITE',
       title: 'ONDEO',
       subtitle: 'Agence créative',
-      link: 'https://tonlien.com',
+      context: '',
+      solution: '',
+      challenge: [],
+      outils: [],
     },
     {
+      id: 'waw-game',
       image: '/project-img/test.png',
       label: 'JEU',
-      title: 'WAW',
+      title: 'WAW GAME',
       subtitle: 'The Game',
-      link: 'https://tonlien.com',
+      context: '',
+      solution: '',
+      challenge: [],
+      outils: [],
     },
   ];
 }
