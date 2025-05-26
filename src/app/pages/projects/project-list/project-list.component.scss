@@ -1,0 +1,44 @@
+.projects-hero {
+  background: #222;
+  color: #fff;
+  margin-top: 0.8em;
+  padding: 2.2rem 1.2rem 2rem 1.2rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-radius: 0;
+}
+
+.projects-title {
+  color: var(--color-primary, #c6ff1a);
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: "Montserrat", sans-serif;
+  display: block;
+}
+
+.projects-desc {
+  font-size: 1.1rem;
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 1.5rem;
+  color: #eee;
+  line-height: 1.5;
+  margin-top: 1.2rem;
+}
+
+.projects-band {
+  background: var(--color-primary, #c6ff1a);
+  color: #222;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  text-align: center;
+  padding: 0.7em 0;
+  letter-spacing: 2px;
+  width: 100%;
+}
+
+.projects-list {
+  padding: 40px 10px 20px;
+}

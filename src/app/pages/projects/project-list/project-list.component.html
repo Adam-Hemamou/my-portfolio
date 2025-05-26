@@ -1,1 +1,18 @@
-<p>project-list works!</p>
+<app-menu></app-menu>
+<div class="projects-hero">
+  <h2 class="projects-title">Mes projets</h2>
+  <p class="projects-desc">
+    In varius gravida rhoncus. Etiam gravida purus non velit mollis
+    imperdiet.<br />
+    Praesent suscipit ante at tincidunt varius.
+  </p>
+</div>
+<app-animate-band></app-animate-band>
+<div class="projects-list">
+  <app-project-card
+    *ngFor="let project of projects"
+    [project]="project"
+  ></app-project-card>
+</div>
+
+<app-footer></app-footer>
