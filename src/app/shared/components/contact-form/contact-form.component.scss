@@ -1,0 +1,78 @@
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  padding: 2em 1em 3em;
+}
+
+.contact-form label {
+  font-weight: 700;
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 0.2em;
+  text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: 1px;
+}
+
+.contact-form input {
+  border: none;
+  border-bottom: 2px solid #222;
+  border-image: linear-gradient(to right, #222 60%, #c6ff1a 100%);
+  border-image-slice: 1;
+  background: transparent;
+  padding: 0.7em 0.2em;
+  font-size: 1.1rem;
+  outline: none;
+  font-family: "Montserrat", sans-serif;
+  transition: border-color 0.2s;
+}
+
+.contact-form input:focus {
+  border-bottom: 2px solid #c6ff1a;
+}
+
+.contact-btn {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #222;
+  background: #fff;
+  color: #222;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.15rem;
+  font-weight: 400;
+  cursor: pointer;
+  border-radius: 0;
+  overflow: hidden;
+  width: 100%;
+  max-width: 400px;
+  min-height: 56px;
+  margin-top: 1.5em;
+  transition: background 0.2s, color 0.2s;
+  padding: 0;
+}
+
+.contact-btn-arrow {
+  background: #222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  min-height: 56px;
+  img {
+    width: 1.6em;
+    height: 1.6em;
+    filter: invert(1);
+  }
+}
+
+.contact-btn span:last-child {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  padding: 0 1em;
+  font-size: 1.15rem;
+}

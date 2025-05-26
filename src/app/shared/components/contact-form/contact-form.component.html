@@ -1,0 +1,30 @@
+<form
+  [attr.action]="'https://formsubmit.co/' + email"
+  method="POST"
+  class="contact-form"
+>
+  <label>NOM *</label>
+  <input type="text" name="Nom" required />
+
+  <label>PRÉNOM *</label>
+  <input type="text" name="Prénom" required />
+
+  <label>TÉLÉPHONE *</label>
+  <input type="tel" name="Téléphone" required />
+
+  <label>EMAIL *</label>
+  <input type="email" name="Email" required />
+
+  <label>SUJET *</label>
+  <input type="text" name="Sujet" required />
+
+  <input type="hidden" name="_captcha" value="false" />
+  <input type="hidden" name="_next" value="http://localhost:5173/contact" />
+
+  <button type="submit" class="contact-btn">
+    <span class="contact-btn-arrow">
+      <img src="/svg/arrow.svg" alt="flèche" />
+    </span>
+    <span>Envoyer mon message</span>
+  </button>
+</form>
