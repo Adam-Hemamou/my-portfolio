@@ -3,8 +3,9 @@ import { AnimateBandComponent } from '../../../shared/components/animate-band/an
 import { MenuComponent } from '../../../shared/components/menu/menu.component';
 import { FooterComponent } from '../../../shared/components/footer/footer.component';
 import { ProjectCardComponent } from '../../../shared/dump-components/project-card/project-card.component';
-import { Project } from 'src/app/shared/models/project.type';
+import { Project } from '../../../shared/models/project.type';
 import { NgFor } from '@angular/common';
+import { ProjectService } from '../../../shared/services/project.service';
 
 @Component({
   selector: 'app-project-list',
@@ -20,48 +21,7 @@ import { NgFor } from '@angular/common';
   styleUrls: ['./project-list.component.scss'],
 })
 export class ProjectListComponent {
-  projects: Project[] = [
-    {
-      image: '/project-img/test.png',
-      label: 'WEBSITE',
-      title: 'ONDEO',
-      subtitle: 'Agence créative',
-      link: 'https://tonlien.com',
-    },
-    {
-      image: '/project-img/test.png',
-      label: 'JEU',
-      title: 'WAW',
-      subtitle: 'The Game',
-      link: 'https://tonlien.com',
-    },
-    {
-      image: '/project-img/test.png',
-      label: 'JEU',
-      title: 'WAW',
-      subtitle: 'The Game',
-      link: 'https://tonlien.com',
-    },
-    {
-      image: '/project-img/test.png',
-      label: 'JEU',
-      title: 'WAW',
-      subtitle: 'The Game',
-      link: 'https://tonlien.com',
-    },
-    {
-      image: '/project-img/test.png',
-      label: 'JEU',
-      title: 'WAW',
-      subtitle: 'The Game',
-      link: 'https://tonlien.com',
-    },
-    {
-      image: '/project-img/test.png',
-      label: 'JEU',
-      title: 'WAW',
-      subtitle: 'The Game',
-      link: 'https://tonlien.com',
-    },
-  ];
+  projects: Project[] = this.projectService.getProjects();
+
+  constructor(private projectService: ProjectService) {}
 }

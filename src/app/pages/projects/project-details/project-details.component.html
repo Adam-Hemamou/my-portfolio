@@ -1,1 +1,63 @@
-<p>project-details works!</p>
+<app-menu></app-menu>
+<div *ngIf="project">
+  <div class="project-hero">
+    <h2 class="project-title">{{ project.title }}</h2>
+    <p class="project-context">
+      {{ project.context }}
+    </p>
+    <div class="project-link-btns" *ngIf="project?.site || project?.github">
+      <a
+        *ngIf="project.site; else githubBtn"
+        class="project-btn"
+        [href]="project.site"
+        target="_blank"
+        rel="noopener"
+      >
+        <span class="arrow">
+          <img src="/svg/arrow.svg" alt="flèche" />
+        </span>
+        <span>Visiter le site</span>
+      </a>
+      <ng-template #githubBtn>
+        <a
+          *ngIf="project.github"
+          class="project-btn"
+          [href]="project.github"
+          target="_blank"
+          rel="noopener"
+        >
+          <span class="arrow">
+            <img src="/svg/arrow.svg" alt="flèche" />
+          </span>
+          <span>Voir le projet</span>
+        </a>
+      </ng-template>
+    </div>
+  </div>
+  <app-animate-band></app-animate-band>
+  <h3 class="challenge-title">Challenge</h3>
+  <ul class="challenge-list">
+    <li *ngFor="let c of project.challenge">
+      <img src="/svg/puce.svg" alt="puce" class="challenge-puce" />
+      <span>{{ c }}</span>
+    </li>
+  </ul>
+  <div class="project-rectangles">
+    <img [src]="project.image" [alt]="project.title" class="project-photo" />
+  </div>
+  <h3 class="solution-title">Solution</h3>
+  <p class="solution-content" *ngIf="project?.solution">
+    {{ project.solution }}
+  </p>
+</div>
+<div class="tools-section" *ngIf="project">
+  <h3 class="tools-title">Les outils utilisés</h3>
+  <div class="tools-subtitle">Languages et logiciels</div>
+  <div class="tools-grid">
+    <app-stacks-card
+      *ngFor="let outil of project.outils"
+      [stack]="outil"
+    ></app-stacks-card>
+  </div>
+</div>
+<app-footer></app-footer>
