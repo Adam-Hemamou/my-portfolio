@@ -7,6 +7,7 @@ import { Stack } from '../../shared/models/stack.type';
 import { NgFor } from '@angular/common';
 import { ActivityCardComponent } from '../../shared/dump-components/activity-card/activity-card.component';
 import { Activity } from '../../shared/models/activity.type';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-about',
@@ -18,6 +19,7 @@ import { Activity } from '../../shared/models/activity.type';
     ActivityCardComponent,
     FooterComponent,
     NgFor,
+    RouterLink,
   ],
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss'],
