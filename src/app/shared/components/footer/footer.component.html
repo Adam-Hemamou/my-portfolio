@@ -2,12 +2,12 @@
   <nav class="footer-nav">
     <span class="footer-title">NAVIGATION</span>
     <ul>
-      <li><a href="#">Accueil</a></li>
-      <li><a href="#">Mon Parcours</a></li>
-      <li><a href="#">Mes projets</a></li>
-      <li><a href="#">Services</a></li>
+      <li><a [routerLink]="['/']">Accueil</a></li>
+      <li><a [routerLink]="['/about']">Mon Parcours</a></li>
+      <li><a [routerLink]="['/projects']">Mes Projets</a></li>
+      <li><a [routerLink]="['/contact']">Me Contacter</a></li>
     </ul>
-    <a class="footer-cta" href="#">
+    <a class="footer-cta" [routerLink]="['/contact']">
       <span class="footer-arrow">
         <img src="/svg/arrow.svg" alt="flèche" />
       </span>
@@ -16,11 +16,18 @@
   </nav>
   <div class="footer-section footer-contact">
     <span>Adam: 0678252910</span>
-    <span>contact&#64;adam-hemamou.com</span>
+    <span>adam.hemamou.pro&#64;gmail.com</span>
   </div>
   <div class="footer-section footer-links">
-    <a href="#">LinkedIn</a>
-    <a href="#">Github</a>
+    <a
+      href="https://www.linkedin.com/in/adam-hemamou/"
+      target="_blank"
+      rel="noopener"
+      >LinkedIn</a
+    >
+    <a href="https://github.com/Adam-Hemamou" target="_blank" rel="noopener"
+      >Github</a
+    >
   </div>
   <div class="footer-section footer-thanks">Merci Beaucoup</div>
 </footer>
