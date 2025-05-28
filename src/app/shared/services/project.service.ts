@@ -110,8 +110,8 @@ export class ProjectService {
       id: 'elegance',
       image: '/project-img/test.png',
       label: 'APPLICATION',
-      title: "ELEGANCE x L'Oreal",
-      subtitle: 'Hackathon L’Oréal',
+      title: 'ELEGANCE',
+      subtitle: 'Hackathon pour L’Oréal',
       context:
         'Application pour L’Oréal visant à proposer des produits adaptés aux personnes atteintes de cancer, 3°e place au hackathon',
       solution:
