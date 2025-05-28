@@ -51,73 +51,73 @@ export class AboutComponent {
 
   activities: Activity[] = [
     {
-      img: '/activities/front-end.png',
+      img: '/activity/front-end.png',
       title: 'DÉVELOPPEMENT FRONT-END',
       description:
         "Création d'interfaces utilisateur conviviales et réactives, idéales pour des sites vitrines ou des applications web dynamiques.",
     },
     {
-      img: '/activities/piratage.png',
+      img: '/activity/back-end.png',
       title: 'DÉVELOPPEMENT BACK-END',
       description:
         'Conception de la logique métier et des fonctionnalités complexes, assurant le bon fonctionnement des applications et la gestion des données.',
     },
     {
-      img: '/activities/ux-ui.png',
+      img: '/activity/ux-ui.png',
       title: 'WEB DESIGN UX/UI',
       description:
         'Conception de maquettes interactives pour visualiser vos idées avant le développement.',
     },
     {
-      img: '/activities/archi.png',
+      img: '/activity/archi.png',
       title: 'CONSULTING ARCHITECTURE LOGICIELLE',
       description:
         "Conseils sur la structure et l'organisation des applications pour garantir une conception évolutive et maintenable.",
     },
     {
-      img: '/activities/integration.png',
+      img: '/activity/integration.png',
       title: 'INTEGRATION SYSTÈMES',
       description:
         'Connexion et synchronisation de divers systèmes et services externes pour une infrastructure fluide.',
     },
     {
-      img: '/activities/api.png',
+      img: '/activity/api.png',
       title: 'INTEGRATION API TIERCES',
       description:
         'Ajout de fonctionnalités avancées en intégrant des services externes comme Google Maps et Stripe.',
     },
     {
-      img: '/activities/bdd.png',
+      img: '/activity/bdd.png',
       title: 'GESTION BASE DE DONNÉES',
       description:
         'Modélisation et optimisation des bases de données SQL et NoSQL pour une gestion efficace des données.',
     },
     {
-      img: '/activities/opti.png',
+      img: '/activity/opti.png',
       title: 'OPTIMISATION & PERFORMANCE',
       description:
         'Mise en place de tests automatisés pour garantir la qualité et la stabilité des applications.',
     },
     {
-      img: '/activities/seo.png',
+      img: '/activity/seo.png',
       title: 'OPTIMISATION SEO',
       description:
         'Amélioration de la visibilité de vos sites sur les moteurs de recherche.',
     },
     {
-      img: '/activities/opti.png',
+      img: '/activity/opti.png',
       title: 'OPTIMISATION & PERFORMANCE',
       description:
         'Mise en place de tests automatisés pour garantir la qualité et la stabilité des applications.',
     },
     {
-      img: '/activities/securite.png',
+      img: '/activity/securite.png',
       title: 'SÉCURITÉ DES APPLICATIONS',
       description:
         'Implémentation des meilleures pratiques pour sécuriser vos applications et protéger les données.',
     },
     {
-      img: '/activities/support.png',
+      img: '/activity/support.png',
       title: 'SUPPORT & MAINTENANCE',
       description:
         "Assistance continue pour assurer la stabilité et l'évolution de vos applications.",
