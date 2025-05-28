@@ -23,7 +23,7 @@ export default defineConfig(({ mode }) => ({
           '/',
           '/about',
           '/contact',
-          '/projects',
+          '/project',
           '/project/id',
           '/not-found',
         ],

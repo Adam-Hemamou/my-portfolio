@@ -31,7 +31,7 @@ const routes: Routes = [
     component: ContactComponent,
   },
   {
-    path: 'projects',
+    path: 'project',
     component: ProjectListComponent,
   },
   {
