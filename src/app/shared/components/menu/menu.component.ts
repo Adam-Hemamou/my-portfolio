@@ -15,8 +15,8 @@ export class MenuComponent {
   menuItems = [
     { label: 'Accueil', link: '/' },
     { label: 'À propos', link: '/about' },
-    { label: 'Contact', link: '/contact' },
     { label: 'Projets', link: '/project' },
+    { label: 'Contact', link: '/contact' },
   ];
 
   toggleMenu() {

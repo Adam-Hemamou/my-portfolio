@@ -33,20 +33,22 @@ export class AboutComponent {
     { name: 'SASS', icon: '/stacks/sass.png' },
     { name: 'Java', icon: '/stacks/java.png' },
     { name: 'Spring', icon: '/stacks/spring.png' },
+    { name: 'Maven', icon: '/stacks/maven.png' },
     { name: 'Node.js', icon: '/stacks/node.png' },
     { name: 'Express', icon: '/stacks/express.png' },
     { name: 'Jest', icon: '/stacks/jest.png' },
+    { name: 'JUnit5', icon: '/stacks/junit.png' },
     { name: 'SQL', icon: '/stacks/sql.png' },
+    { name: 'Postman', icon: '/stacks/postman.png' },
     { name: 'Git', icon: '/stacks/git.png' },
     { name: 'GitHub', icon: '/stacks/github.png' },
+    { name: 'Figma', icon: '/stacks/figma.png' },
     { name: 'Trello', icon: '/stacks/trello.png' },
-    { name: 'Postman', icon: '/stacks/postman.png' },
     { name: 'Bootstrap', icon: '/stacks/bootstrap.png' },
     { name: 'PrimNg', icon: '/stacks/primeng.png' },
     { name: 'Google Maps', icon: '/stacks/google-maps.png' },
     { name: 'Google Analytics', icon: '/stacks/google.png' },
     { name: 'Vercel', icon: '/stacks/vercel.png' },
-    { name: 'AWS', icon: '/stacks/aws.png' },
   ];
 
   activities: Activity[] = [
@@ -54,7 +56,7 @@ export class AboutComponent {
       img: '/activity/front-end.png',
       title: 'DÉVELOPPEMENT FRONT-END',
       description:
-        "Création d'interfaces utilisateur conviviales et réactives, idéales pour des sites vitrines ou des applications web dynamiques.",
+        "Création d'interfaces utilisateur conviviales et réactives, idéales pour des sites vitrines ou des applications web dynamiques & responsives.",
     },
     {
       img: '/activity/back-end.png',
