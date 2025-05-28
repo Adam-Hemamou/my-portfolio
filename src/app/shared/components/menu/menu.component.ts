@@ -15,7 +15,7 @@ export class MenuComponent {
   menuItems = [
     { label: 'Accueil', link: '/' },
     { label: 'À propos', link: '/about' },
-    { label: 'Projets', link: '/projects' },
+    { label: 'Projets', link: '/project' },
     { label: 'Contact', link: '/contact' },
   ];
 

@@ -10,12 +10,38 @@
   border-radius: 0;
 }
 
+@keyframes blinkCursor {
+  50% {
+    border-right-color: transparent;
+  }
+}
+
+@keyframes typewriter-projects {
+  from {
+    width: 0;
+  }
+  to {
+    width: 9.2ch; // adapte à la longueur de "Mes projets"
+  }
+}
+
+@keyframes hideCursor {
+  to {
+    border-right-color: transparent;
+  }
+}
+
 .projects-title {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 0.15em solid var(--color-primary, #c6ff1a);
+  animation: typewriter-projects 1.8s steps(11) 1 both,
+    blinkCursor 0.5s step-end 3.6, hideCursor 0.01s linear 1.81s forwards;
   color: var(--color-primary, #c6ff1a);
   font-size: 1.8rem;
   font-weight: 700;
   font-family: "Montserrat", sans-serif;
-  display: block;
 }
 
 .projects-desc {

@@ -9,12 +9,41 @@
   align-items: flex-start;
 }
 
+@keyframes blinkCursor {
+  50% {
+    border-right-color: transparent;
+  }
+}
+
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 13.2ch;
+  }
+}
+
+@keyframes hideCursor {
+  to {
+    border-right-color: transparent;
+  }
+}
+
 .about-name {
-  color: var(--color-primary);
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 0.15em solid var(--color-primary, #c6ff1a); // curseur
+  animation: typewriter 2.4s steps(13) 1 both,
+    // 13 = nombre de lettres de ton nom
+    blinkCursor 0.5s step-end 4.2,
+    // 4.2 = 2.1s * 2 (pour clignoter pendant l'écriture)
+    hideCursor 0.01s linear 2.11s forwards;
+  color: var(--color-primary, #c6ff1a);
   font-size: 1.8rem;
   font-weight: 700;
   font-family: "Montserrat", sans-serif;
-  display: block;
 }
 
 .about-job {
