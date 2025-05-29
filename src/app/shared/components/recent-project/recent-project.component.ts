@@ -27,7 +27,7 @@ export class RecentProjectComponent {
       id: 'wow-game',
       image: '/project-img/test.png',
       label: 'JEU',
-      title: 'WOW GAME',
+      title: 'WOW LAND',
       subtitle: 'Jeu de carte à scanner',
       context: '',
       solution: '',

@@ -24,10 +24,6 @@
   img {
     width: 100%;
     object-fit: contain;
-    // filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
-
-    // margin-top: 1.2em;
-    // margin-bottom: 1.2em;
   }
 
   .project-label {
@@ -112,7 +108,7 @@
 
   span:not(.arrow) {
     border: 1.5px solid #111;
-    padding: 0.45em 1.2em 0.45em 1.2em;
+    padding: 0.45em 1.2em;
     background: #fff;
     font-size: 1rem;
     font-family: "Montserrat", sans-serif;
@@ -123,5 +119,125 @@
   &:hover span:not(.arrow) {
     background: var(--color-primary);
     color: #111;
+  }
+}
+
+@media (min-width: 375px) {
+  .project-card {
+    max-width: 375px;
+    .project-label {
+      font-size: 1.2rem;
+      padding: 0.3em 1.1em;
+    }
+  }
+  .project-title {
+    font-size: 1.7rem;
+  }
+  .project-subtitle {
+    font-size: 1.2rem;
+  }
+  .project-content {
+    padding: 1.4em 1.3em 1.3em 1.3em;
+  }
+  .project-btn span:not(.arrow) {
+    font-size: 1.2rem;
+    padding: 0.5em 1.3em;
+  }
+}
+
+@media (min-width: 414px) {
+  .project-card {
+    max-width: 414px;
+    .project-label {
+      font-size: 1.3rem;
+    }
+  }
+  .project-title {
+    font-size: 1.8rem;
+  }
+  .project-subtitle {
+    font-size: 1.3rem;
+  }
+  .project-content {
+    padding: 1.5em 1.4em 1.4em 1.4em;
+  }
+}
+
+@media (min-width: 768px) {
+  .project-card {
+    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    max-height: 300px;
+    box-sizing: border-box;
+    padding: 0;
+  }
+
+  .project-image {
+    width: 45%;
+    min-width: 260px;
+    aspect-ratio: unset;
+    border-bottom: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .project-label {
+      top: 18px;
+      left: 18px;
+      right: unset;
+      font-size: 1.5rem;
+      padding: 0.22em 1.2em;
+    }
+  }
+
+  .project-content {
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2em;
+    justify-content: flex-end;
+    padding: 1.9em 1.8em;
+    margin: 6px 6px 0 0;
+    border-top: 2px solid var(--color-primary);
+    border-right: 2px solid var(--color-primary);
+    border-bottom: none;
+    border-left: none;
+    box-sizing: border-box;
+  }
+
+  .project-title {
+    font-size: 2.6rem;
+    margin-top: 0.2em;
+    margin-bottom: 0.1em;
+  }
+
+  .project-subtitle {
+    font-size: 1.9rem;
+    // margin-bottom: 1.2em;
+  }
+
+  .project-btn {
+    align-self: flex-start;
+    .arrow img {
+      width: 1.7em;
+      height: 1.7em;
+    }
+
+    .arrow {
+      padding: 0 1.5em;
+    }
+
+    span:not(.arrow) {
+      font-size: 1.6rem;
+      padding: 0.6em 1.5em;
+    }
   }
 }
