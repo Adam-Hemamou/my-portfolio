@@ -112,3 +112,102 @@
 .home-band {
   margin-top: 3em;
 }
+
+@media (min-width: 375px) {
+  .dev-title {
+    top: 0.5rem;
+  }
+  .web-title {
+    top: 5.4rem;
+  }
+  .hero-info {
+    top: 10.5rem;
+  }
+  .portfolio-title {
+    font-size: 1rem;
+  }
+  .portfolio-name {
+    margin-top: 0.2em;
+    font-size: 0.9rem;
+  }
+  .open-to-work {
+    font-size: 0.85rem;
+    margin-top: 0.4rem;
+    padding: 0.4em 1.2em 0.4em 0.7em;
+  }
+}
+
+@media (min-width: 390px) {
+  .hero-title {
+    margin-top: 4rem;
+  }
+  .hero-info {
+    top: 11.5rem;
+  }
+
+  .open-to-work {
+    font-size: 0.88rem;
+    margin-top: 0.35em;
+  }
+}
+
+@media (min-width: 414px) {
+  .hero-title {
+    height: 12rem;
+    /* margin-top: 6rem; */
+  }
+  .dev-title {
+    font-size: 21.5vw;
+    top: 1rem;
+  }
+  .web-title {
+    font-size: 31vw;
+    top: 6.5rem;
+  }
+  .hero-info {
+    top: 13rem;
+  }
+  .portfolio-title {
+    font-size: 1.1rem;
+  }
+  .portfolio-name {
+    font-size: 1rem;
+  }
+  .open-to-work {
+    font-size: 0.92rem;
+    margin-top: 0.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .hero-title {
+    height: 20rem;
+  }
+  .dev-title {
+    font-size: 21vw;
+    top: 2.5rem;
+  }
+  .web-title {
+    font-size: 28vw;
+    left: 72.6%;
+    top: 12.2rem;
+  }
+  .hero-info {
+    top: 21rem;
+  }
+  .portfolio-title {
+    font-size: 1.6rem;
+  }
+  .portfolio-name {
+    font-size: 1.5rem;
+  }
+  .open-to-work {
+    font-size: 1.3rem;
+    margin-top: 0.6rem;
+    padding: 0.5em 1.3em 0.5em 1.1em;
+  }
+
+  .home-band {
+    margin-top: 6em;
+  }
+}

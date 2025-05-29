@@ -189,3 +189,167 @@
   transform: translateY(0);
   pointer-events: auto;
 }
+
+@media (min-width: 375px) {
+  .menu {
+    .logo {
+      padding-left: 12px;
+      .title {
+        font-size: 1.1rem;
+      }
+      .under-name {
+        gap: 6px;
+        margin-top: 3px;
+        .developper {
+          font-size: 0.9rem;
+        }
+        span {
+          width: 31px;
+          height: 21px;
+        }
+      }
+    }
+    .nav {
+      gap: 8px;
+      padding-right: 12px;
+      p {
+        font-size: 1.3rem;
+      }
+    }
+  }
+
+  .menu-drawer {
+    ul {
+      li a {
+        font-size: 2.1rem;
+      }
+    }
+  }
+}
+@media (min-width: 390px) {
+  .menu {
+    .logo {
+      padding-left: 12px;
+      .title {
+        font-size: 1.2rem;
+      }
+      .under-name {
+        gap: 7px;
+        margin-top: 3px;
+        .developper {
+          font-size: 1rem;
+        }
+        span {
+          width: 32px;
+          height: 22px;
+        }
+      }
+    }
+    .nav {
+      gap: 8px;
+      padding-right: 12px;
+      p {
+        font-size: 1.4rem;
+      }
+    }
+  }
+
+  .menu-drawer {
+    ul {
+      li a {
+        font-size: 2.1rem;
+      }
+    }
+  }
+}
+@media (min-width: 414px) {
+  .menu {
+    .logo {
+      padding-left: 14px;
+      .title {
+        font-size: 1.3rem;
+      }
+      .under-name {
+        gap: 7px;
+        margin-top: 4px;
+        .developper {
+          font-size: 1.1rem;
+        }
+        span {
+          width: 33px;
+          height: 23px;
+        }
+      }
+    }
+    .nav {
+      gap: 9px;
+      padding-right: 14px;
+      p {
+        font-size: 1.5rem;
+      }
+
+      img {
+        width: 28px;
+        height: 30px;
+      }
+    }
+  }
+
+  .menu-drawer {
+    ul {
+      li a {
+        font-size: 2.3rem;
+      }
+    }
+  }
+}
+@media (min-width: 768px) {
+  .menu {
+    margin-top: 20px;
+    .logo {
+      padding-left: 20px;
+      .title {
+        font-size: 1.8rem;
+      }
+      .under-name {
+        gap: 10px;
+        margin-top: 6px;
+        .developper {
+          font-size: 1.5rem;
+        }
+        span {
+          width: 40px;
+          height: 30px;
+        }
+      }
+    }
+    .nav {
+      gap: 9px;
+      padding-right: 20px;
+      p {
+        font-size: 2rem;
+      }
+
+      img {
+        width: 38px;
+        height: 40px;
+      }
+    }
+  }
+
+  .menu-drawer {
+    ul {
+      li a {
+        font-size: 2.6rem;
+        padding: 0.8rem 1.8rem;
+
+        .menu-icon {
+          img {
+            width: 32px;
+            height: 32px;
+          }
+        }
+      }
+    }
+  }
+}

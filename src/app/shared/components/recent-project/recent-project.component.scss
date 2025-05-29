@@ -9,3 +9,36 @@
     text-align: start;
   }
 }
+
+@media (min-width: 375px) {
+  .projects-list {
+    padding: 40px 12px 20px;
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+@media (min-width: 390px) {
+  .projects-list {
+    h2 {
+      font-size: 1.7rem;
+    }
+  }
+}
+@media (min-width: 414px) {
+  .projects-list {
+    padding: 40px 14px 20px;
+    h2 {
+      font-size: 1.7rem;
+    }
+  }
+}
+@media (min-width: 768px) {
+  .projects-list {
+    padding: 40px 20px 20px;
+    h2 {
+      font-size: 1.7rem;
+    }
+  }
+}
