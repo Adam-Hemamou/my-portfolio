@@ -58,13 +58,13 @@ export class AboutComponent {
       img: '/activity/front-end.png',
       title: 'DÉVELOPPEMENT FRONT-END',
       description:
-        "Création d'interfaces utilisateur conviviales et réactives, idéales pour des sites vitrines ou des applications web dynamiques & responsives.",
+        "Création d'interfaces utilisateur modernes et réactives, idéales pour des applications web dynamiques & responsives.",
     },
     {
       img: '/activity/back-end.png',
       title: 'DÉVELOPPEMENT BACK-END',
       description:
-        'Conception de la logique métier et des fonctionnalités complexes, assurant le bon fonctionnement des applications et la gestion des données.',
+        'Conception de la logique métier, assurant le fonctionnement des applications et la gestion des données.',
     },
     {
       img: '/activity/ux-ui.png',
@@ -74,7 +74,7 @@ export class AboutComponent {
     },
     {
       img: '/activity/archi.png',
-      title: 'CONSULTING ARCHITECTURE LOGICIELLE',
+      title: 'ARCHITECTURE LOGICIELLE',
       description:
         "Conseils sur la structure et l'organisation des applications pour garantir une conception évolutive et maintenable.",
     },
@@ -109,12 +109,6 @@ export class AboutComponent {
         'Amélioration de la visibilité de vos sites sur les moteurs de recherche.',
     },
     {
-      img: '/activity/opti.png',
-      title: 'OPTIMISATION & PERFORMANCE',
-      description:
-        'Mise en place de tests automatisés pour garantir la qualité et la stabilité des applications.',
-    },
-    {
       img: '/activity/securite.png',
       title: 'SÉCURITÉ DES APPLICATIONS',
       description:
@@ -128,10 +122,22 @@ export class AboutComponent {
     },
   ];
 
+  isDesktop = false;
+
+  ngOnInit() {
+    this.checkScreen();
+    window.addEventListener('resize', this.checkScreen.bind(this));
+  }
+
+  checkScreen() {
+    this.isDesktop = window.innerWidth >= 768;
+  }
+
   get stackGroups(): Stack[][] {
+    const size = this.isDesktop ? 12 : 6;
     const groups: Stack[][] = [];
-    for (let i = 0; i < this.stacks.length; i += 6) {
-      groups.push(this.stacks.slice(i, i + 6));
+    for (let i = 0; i < this.stacks.length; i += size) {
+      groups.push(this.stacks.slice(i, i + size));
     }
     return groups;
   }

@@ -1,51 +1,68 @@
 <app-menu></app-menu>
 <div class="about-hero">
-  <h2>
-    <span class="about-name">Adam Hemamou</span>
-    <span class="about-job">Développeur web</span>
-  </h2>
-  <p class="about-desc">
-    Bonjour, je m'appelle Adam, et je suis un jeune developpeur freelance, je
-    suis toujours à la recherche de projets innovant et ambitieux.
-  </p>
-  <a class="about-cta" [routerLink]="['/contact']">
-    <span class="about-arrow">
-      <img src="/svg/arrow.svg" alt="flèche" />
-    </span>
-    <span>Me contacter</span>
-  </a>
+  <div class="about-hero-content">
+    <h2>
+      <span class="about-name">Adam Hemamou</span>
+      <span class="about-job">Développeur web</span>
+    </h2>
+    <p class="about-desc">
+      Bonjour, je m'appelle Adam, et je suis un jeune developpeur freelance, je
+      suis toujours à la recherche de projets innovant et ambitieux.
+    </p>
+    <a class="about-cta" [routerLink]="['/contact']">
+      <span class="about-arrow">
+        <img src="/svg/arrow.svg" alt="flèche" />
+      </span>
+      <span>Me contacter</span>
+    </a>
+  </div>
+  <div class="about-rectangles">
+    <img src="/me/me.png" alt="Adam Hemamou" />
+    <!-- Les rectangles décoratifs en CSS -->
+  </div>
 </div>
 <app-animate-band> </app-animate-band>
 <section class="about-journey">
-  <h2 class="journey-title">Mon parcours</h2>
-  <h3 class="journey-subtitle">Comment je suis devenu développeur&nbsp;?</h3>
-  <p>
-    In varius gravida rhoncus. Etiam gravida purus non velit mollis imperdiet.
-    Praesent suscipit ante at tincidunt varius. Phasellus sem ante, ullamcorper
-    eu venenatis sed, imperdiet in purus. Quisque vitae quam ut sem euismod
-    semper. Morbi tempus ante arcu, a venenatis erat finibus non. Vivamus
-    hendrerit massa arcu, nec volutpat libero viverra a. Integer nisi leo,
-    tempus lobortis erat eu, congue vulputate diam.
-  </p>
-  <p>
-    Mauris placerat lacus urna, sed ultrices elit efficitur et. Morbi nec
-    pulvinar justo, fringilla maximus ante. Donec interdum vitae erat a
-    tincidunt. Integer rutrum mi justo, ut aliquam mauris malesuada a. Integer
-    vitae tellus bibendum, sollicitudin est id, euismod.
-  </p>
+  <div class="journey-content">
+    <div class="journey-text">
+      <h2 class="journey-title">Mon parcours</h2>
+      <h3 class="journey-subtitle">
+        Comment je suis devenu développeur&nbsp;?
+      </h3>
+      <p>
+        In varius gravida rhoncus. Etiam gravida purus non velit mollis
+        imperdiet. Praesent suscipit ante at tincidunt varius. Phasellus sem
+        ante, ullamcorper eu venenatis sed, imperdiet in purus. Quisque vitae
+        quam ut sem euismod semper. Morbi tempus ante arcu, a venenatis erat
+        finibus non. Vivamus hendrerit massa arcu, nec volutpat libero viverra
+        a. Integer nisi leo, tempus lobortis erat eu, congue vulputate diam.
+      </p>
+      <p>
+        Mauris placerat lacus urna, sed ultrices elit efficitur et. Morbi nec
+        pulvinar justo, fringilla maximus ante. Donec interdum vitae erat a
+        tincidunt. Integer rutrum mi justo, ut aliquam mauris malesuada a.
+        Integer vitae tellus bibendum, sollicitudin est id, euismod.
+      </p>
+    </div>
+    <div class="journey-svg">
+      <img src="svg/carre.svg" alt="" />
+    </div>
+  </div>
   <div class="journey-rectangles">
     <img src="/me/me.png" alt="Adam Hemamou" class="journey-photo" />
   </div>
 </section>
 <section class="skills-section">
-  <h2 class="skills-title">Mes Compétences</h2>
-  <div class="skills-subtitle">Languages et logiciels</div>
+  <div class="skills-header">
+    <h2 class="skills-title">Mes Compétences</h2>
+    <div class="skills-subtitle">Languages et logiciels</div>
+  </div>
   <swiper-container
     slides-per-view="1"
     slides-per-group="1"
     space-between="20"
     pagination="true"
-    style="width: 100%; max-width: 320px; margin: 2em auto"
+    style="width: 100%; max-width: 320px; margin: 2em auto 0.5em"
   >
     <swiper-slide *ngFor="let group of stackGroups">
       <div class="stacks-grid">
@@ -58,12 +75,14 @@
   </swiper-container>
 </section>
 <section class="activity-section">
-  <h2 class="activity-title">Mes domaines d’activités</h2>
-  <p class="activity-desc">
-    Apres une premiere experience en tant que freelance et avec mon bagage
-    acquis lors de mon cursus de formation je suis capable de realiser plusieurs
-    taches:
-  </p>
+  <div class="activity-intro">
+    <h2 class="activity-title">Mes domaines d’activités</h2>
+    <p class="activity-desc">
+      Apres une premiere experience en tant que freelance et avec mon bagage
+      acquis lors de mon cursus de formation je suis capable de realiser
+      plusieurs taches:
+    </p>
+  </div>
   <app-activity-card
     *ngFor="let act of activities"
     [activity]="act"
