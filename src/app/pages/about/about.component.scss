@@ -7,6 +7,10 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+
+  .about-rectangles {
+    display: none;
+  }
 }
 
 @keyframes blinkCursor {
@@ -75,7 +79,7 @@
   cursor: pointer;
   border-radius: 0;
   overflow: hidden;
-  min-width: 220px;
+  width: 220px;
   min-height: 46px;
   text-decoration: none;
   transition: background 0.2s, color 0.2s;
@@ -133,17 +137,21 @@
 
   p {
     font-size: 0.8rem;
-    color: #222;
+    color: #000000;
     margin-bottom: 1em;
     font-family: "Montserrat", sans-serif;
     line-height: 1.3;
     letter-spacing: 1px;
   }
 
+  .journey-svg {
+    display: none;
+  }
+
   .journey-rectangles {
     position: relative;
-    width: 280px; // largeur du plus grand rectangle (ajuste selon ta maquette)
-    height: 370px; // hauteur du plus grand rectangle (ajuste selon ta maquette)
+    width: 280px;
+    height: 370px;
     margin: 2em auto;
 
     // Grand rectangle
@@ -187,25 +195,29 @@
   position: relative;
   background: var(--color-dark);
   color: #fff;
-  padding: 2em 1em;
+  padding: 2em 0;
   margin: 0 auto;
   max-width: 100%;
   text-align: start;
 }
 
-.skills-title {
-  font-size: 1.8rem;
-  font-weight: 700;
-  font-family: "Montserrat", sans-serif;
-  margin-bottom: 0.2em;
-}
+.skills-header {
+  padding: 0 1em;
 
-.skills-subtitle {
-  color: var(--color-primary, var(--color-primary));
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 1.5em;
-  font-family: "Montserrat", sans-serif;
+  .skills-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    font-family: "Montserrat", sans-serif;
+    margin-bottom: 0.2em;
+  }
+
+  .skills-subtitle {
+    color: var(--color-primary, var(--color-primary));
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1.5em;
+    font-family: "Montserrat", sans-serif;
+  }
 }
 
 .stacks-grid {
@@ -214,7 +226,13 @@
   gap: 1em;
   justify-items: center;
   align-items: center;
-  padding-bottom: 30px;
+  padding: 0 1em 2.5em;
+}
+
+swiper-container {
+  width: 100%;
+  max-width: 100% !important;
+  margin: 2em 0;
 }
 
 swiper-container::part(pagination) {
@@ -256,13 +274,13 @@ swiper-container::part(bullet-active) {
   font-weight: 700;
   font-family: "Montserrat", sans-serif;
   margin-bottom: 0.4em;
-  color: #222;
+  color: #000000;
   line-height: 1;
 }
 
 .activity-desc {
   font-size: 0.8rem;
-  color: #222;
+  color: #000000;
   margin-bottom: 2em;
   font-family: "Montserrat", sans-serif;
   max-width: 420px;
@@ -270,4 +288,277 @@ swiper-container::part(bullet-active) {
   text-align: left;
   letter-spacing: 1.2px;
   line-height: 1.5;
+}
+
+@media (min-width: 375px) {
+  .about-hero {
+    padding: 2.5rem 1.5rem 2.2rem 1.5rem;
+  }
+  .about-name {
+    font-size: 2rem;
+  }
+  .about-job {
+    font-size: 1.7rem;
+  }
+  .about-desc {
+    font-size: 1.05rem;
+  }
+  .about-cta {
+    width: 240px;
+    font-size: 1.15rem;
+    .about-arrow {
+      width: 50px;
+      height: 50px;
+      img {
+        width: 1.5em;
+        height: 1.5em;
+      }
+    }
+    span:last-child {
+      font-size: 1.15rem;
+      height: 50px;
+    }
+  }
+  .about-journey {
+    .journey-title {
+      font-size: 2.2rem;
+    }
+    .journey-subtitle {
+      font-size: 1.1rem;
+    }
+    p {
+      font-size: 0.95rem;
+    }
+
+    .journey-rectangles {
+      width: 340px;
+      height: 400px;
+    }
+  }
+
+  .skills-header {
+    padding: 0 1.5em;
+
+    .skills-title {
+      font-size: 2rem;
+    }
+    .skills-subtitle {
+      font-size: 1.15rem;
+    }
+  }
+  .stacks-grid {
+    gap: 1.5em;
+    padding: 0 1.5em 2.5em;
+  }
+  .activity-title {
+    font-size: 2rem;
+  }
+  .activity-desc {
+    font-size: 0.95rem;
+  }
+}
+
+@media (min-width: 414px) {
+  .about-name {
+    font-size: 2.2rem;
+  }
+  .about-job {
+    font-size: 1.8rem;
+  }
+  .about-desc {
+    font-size: 1.1rem;
+  }
+  .about-cta {
+    width: 260px;
+    font-size: 1.18rem;
+    .about-arrow {
+      width: 54px;
+      height: 54px;
+      img {
+        width: 1.6em;
+        height: 1.6em;
+      }
+    }
+    span:last-child {
+      font-size: 1.18rem;
+      height: 54px;
+    }
+  }
+  .about-journey {
+    .journey-title {
+      font-size: 2.4rem;
+    }
+    .journey-subtitle {
+      font-size: 1.15rem;
+    }
+    p {
+      font-size: 1rem;
+    }
+    .journey-rectangles {
+      width: 380px;
+      height: 440px;
+    }
+  }
+  .skills-title {
+    font-size: 2.2rem;
+  }
+  .skills-subtitle {
+    font-size: 1.18rem;
+  }
+  .stacks-grid {
+    gap: 1.5em;
+  }
+  .activity-title {
+    font-size: 2.2rem;
+  }
+  .activity-desc {
+    font-size: 1.1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .about-hero {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 3.5rem 3rem 3rem 3rem;
+
+    .about-rectangles {
+      display: block;
+      width: 280px;
+      height: 350px;
+      position: relative;
+      flex-shrink: 0;
+      margin-left: 2.5rem;
+    }
+    .about-rectangles img {
+      position: absolute;
+      bottom: 0;
+      right: -5%;
+      width: 95%;
+      height: 92%;
+      object-fit: cover;
+      display: block;
+      border-radius: 0;
+      z-index: 1;
+    }
+    .about-rectangles::before,
+    .about-rectangles::after {
+      content: "";
+      position: absolute;
+      border: 1.5px solid #c6ff1a;
+      pointer-events: none;
+    }
+    .about-rectangles::before {
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+    .about-rectangles::after {
+      top: 16px;
+      left: 16px;
+      right: -16px;
+      bottom: -16px;
+    }
+  }
+  .about-hero-content {
+    flex: 1 1 0;
+    max-width: 316px;
+  }
+  // Ajoute ici tes rectangles décoratifs en ::before/::after si besoin
+  .about-journey {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 2.5rem 2rem 2rem 2rem;
+    background: #fff;
+
+    .journey-content {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .journey-text {
+      flex: 1 1 0;
+      max-width: 420px;
+
+      .journey-title {
+        font-size: 1.8rem;
+      }
+
+      .journey-subtitle {
+        font-size: 0.9rem;
+      }
+
+      p {
+        font-size: 0.9rem;
+        line-height: 1.2;
+        letter-spacing: normal;
+      }
+    }
+
+    .journey-svg {
+      flex-shrink: 0;
+      width: 300px;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .journey-svg img,
+    .journey-svg svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .journey-rectangles {
+      display: none;
+    }
+  }
+
+  .skills-header {
+    padding: 0 2.5em;
+
+    .skills-title {
+      font-size: 2rem;
+    }
+    .skills-subtitle {
+      font-size: 1.15rem;
+    }
+  }
+
+  .stacks-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2em;
+    padding: 1em 2em 3em;
+  }
+
+  .activity-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    align-items: center;
+    padding: 2em 1em;
+    column-gap: 2em;
+    row-gap: 0;
+
+    .activity-intro {
+      // Pour garder le style du titre et desc
+      background: transparent;
+      box-shadow: none;
+      border-radius: 0;
+      padding: 0 1em;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 }
