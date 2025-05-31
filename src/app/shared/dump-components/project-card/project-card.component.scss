@@ -62,7 +62,6 @@
   display: block;
   margin-bottom: 0.1em;
   letter-spacing: 0.01em;
-  text-transform: uppercase;
 }
 
 .project-subtitle {
@@ -172,6 +171,7 @@
     max-height: 300px;
     box-sizing: border-box;
     padding: 0;
+    margin-bottom: 2.5em;
   }
 
   .project-image {
@@ -215,6 +215,7 @@
 
   .project-title {
     font-size: 2.6rem;
+    font-weight: 700;
     margin-top: 0.2em;
     margin-bottom: 0.1em;
   }
@@ -227,8 +228,8 @@
   .project-btn {
     align-self: flex-start;
     .arrow img {
-      width: 1.7em;
-      height: 1.7em;
+      width: 1.85em;
+      height: 1.85em;
     }
 
     .arrow {
@@ -237,7 +238,7 @@
 
     span:not(.arrow) {
       font-size: 1.6rem;
-      padding: 0.6em 1.5em;
+      padding: 0.6em 1em;
     }
   }
 }
