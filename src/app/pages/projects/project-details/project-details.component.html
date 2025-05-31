@@ -1,54 +1,63 @@
 <app-menu></app-menu>
 <div *ngIf="project">
   <div class="project-hero">
-    <h2 class="project-title">{{ project.title }}</h2>
-    <p class="project-context">
-      {{ project.context }}
-    </p>
-    <div class="project-link-btns" *ngIf="project?.site || project?.github">
-      <a
-        *ngIf="project.site; else githubBtn"
-        class="project-btn"
-        [href]="project.site"
-        target="_blank"
-        rel="noopener"
-      >
-        <span class="arrow">
-          <img src="/svg/arrow.svg" alt="flèche" />
-        </span>
-        <span>Visiter le site</span>
-      </a>
-      <ng-template #githubBtn>
+    <div class="project-hero-content">
+      <h2 class="project-title">{{ project.title }}</h2>
+      <p class="project-context">
+        {{ project.context }}
+      </p>
+      <div class="project-link-btns" *ngIf="project?.site || project?.github">
         <a
-          *ngIf="project.github"
+          *ngIf="project.site; else githubBtn"
           class="project-btn"
-          [href]="project.github"
+          [href]="project.site"
           target="_blank"
           rel="noopener"
         >
           <span class="arrow">
             <img src="/svg/arrow.svg" alt="flèche" />
           </span>
-          <span>Voir le projet</span>
+          <span>Visiter le site</span>
         </a>
-      </ng-template>
+        <ng-template #githubBtn>
+          <a
+            *ngIf="project.github"
+            class="project-btn"
+            [href]="project.github"
+            target="_blank"
+            rel="noopener"
+          >
+            <span class="arrow">
+              <img src="/svg/arrow.svg" alt="flèche" />
+            </span>
+            <span>Voir le projet</span>
+          </a>
+        </ng-template>
+      </div>
+    </div>
+    <div class="project-hero-svg">
+      <img src="svg/carre-blck.svg" alt="" />
     </div>
   </div>
   <app-animate-band></app-animate-band>
-  <h3 class="challenge-title">Challenge</h3>
-  <ul class="challenge-list">
-    <li *ngFor="let c of project.challenge">
-      <img src="/svg/puce.svg" alt="puce" class="challenge-puce" />
-      <span>{{ c }}</span>
-    </li>
-  </ul>
-  <div class="project-rectangles">
-    <img [src]="project.image" [alt]="project.title" class="project-photo" />
+  <div class="project-main-layout">
+    <h3 class="challenge-title">Challenge</h3>
+    <ul class="challenge-list">
+      <li *ngFor="let c of project.challenge">
+        <img src="/svg/puce.svg" alt="puce" class="challenge-puce" />
+        <span>{{ c }}</span>
+      </li>
+    </ul>
+    <div class="project-rectangles">
+      <img [src]="project.image" [alt]="project.title" class="project-photo" />
+    </div>
+    <div class="solution-section" *ngIf="project.solution">
+      <h3 class="solution-title">Solution</h3>
+      <p class="solution-content">
+        {{ project.solution }}
+      </p>
+    </div>
   </div>
-  <h3 class="solution-title">Solution</h3>
-  <p class="solution-content" *ngIf="project?.solution">
-    {{ project.solution }}
-  </p>
 </div>
 <div class="tools-section" *ngIf="project">
   <h3 class="tools-title">Les outils utilisés</h3>

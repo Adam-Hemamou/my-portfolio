@@ -8,6 +8,10 @@
   flex-direction: column;
   align-items: flex-start;
   border-radius: 0;
+
+  .project-hero-svg {
+    display: none;
+  }
 }
 
 .project-title {
@@ -152,53 +156,286 @@
   }
 }
 
-.solution-title {
-  font-size: 1.8rem;
-  font-weight: 700;
-  font-family: "Montserrat", sans-serif;
-  margin: 1.5rem 0 1.2rem 0;
-  color: #111;
+.solution-section {
   padding: 0 1rem;
-}
+  .solution-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    font-family: "Montserrat", sans-serif;
+    margin: 1.5rem 0 1.2rem 0;
+    color: #111;
+  }
 
-.solution-content {
-  font-size: 1rem;
-  font-family: "Montserrat", sans-serif;
-  color: #222;
-  line-height: 1.5;
-  padding: 0 1rem;
-  margin-bottom: 2rem;
+  .solution-content {
+    font-size: 1rem;
+    font-family: "Montserrat", sans-serif;
+    color: #222;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+    font-weight: 500;
+  }
 }
 
 .tools-section {
   background: #222;
-  padding-bottom: 20px;
+  padding: 2.5rem 1rem;
+
+  .tools-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    font-family: "Montserrat", sans-serif;
+    margin: 0 0 0.2em 0;
+    color: #fff;
+  }
+
+  .tools-subtitle {
+    color: var(--color-primary, #c6ff1a);
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin-bottom: 1.5em;
+    font-family: "Montserrat", sans-serif;
+  }
+
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    column-gap: 0;
+    row-gap: 1.2em;
+    justify-items: center;
+    align-items: center;
+    background: #222;
+  }
 }
 
-.tools-title {
-  font-size: 1.8rem;
-  font-weight: 700;
-  font-family: "Montserrat", sans-serif;
-  margin: 0 0 0.2em 0;
-  color: #fff;
-  padding: 2rem 1rem 0;
+@media (min-width: 375px) {
+  .project-hero {
+    padding: 2.5rem 1.5rem 2.2rem 1.5rem;
+  }
+  .project-title {
+    font-size: 2rem;
+  }
+  .project-context {
+    font-size: 1.1rem;
+  }
+  .project-link-btns a {
+    width: 240px;
+    font-size: 1.15rem;
+    .arrow {
+      width: 50px;
+      height: 50px;
+      img {
+        width: 1.5em;
+        height: 1.5em;
+      }
+    }
+    span:last-child {
+      font-size: 1.15rem;
+      height: 50px;
+    }
+  }
+  .challenge-title {
+    font-size: 2rem;
+    padding: 0 1.3rem;
+  }
+  .challenge-list {
+    padding: 0 1.3rem;
+
+    li {
+      font-size: 1.1rem;
+    }
+    .challenge-puce {
+      width: 1.1em;
+      height: 1.1em;
+    }
+  }
+  .project-rectangles {
+    width: 330px;
+    height: 400px;
+  }
+  .solution-section {
+    padding: 0 1.3rem;
+    .solution-title {
+      font-size: 2rem;
+    }
+    .solution-content {
+      font-size: 1.1rem;
+    }
+  }
+  .tools-section {
+    padding: 2.75rem 1.2rem;
+    .tools-title {
+      font-size: 2rem;
+    }
+    .tools-subtitle {
+      font-size: 1.15rem;
+    }
+    .tools-grid {
+      gap: 1.3em;
+    }
+  }
 }
 
-.tools-subtitle {
-  color: var(--color-primary, #c6ff1a);
-  font-size: 1.1rem;
-  font-weight: 400;
-  margin-bottom: 1.5em;
-  font-family: "Montserrat", sans-serif;
-  padding: 0 1rem;
+@media (min-width: 414px) {
+  .project-title {
+    font-size: 2.2rem;
+  }
+  .project-context {
+    font-size: 1.2rem;
+  }
+  .project-link-btns a {
+    width: 260px;
+    .arrow {
+      width: 54px;
+      height: 54px;
+      img {
+        width: 1.6em;
+        height: 1.6em;
+      }
+    }
+    span:last-child {
+      font-size: 1.18rem;
+      height: 54px;
+    }
+  }
+  .challenge-title {
+    font-size: 2.2rem;
+    padding: 0 1.5rem;
+  }
+  .challenge-list {
+    padding: 0 1.5rem;
+
+    li {
+      font-size: 1.15rem;
+    }
+    .challenge-puce {
+      width: 1.2em;
+      height: 1.2em;
+    }
+  }
+  .project-rectangles {
+    width: 360px;
+    height: 420px;
+  }
+  .solution-section {
+    padding: 0 1.5rem;
+    .solution-title {
+      font-size: 2.2rem;
+    }
+    .solution-content {
+      font-size: 1.15rem;
+    }
+  }
+  .tools-section {
+    padding: 3rem 1.5rem 2.5rem;
+    .tools-title {
+      font-size: 2.2rem;
+    }
+    .tools-subtitle {
+      font-size: 1.2rem;
+    }
+    .tools-grid {
+      gap: 1.8em;
+    }
+  }
 }
 
-.tools-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1em;
-  justify-items: center;
-  align-items: center;
-  padding: 0 1rem 30px 1rem;
-  background: #222;
+@media (min-width: 768px) {
+  .project-hero {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2.5rem 2.5rem 2rem 2.5rem;
+    position: relative;
+    .project-hero-content {
+      flex: 1 1 0;
+      max-width: 316px;
+    }
+    .project-hero-svg {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 320px;
+      height: 320px;
+      flex-shrink: 0;
+    }
+  }
+  .project-hero-svg img {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .project-main-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    align-items: flex-start;
+    padding: 1.5rem;
+    background: #fff;
+  }
+
+  .challenge-title,
+  .challenge-list,
+  .solution-section {
+    grid-column: 1;
+  }
+
+  .challenge-title {
+    font-size: 2rem;
+    padding: 0 1rem;
+    margin-top: 1rem;
+  }
+
+  .challenge-list {
+    padding: 0 1rem;
+
+    li {
+      font-size: 1.15rem;
+    }
+    .challenge-puce {
+      width: 1em;
+      height: 1em;
+    }
+  }
+  .solution-section {
+    padding: 0 1em;
+    .solution-title {
+      font-size: 2rem;
+      margin-top: 0;
+    }
+    .solution-content {
+      font-size: 1.15rem;
+    }
+  }
+  .project-rectangles {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    align-self: center;
+    margin: 0;
+    width: 300px;
+    height: 360px;
+  }
+
+  .tools-section {
+    padding: 2.5em 2em 3em;
+
+    .tools-title {
+      font-size: 2rem;
+    }
+    .tools-subtitle {
+      font-size: 1.4rem;
+    }
+  }
+  .tools-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1.8em;
+  }
+  .tools-grid:has(app-stacks-card:nth-child(5)) {
+    app-stacks-card:nth-child(5) {
+      grid-column: 1 / span 2;
+    }
+    app-stacks-card:nth-child(6) {
+      grid-column: 3 / span 2;
+    }
+  }
 }
