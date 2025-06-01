@@ -1,0 +1,45 @@
+.band-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: row-reverse;
+  z-index: 1000;
+  position: fixed;
+
+  .band {
+    transition: transform 0.5s ease, z-index 0.3s ease;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    border: 1px solid var(--color-dark);
+    width: 70px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    background-color: gray;
+    color: black;
+    font-size: 30px;
+    cursor: pointer;
+
+    &:hover {
+      // background-color: lighten(gray, 70%);
+    }
+  }
+
+  .band:nth-child(1) {
+    background-color: var(--color-primary);
+  }
+  .band:nth-child(2) {
+    background-color: var(--color-primary);
+  }
+  .band:nth-child(3) {
+    background-color: var(--color-primary);
+  }
+  .band:nth-child(4) {
+    background-color: var(--color-primary);
+  }
+}

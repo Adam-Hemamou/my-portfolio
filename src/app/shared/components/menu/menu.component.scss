@@ -353,3 +353,11 @@
     }
   }
 }
+
+@media (min-width: 1280px) {
+  .nav,
+  .menu-overlay,
+  .menu-drawer {
+    display: none !important;
+  }
+}
