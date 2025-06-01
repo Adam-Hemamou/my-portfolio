@@ -8,7 +8,7 @@
 .contact-form label {
   font-weight: 700;
   font-family: "Montserrat", sans-serif;
-  margin-bottom: 0.2em;
+  // margin-bottom: 0.2em;
   text-transform: uppercase;
   font-size: 1rem;
   letter-spacing: 1px;
@@ -20,7 +20,8 @@
   border-image: linear-gradient(to right, #222 60%, #c6ff1a 100%);
   border-image-slice: 1;
   background: transparent;
-  padding: 0.7em 0.2em;
+  padding: 0 0.2em 0.5em;
+  margin-bottom: 1em;
   font-size: 1.1rem;
   outline: none;
   font-family: "Montserrat", sans-serif;
@@ -45,8 +46,8 @@
   overflow: hidden;
   width: 100%;
   max-width: 400px;
-  min-height: 56px;
-  margin-top: 1.5em;
+  min-height: 63px;
+  margin-top: 0.8em;
   transition: background 0.2s, color 0.2s;
   padding: 0;
 }
@@ -56,10 +57,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 56px;
-  height: 56px;
-  min-width: 56px;
-  min-height: 56px;
+  width: 65px;
+  height: 63px;
+  min-width: 65px;
+  min-height: 63px;
   img {
     width: 1.6em;
     height: 1.6em;
@@ -73,6 +74,95 @@
   align-items: center;
   justify-content: center;
   height: 56px;
-  padding: 0 1em;
+  padding: 0 0.5em;
   font-size: 1.15rem;
+}
+
+@media (min-width: 375px) {
+  .contact-form {
+    padding: 2.5em 1.5em 3em;
+  }
+  .contact-form label {
+    font-size: 1.05rem;
+  }
+  .contact-form input {
+    font-size: 1.15rem;
+    padding: 0 0.2em 0.7em;
+  }
+  .contact-btn {
+    min-height: 62px;
+    max-width: 420px;
+  }
+  .contact-btn-arrow {
+    width: 72px;
+    height: 62px;
+    min-width: 72px;
+    min-height: 62px;
+    img {
+      width: 1.9em;
+      height: 1.9em;
+    }
+  }
+  .contact-btn span:last-child {
+    font-size: 1.18rem;
+  }
+}
+@media (min-width: 414px) {
+  .contact-form {
+    padding: 2.5em 2em 3.2em;
+  }
+  .contact-form label {
+    font-size: 1.1rem;
+  }
+  .contact-form input {
+    font-size: 1.18rem;
+    padding: 0 0.2em 0.8em;
+  }
+  .contact-btn {
+    min-height: 66px;
+    max-width: 440px;
+  }
+  .contact-btn-arrow {
+    width: 76px;
+    height: 66px;
+    min-width: 76px;
+    min-height: 66px;
+  }
+  .contact-btn span:last-child {
+    padding: 0 0.3em;
+    font-size: 1.3rem;
+  }
+}
+@media (min-width: 768px) {
+  .contact-form {
+    padding: 3em 3em 3.5em;
+    gap: 2.2em;
+    margin: 0 auto;
+  }
+  .contact-form label {
+    font-size: 1.4rem;
+  }
+  .contact-form input {
+    font-size: 1.3rem;
+    padding: 0 0.2em 1em;
+  }
+  .contact-btn {
+    min-height: 80px;
+    max-width: 480px;
+    margin: 1.5em auto;
+  }
+  .contact-btn-arrow {
+    width: 90px;
+    height: 80px;
+    min-width: 90px;
+    min-height: 80px;
+    img {
+      width: 2.1em;
+      height: 2.1em;
+    }
+  }
+  .contact-btn span:last-child {
+    font-size: 1.5rem;
+    height: 70px;
+  }
 }
