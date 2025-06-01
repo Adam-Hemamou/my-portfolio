@@ -11,6 +11,8 @@ import {
 } from '@analogjs/router';
 import { Routes } from '@angular/router';
 import HomeComponent from './pages/index.page';
+import { provideAnimations } from '@angular/platform-browser/animations';
+
 import { AboutComponent } from './pages/about/about.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { ProjectListComponent } from './pages/projects/project-list/project-list.component';
@@ -52,5 +54,6 @@ export const appConfig: ApplicationConfig = {
       withFetch(),
       withInterceptors([requestContextInterceptor])
     ),
+    provideAnimations(),
   ],
 };
