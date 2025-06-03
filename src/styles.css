@@ -211,3 +211,9 @@
     margin-top: 6em;
   }
 }
+
+@media (min-width: 1280px) {
+  html {
+    overflow-y: scroll;
+  }
+}

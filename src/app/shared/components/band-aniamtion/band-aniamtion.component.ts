@@ -40,6 +40,18 @@ export class BandAniamtionComponent {
       return;
     }
     this.activeBandIndex = index;
+    // Si on n'est pas en haut, scroll d'abord
+    if (window.scrollY > 0) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(() => {
+        this.navigateToBand(index);
+      }, 200); // 200ms pour laisser le scroll se faire, ajuste si besoin
+    } else {
+      this.navigateToBand(index);
+    }
+  }
+
+  private navigateToBand(index: number) {
     setTimeout(() => {
       this.router.navigate([this.bands[index].route]).then((success) => {
         this.isVisible = false;
@@ -47,9 +59,9 @@ export class BandAniamtionComponent {
           this.activeBandIndex = null;
           this.isVisible = true;
           this.currentRoute = this.bands[index].route;
-        }, 1000);
+        }, 900);
       });
-    }, 600);
+    }, 700);
   }
 
   shouldSlide(index: number): boolean {
@@ -69,7 +81,7 @@ export class BandAniamtionComponent {
       }
     }
     if (this.activeBandIndex !== null) {
-      const distance = index * 70;
+      const distance = index * 60;
       return `translateX(${distance}px)`;
     }
     return 'translateX(0)';
