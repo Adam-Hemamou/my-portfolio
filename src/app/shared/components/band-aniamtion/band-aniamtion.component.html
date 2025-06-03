@@ -8,6 +8,7 @@
     [class.hovered]="shouldSlide(i)"
     [ngStyle]="{ transform: getTranslation(i), zIndex: getZIndex(i) }"
   >
-    {{ band.name }}
+    <img class="band-icon" src="/svg/arrow.svg" alt="" />
+    <p>{{ band.name }}</p>
   </div>
 </div>

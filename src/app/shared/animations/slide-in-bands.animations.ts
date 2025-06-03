@@ -22,13 +22,7 @@ export const slideInBands = trigger('slideInBands', [
     ),
   ]),
   transition(':leave', [
-    query(
-      '.band',
-      [
-        // Toutes les bandes partent en même temps, durée identique à l'animation de page
-        animate('3990ms ease-in', style({ transform: 'translateX(-30000%)' })),
-      ],
-      { optional: true }
-    ),
+    style({ transform: 'translateX(0)' }),
+    animate('940ms ease-in-out', style({ transform: 'translateX(-100vw)' })),
   ]),
 ]);

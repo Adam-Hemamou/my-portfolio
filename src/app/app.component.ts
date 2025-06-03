@@ -23,14 +23,13 @@ export class AppComponent {
   constructor(private router: Router) {
     // Toujours scroll instantané en haut sur navigation
     this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        window.scrollTo({ top: 0, behavior: 'auto' });
-      }
-    });
+      // if (event instanceof NavigationEnd) {
+      //   window.scrollTo({ top: 0, behavior: 'auto' });
+      // }
 
-    // Met à jour isDesktop sur resize
-    window.addEventListener('resize', () => {
-      this.isDesktop = window.innerWidth >= 1280;
+      window.addEventListener('resize', () => {
+        this.isDesktop = window.innerWidth >= 1280;
+      });
     });
   }
 
