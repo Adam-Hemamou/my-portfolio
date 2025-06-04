@@ -1,4 +1,6 @@
 .footer {
+  position: relative; // ou 'fixed' si tu veux qu'il reste visible en bas de l'écran
+  z-index: 2000;
   border-top: 1px solid #111;
   background: var(--color-primary, #c6ff1a);
   color: #111;
@@ -268,5 +270,46 @@
   }
   .footer-thanks {
     padding-bottom: 0.7em;
+  }
+}
+
+@media (min-width: 1280px) {
+  .footer {
+    padding: 2rem 3rem 1.5rem;
+  }
+  .footer-nav {
+    .footer-title {
+      font-size: 1.8rem;
+    }
+    ul {
+      li {
+        a {
+          font-size: 2rem;
+        }
+      }
+    }
+    .footer-cta {
+      width: 500px;
+      height: 120px;
+      .footer-arrow {
+        width: 120px;
+        height: 120px;
+        img {
+          width: 4em;
+          height: 4em;
+        }
+      }
+      span:last-child {
+        font-size: 2rem;
+        height: 120px;
+      }
+    }
+  }
+  .footer-section {
+    font-size: 2rem;
+    padding: 1em 0;
+    a {
+      font-size: 2rem;
+    }
   }
 }

@@ -473,7 +473,7 @@ swiper-container::part(bullet-active) {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    justify-content: flex-start;
+    justify-content: center;
     padding: 2.5rem 2rem 2rem 2rem;
     background: #fff;
 
@@ -481,7 +481,8 @@ swiper-container::part(bullet-active) {
       display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
+      width: 100%;
       gap: 2rem;
     }
 
@@ -558,7 +559,117 @@ swiper-container::part(bullet-active) {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
+      .activity-desc {
+        margin: 0;
+      }
+    }
+  }
+}
+
+@media (min-width: 1280px) {
+  .about-hero {
+    padding: 3.5rem 4rem 3.5rem 3rem;
+
+    .about-rectangles {
+      width: 350px;
+      height: 420px;
+      margin-right: 240px;
+      margin-left: 0;
+    }
+  }
+
+  .about-hero-content {
+    max-width: 400px;
+  }
+
+  .about-name {
+    font-size: 2.4rem;
+  }
+
+  .about-job {
+    font-size: 2rem;
+  }
+
+  .about-desc {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .about-cta {
+    width: 320px;
+    font-size: 1.4rem;
+
+    .about-arrow {
+      width: 60px;
+      height: 60px;
+
+      img {
+        width: 1.8em;
+        height: 1.8em;
+      }
+    }
+
+    span:last-child {
+      font-size: 1.4rem;
+      height: 60px;
+    }
+  }
+  .about-journey {
+    // padding: 3rem 2.5rem;
+    padding: 3.5rem 0rem 3.5rem 3rem;
+
+    margin-right: 240px;
+    .journey-text {
+      max-width: 5300px;
+
+      .journey-title {
+        font-size: 2.6rem;
+      }
+      .journey-subtitle {
+        font-size: 1.3rem;
+        margin-bottom: 0.8em;
+      }
+      p {
+        font-size: 1.2rem;
+      }
+    }
+    .journey-svg {
+      width: 500px;
+      height: 500px;
+    }
+  }
+  .skills-header {
+    padding: 1rem 3rem 0;
+
+    .skills-title {
+      font-size: 2.4rem;
+    }
+    .skills-subtitle {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+  }
+  .stacks-grid {
+    padding: 2em 4rem 3em;
+    margin-right: 240px;
+  }
+  swiper-container::part(pagination) {
+    margin-right: 120px;
+  }
+
+  .activity-section {
+    padding: 3em;
+    margin-right: 240px;
+
+    .activity-intro {
+      padding: 0;
+
+      .activity-title {
+        font-size: 2.4rem;
+      }
+      .activity-desc {
+        font-size: 1.35rem;
+      }
     }
   }
 }

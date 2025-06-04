@@ -15,18 +15,20 @@ import { FooterComponent } from '../shared/components/footer/footer.component';
   ],
   template: `
     <app-menu></app-menu>
-    <h1 class="hero-title">
-      <span class="dev-title">DÉVELOPPEUR</span>
-      <span class="web-title">WEB</span>
-    </h1>
-    <div class="hero-info">
-      <div>
-        <span class="portfolio-title">Portfolio</span>
-        <span class="portfolio-name">Adam Hemamou</span>
-      </div>
-      <div class="open-to-work">
-        <span class="dot"></span>
-        <span>Open to work</span>
+    <div class="hero-parent">
+      <h1 class="hero-title">
+        <span class="dev-title">DÉVELOPPEUR</span>
+        <span class="web-title">WEB</span>
+      </h1>
+      <div class="hero-info">
+        <div>
+          <span class="portfolio-title">Portfolio</span>
+          <span class="portfolio-name">Adam Hemamou</span>
+        </div>
+        <div class="open-to-work">
+          <span class="dot"></span>
+          <span>Open to work</span>
+        </div>
       </div>
     </div>
     <div class="home-band">
