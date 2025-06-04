@@ -40,12 +40,12 @@ export class BandAniamtionComponent {
       return;
     }
     this.activeBandIndex = index;
-    // Si on n'est pas en haut, scroll d'abord
+
     if (window.scrollY > 0) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       setTimeout(() => {
         this.navigateToBand(index);
-      }, 200); // 200ms pour laisser le scroll se faire, ajuste si besoin
+      }, 200);
     } else {
       this.navigateToBand(index);
     }

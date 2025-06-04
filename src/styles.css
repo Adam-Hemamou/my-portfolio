@@ -216,4 +216,38 @@
   html {
     overflow-y: scroll;
   }
+  .hero-parent {
+    margin-right: 240px;
+  }
+  .hero-title {
+    height: 25rem;
+  }
+  .dev-title {
+    font-size: 18vw;
+  }
+  .web-title {
+    font-size: 25vw;
+    top: 16rem;
+    left: 73%;
+    -webkit-text-stroke: 1.8px var(--color-dark);
+  }
+  .hero-info {
+    top: 28rem;
+    margin-left: 0.5vw;
+  }
+  .portfolio-title {
+    font-size: 2rem;
+  }
+  .portfolio-name {
+    font-size: 1.8rem;
+  }
+  .open-to-work {
+    font-size: 1.6rem;
+    margin-top: 0.85rem;
+    padding: 0.5em 1.5em 0.5em 1.3em;
+  }
+
+  .home-band {
+    margin-top: 10rem;
+  }
 }

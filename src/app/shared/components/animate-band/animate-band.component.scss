@@ -1,5 +1,4 @@
 .band-container {
-  // width: 100vw;
   overflow: hidden;
   background: var(--color-primary);
 }
@@ -41,5 +40,11 @@
   .band-text {
     font-size: 1.5rem;
     padding: 0.8em 0em;
+  }
+}
+@media (min-width: 1280px) {
+  .band-text {
+    font-size: 1.7rem;
+    padding: 0.9em 0em;
   }
 }
