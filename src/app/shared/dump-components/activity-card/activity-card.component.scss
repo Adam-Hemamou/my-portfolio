@@ -101,3 +101,20 @@
     font-size: 1rem;
   }
 }
+
+@media (min-width: 1280px) {
+  .activity-card {
+    width: 407px;
+    min-height: 427px;
+  }
+  .activity-card__img {
+    width: 120px;
+    margin-bottom: 1.5em;
+  }
+  .activity-card__title {
+    font-size: 1.3rem;
+  }
+  .activity-card__desc {
+    font-size: 1.3rem;
+  }
+}

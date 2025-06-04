@@ -123,3 +123,33 @@
     padding: 3rem 2.5rem 2em;
   }
 }
+
+@media (min-width: 1280px) {
+  .projects-hero {
+    height: 532px;
+    padding: 3.5rem 0 3rem 3rem;
+    .projects-hero-content {
+      flex: 1 1 0;
+      max-width: 400px;
+      .projects-title {
+        font-size: 2.4rem;
+      }
+
+      .projects-desc {
+        font-size: 1.5rem;
+      }
+    }
+
+    .projects-hero-svg {
+      width: 420px;
+      height: 420px;
+      margin-right: 240px;
+      padding-right: 3rem;
+    }
+  }
+
+  .projects-list {
+    padding: 3rem 2.5rem 2em;
+    margin-right: 240px;
+  }
+}

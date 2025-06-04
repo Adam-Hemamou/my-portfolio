@@ -166,3 +166,37 @@
     height: 70px;
   }
 }
+
+@media (min-width: 1280px) {
+  .contact-form {
+    padding: 3.5em 3em 3.5em;
+    gap: 2.2em;
+    margin-right: 240px;
+  }
+  .contact-form label {
+    font-size: 1.4rem;
+  }
+  .contact-form input {
+    font-size: 1.3rem;
+    padding: 0 0.2em 1em;
+  }
+  .contact-btn {
+    min-height: 80px;
+    max-width: 480px;
+    margin: 1.5em auto;
+  }
+  .contact-btn-arrow {
+    width: 90px;
+    height: 80px;
+    min-width: 90px;
+    min-height: 80px;
+    img {
+      width: 2.1em;
+      height: 2.1em;
+    }
+  }
+  .contact-btn span:last-child {
+    font-size: 1.5rem;
+    height: 70px;
+  }
+}
