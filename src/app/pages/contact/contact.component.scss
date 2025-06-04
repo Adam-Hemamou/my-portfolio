@@ -125,3 +125,29 @@
     }
   }
 }
+
+@media (min-width: 1280px) {
+  .contact-hero {
+    height: 532px;
+    padding: 3.5rem 0 3rem 3rem;
+    .contact-hero-content {
+      flex: 1 1 0;
+      max-width: 450px;
+    }
+    .contact-hero-svg {
+      width: 420px;
+      height: 420px;
+      margin-right: 240px;
+      padding-right: 3rem;
+    }
+    .contact-title {
+      font-size: 2.4rem;
+    }
+    .contact-subtitle {
+      font-size: 1.8rem;
+    }
+    .contact-desc {
+      font-size: 1.5rem;
+    }
+  }
+}

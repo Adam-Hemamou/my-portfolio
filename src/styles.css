@@ -220,7 +220,8 @@
     margin-right: 240px;
   }
   .hero-title {
-    height: 25rem;
+    height: 532px;
+    margin-top: 1rem;
   }
   .dev-title {
     font-size: 18vw;
@@ -232,8 +233,9 @@
     -webkit-text-stroke: 1.8px var(--color-dark);
   }
   .hero-info {
-    top: 28rem;
+    top: 27rem;
     margin-left: 0.5vw;
+    margin-top: 0;
   }
   .portfolio-title {
     font-size: 2rem;
@@ -248,6 +250,6 @@
   }
 
   .home-band {
-    margin-top: 10rem;
+    margin-top: 0;
   }
 }
