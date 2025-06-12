@@ -39,13 +39,6 @@ export class BandAniamtionComponent {
     });
   }
 
-  public goToBandByRoute(route: string) {
-    const index = this.bands.findIndex((b) => b.route === route);
-    if (index !== -1) {
-      this.onClick(index);
-    }
-  }
-
   onHover(index: number) {
     this.hoveredBandIndex = index;
   }
@@ -54,8 +47,15 @@ export class BandAniamtionComponent {
     this.hoveredBandIndex = null;
   }
 
-  onClick(index: number) {
-    if (this.bands[index].route === this.currentRoute) {
+  public goToBandByRoute(route: string, targetRoute?: any[]) {
+    const index = this.bands.findIndex((b) => b.route === route);
+    if (index !== -1) {
+      this.onClick(index, targetRoute);
+    }
+  }
+
+  onClick(index: number, targetRoute?: any[]) {
+    if (this.bands[index].route === this.currentRoute && !targetRoute) {
       return;
     }
     this.activeBandIndex = index;
@@ -63,21 +63,22 @@ export class BandAniamtionComponent {
     if (window.scrollY > 0) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       setTimeout(() => {
-        this.navigateToBand(index);
+        this.navigateToBand(index, targetRoute);
       }, 200);
     } else {
-      this.navigateToBand(index);
+      this.navigateToBand(index, targetRoute);
     }
   }
 
-  private navigateToBand(index: number) {
+  private navigateToBand(index: number, targetRoute?: any[]) {
     setTimeout(() => {
-      this.router.navigate([this.bands[index].route]).then((success) => {
+      const routeToNavigate = targetRoute ?? [this.bands[index].route];
+      this.router.navigate(routeToNavigate).then(() => {
         this.isVisible = false;
         setTimeout(() => {
           this.activeBandIndex = null;
           this.isVisible = true;
-          this.currentRoute = this.bands[index].route;
+          this.currentRoute = targetRoute ? '' : this.bands[index].route;
         }, 900);
       });
     }, 700);

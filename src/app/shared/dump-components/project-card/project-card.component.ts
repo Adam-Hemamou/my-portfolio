@@ -16,7 +16,7 @@ export class ProjectCardComponent {
 
   isDesktopNav = window.innerWidth >= 1280;
 
-  constructor(private bandNav: BandNavigationService, private router: Router) {}
+  constructor(private bandNav: BandNavigationService) {}
 
   ngOnInit() {
     window.addEventListener('resize', () => {
@@ -25,11 +25,8 @@ export class ProjectCardComponent {
   }
 
   onCardClick() {
-    // if (this.isDesktopNav) {
-    //   this.bandNav.goToBand('project');
-    //   setTimeout(() => {
-    //     this.router.navigate(['/project', this.project.id]);
-    //   }, 1600);
-    // }
+    if (this.isDesktopNav) {
+      this.bandNav.goToBand('project', ['/project', this.project.id]);
+    }
   }
 }
