@@ -618,10 +618,9 @@ swiper-container::part(bullet-active) {
   .about-journey {
     // padding: 3rem 2.5rem;
     padding: 3.5rem 0rem 3.5rem 3rem;
-
     margin-right: 240px;
     .journey-text {
-      max-width: 5300px;
+      max-width: 500px;
 
       .journey-title {
         font-size: 2.6rem;
@@ -671,6 +670,75 @@ swiper-container::part(bullet-active) {
       .activity-desc {
         font-size: 1.35rem;
       }
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  .about-hero {
+    padding: 3.5rem 4.5rem 3.5rem 4rem;
+
+    .about-rectangles {
+      width: 370px;
+      height: 440px;
+    }
+  }
+
+  .about-hero-content {
+    max-width: 570px;
+  }
+
+  .about-name {
+    font-size: 3rem;
+  }
+
+  .about-job {
+    font-size: 2.5rem;
+  }
+
+  .about-desc {
+    font-size: 1.8rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .about-cta {
+    width: 360px;
+
+    .about-arrow {
+      width: 70px;
+      height: 70px;
+
+      img {
+        width: 2em;
+        height: 2em;
+      }
+    }
+
+    span:last-child {
+      font-size: 1.8rem;
+      height: 70px;
+    }
+  }
+
+  .about-journey {
+    gap: 1rem;
+    .journey-text {
+      max-width: 600px;
+
+      .journey-title {
+        font-size: 3rem;
+      }
+      .journey-subtitle {
+        font-size: 1.8rem;
+        margin-bottom: 1em;
+      }
+      p {
+        font-size: 1.6rem;
+      }
+    }
+    .journey-svg {
+      width: 600px;
+      height: 600px;
     }
   }
 }

@@ -253,3 +253,29 @@
     margin-top: 0;
   }
 }
+
+@media (min-width: 1440px) {
+  .dev-title {
+    top: 1;
+    font-size: 17vw;
+  }
+  .web-title {
+    font-size: 20vw;
+    top: 18rem;
+    left: 75.5%;
+  }
+  .hero-info {
+    top: 27rem;
+    margin-left: 3.5vw;
+  }
+
+  .portfolio-title {
+    font-size: 2.5rem;
+  }
+  .portfolio-name {
+    font-size: 2rem;
+  }
+  .open-to-work {
+    font-size: 1.8rem;
+  }
+}

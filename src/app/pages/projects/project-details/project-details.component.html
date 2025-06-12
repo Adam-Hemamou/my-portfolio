@@ -60,8 +60,10 @@
   </div>
 </div>
 <div class="tools-section" *ngIf="project">
-  <h3 class="tools-title">Les outils utilisés</h3>
-  <div class="tools-subtitle">Languages et logiciels</div>
+  <div class="tools-content">
+    <h3 class="tools-title">Les outils utilisés</h3>
+    <div class="tools-subtitle">Languages et logiciels</div>
+  </div>
   <div class="tools-grid">
     <app-stacks-card
       *ngFor="let outil of project.outils"
