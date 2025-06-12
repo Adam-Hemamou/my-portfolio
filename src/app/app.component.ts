@@ -11,29 +11,49 @@ import { NgIf } from '@angular/common';
   imports: [RouterOutlet, BandAniamtionComponent, NgIf],
   template: `
     <app-band-animation *ngIf="isDesktop"></app-band-animation>
-    <main [@slider]="isDesktop ? prepareRoute(outlet) : null">
+    <main
+      [@slider]="
+        isDesktop && hasNavigated && prepareRoute(outlet) !== 'no-animation'
+          ? prepareRoute(outlet)
+          : null
+      "
+    >
       <router-outlet #outlet="outlet"></router-outlet>
     </main>
   `,
   animations: [slider],
 })
 export class AppComponent {
+  hasNavigated = false;
   isDesktop = window.innerWidth >= 1280;
+  private firstNavigation = true;
 
   constructor(private router: Router) {
-    // Toujours scroll instantané en haut sur navigation
     this.router.events.subscribe((event) => {
-      // if (event instanceof NavigationEnd) {
-      //   window.scrollTo({ top: 0, behavior: 'auto' });
-      // }
-
+      if (event instanceof NavigationEnd) {
+        if (this.firstNavigation) {
+          this.firstNavigation = false;
+        } else {
+          this.hasNavigated = true;
+        }
+      }
       window.addEventListener('resize', () => {
         this.isDesktop = window.innerWidth >= 1280;
       });
     });
   }
 
-  prepareRoute(outlet: RouterOutlet) {
-    return outlet.isActivated ? outlet.activatedRoute : '';
+  public isProjectDetailsRoute = (routePath: string) =>
+    routePath === 'project/:id';
+
+  prepareRoute(outlet: RouterOutlet): string {
+    const path =
+      outlet &&
+      outlet.activatedRoute &&
+      outlet.activatedRoute.routeConfig &&
+      outlet.activatedRoute.routeConfig.path
+        ? outlet.activatedRoute.routeConfig.path
+        : '';
+    return path === 'project/:id' ? 'no-animation' : path;
   }
 }
