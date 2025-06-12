@@ -4,10 +4,11 @@ import { MenuComponent } from '../../shared/components/menu/menu.component';
 import { AnimateBandComponent } from '../../shared/components/animate-band/animate-band.component';
 import { StacksCardComponent } from '../../shared/dump-components/stacks-card/stacks-card.component';
 import { Stack } from '../../shared/models/stack.type';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { ActivityCardComponent } from '../../shared/dump-components/activity-card/activity-card.component';
 import { Activity } from '../../shared/models/activity.type';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { BandNavigationService } from '../../shared/services/band-navigation.service';
 
 @Component({
   selector: 'app-about',
@@ -19,6 +20,7 @@ import { RouterLink } from '@angular/router';
     ActivityCardComponent,
     FooterComponent,
     NgFor,
+    NgIf,
     RouterLink,
   ],
   templateUrl: './about.component.html',
@@ -26,6 +28,14 @@ import { RouterLink } from '@angular/router';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AboutComponent {
+  constructor(private bandNav: BandNavigationService, private router: Router) {}
+
+  isDesktopNav = false;
+
+  onContactClick() {
+    this.bandNav.goToBand('contact');
+  }
+
   stacks: Stack[] = [
     { name: 'Javascript', icon: '/stacks/javascript.png' },
     { name: 'Angular.js', icon: '/stacks/angular.png' },
@@ -131,6 +141,7 @@ export class AboutComponent {
 
   checkScreen() {
     this.isDesktop = window.innerWidth >= 768;
+    this.isDesktopNav = window.innerWidth >= 1280;
   }
 
   get stackGroups(): Stack[][] {

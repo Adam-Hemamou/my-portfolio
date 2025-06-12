@@ -1,4 +1,28 @@
-<div class="project-card-link" [routerLink]="['/project', project.id]">
+<div class="project-card-link" *ngIf="isDesktopNav" (click)="onCardClick()">
+  <div class="project-card">
+    <div class="project-image">
+      <img [src]="project.image" [alt]="project.title" />
+      <span class="project-label">{{ project.label }}</span>
+    </div>
+    <div class="project-content">
+      <div>
+        <span class="project-title">{{ project.title }}</span>
+        <span class="project-subtitle">{{ project.subtitle }}</span>
+      </div>
+      <div class="project-btn">
+        <span class="arrow">
+          <img src="/svg/arrow.svg" alt="flèche" />
+        </span>
+        <span>Voir le projet</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  class="project-card-link"
+  *ngIf="!isDesktopNav"
+  [routerLink]="['/project', project.id]"
+>
   <div class="project-card">
     <div class="project-image">
       <img [src]="project.image" [alt]="project.title" />

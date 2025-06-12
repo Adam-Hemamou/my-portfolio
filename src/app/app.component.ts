@@ -23,8 +23,11 @@ export class AppComponent {
   private firstNavigation = true;
 
   constructor(private router: Router) {
-    this.router.events.subscribe((event) => {
+    this.router.events.subscribe(async (event) => {
       if (event instanceof NavigationEnd) {
+        if (window.innerWidth < 1280) {
+          await this.smoothScrollToTop();
+        }
         if (this.firstNavigation) {
           this.firstNavigation = false;
         } else {
@@ -34,6 +37,19 @@ export class AppComponent {
       window.addEventListener('resize', () => {
         this.isDesktop = window.innerWidth >= 1280;
       });
+    });
+  }
+
+  private smoothScrollToTop(): Promise<void> {
+    return new Promise((resolve) => {
+      const start = window.scrollY;
+      if (start === 0) {
+        resolve();
+        return;
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Attend que le scroll soit terminé (~400ms)
+      setTimeout(resolve, 400);
     });
   }
 

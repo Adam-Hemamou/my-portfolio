@@ -1,6 +1,7 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { BandNavigationService } from '../../services/band-navigation.service';
 
 @Component({
   selector: 'app-menu',
@@ -11,6 +12,7 @@ import { RouterLink } from '@angular/router';
 })
 export class MenuComponent {
   isOpen = false;
+  isDesktopNav = window.innerWidth >= 1280;
 
   menuItems = [
     { label: 'Accueil', link: '/' },
@@ -19,11 +21,21 @@ export class MenuComponent {
     { label: 'Contact', link: '/contact' },
   ];
 
+  constructor(private bandNav: BandNavigationService) {
+    window.addEventListener('resize', () => {
+      this.isDesktopNav = window.innerWidth >= 1280;
+    });
+  }
+
   toggleMenu() {
     this.isOpen = !this.isOpen;
   }
 
   closeMenu() {
     this.isOpen = false;
+  }
+
+  onMenuItemClick() {
+    this.bandNav.goToBand('');
   }
 }

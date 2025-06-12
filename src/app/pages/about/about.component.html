@@ -9,7 +9,14 @@
       Bonjour, je m'appelle Adam, et je suis un jeune developpeur freelance, je
       suis toujours à la recherche de projets innovant et ambitieux.
     </p>
-    <a class="about-cta" [routerLink]="['/contact']">
+    <a class="about-cta" *ngIf="isDesktopNav" (click)="onContactClick()">
+      <span class="about-arrow">
+        <img src="/svg/arrow.svg" alt="flèche" />
+      </span>
+      <span>Me contacter</span>
+    </a>
+
+    <a class="about-cta" *ngIf="!isDesktopNav" [routerLink]="['/contact']">
       <span class="about-arrow">
         <img src="/svg/arrow.svg" alt="flèche" />
       </span>
