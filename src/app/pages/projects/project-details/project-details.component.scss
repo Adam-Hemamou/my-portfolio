@@ -411,6 +411,7 @@
     grid-column: 2;
     grid-row: 1 / span 3;
     align-self: center;
+    justify-self: center;
     margin: 0;
     width: 300px;
     height: 360px;
@@ -436,6 +437,96 @@
     }
     app-stacks-card:nth-child(6) {
       grid-column: 3 / span 2;
+    }
+  }
+}
+
+@media (min-width: 1280px) {
+  .project-hero {
+    padding: 3.5em 3em 3.5em 2.5em;
+    height: 500px;
+
+    .project-hero-content {
+      max-width: 400px;
+
+      .project-title {
+        font-size: 2.4rem;
+      }
+      .project-context {
+        font-size: 1.5rem;
+      }
+      .project-link-btns {
+        width: 320px;
+        .arrow {
+          width: 60px;
+          height: 60px;
+
+          img {
+            width: 1.8em;
+            height: 1.8em;
+          }
+        }
+        span:last-child {
+          font-size: 1.4rem;
+          height: 60px;
+        }
+      }
+    }
+    .project-hero-svg {
+      margin-right: 240px;
+      width: 450px;
+      height: 500px;
+    }
+  }
+
+  .project-main-layout {
+    grid-template-columns: 525px 1fr;
+    margin-right: 240px;
+  }
+
+  .challenge-title {
+    font-size: 2.4rem;
+  }
+
+  .challenge-list {
+    li {
+      font-size: 1.5rem;
+    }
+    .challenge-puce {
+      width: 1.2em;
+      height: 1.2em;
+    }
+  }
+
+  .solution-section {
+    .solution-title {
+      font-size: 2.4rem;
+    }
+    .solution-content {
+      font-size: 1.5rem;
+    }
+  }
+
+  .project-rectangles {
+    width: 420px;
+    height: 480px;
+  }
+
+  .tools-section {
+    .tools-content {
+      padding-left: 0.5em;
+      margin-right: 240px;
+
+      .tools-title {
+        font-size: 2.4rem;
+      }
+      .tools-subtitle {
+        font-size: 1.8rem;
+      }
+    }
+
+    .tools-grid {
+      margin-right: 240px;
     }
   }
 }

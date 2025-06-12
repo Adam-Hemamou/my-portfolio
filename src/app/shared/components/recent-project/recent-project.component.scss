@@ -44,10 +44,18 @@
 }
 @media (min-width: 1280px) {
   .projects-list {
-    padding: 40px 20px 20px;
+    padding: 3rem 3rem 2em;
     margin-right: 240px;
     h2 {
       font-size: 2rem;
+    }
+  }
+}
+@media (min-width: 1440px) {
+  .projects-list {
+    padding: 3rem 4rem 2em;
+    h2 {
+      font-size: 2.5rem;
     }
   }
 }
