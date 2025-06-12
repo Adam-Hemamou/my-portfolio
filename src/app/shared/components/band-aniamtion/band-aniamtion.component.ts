@@ -2,6 +2,7 @@ import { NgFor, NgIf, NgStyle } from '@angular/common';
 import { Component } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { slideInBands } from '../../animations/slide-in-bands.animations';
+import { BandNavigationService } from '../../services/band-navigation.service';
 
 @Component({
   selector: 'app-band-animation',
@@ -23,10 +24,11 @@ export class BandAniamtionComponent {
   isVisible: boolean = true;
   currentRoute: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private bandNav: BandNavigationService) {}
 
   ngOnInit() {
     // Initialise la route courante au chargement
+    this.bandNav.registerHandler(this.goToBandByRoute.bind(this));
     this.currentRoute = this.router.url.substring(1);
 
     // Mets à jour la route courante à chaque navigation
@@ -35,6 +37,13 @@ export class BandAniamtionComponent {
         this.currentRoute = this.router.url.substring(1);
       }
     });
+  }
+
+  public goToBandByRoute(route: string) {
+    const index = this.bands.findIndex((b) => b.route === route);
+    if (index !== -1) {
+      this.onClick(index);
+    }
   }
 
   onHover(index: number) {

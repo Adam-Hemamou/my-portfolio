@@ -1,6 +1,30 @@
 <div class="menu">
   <div
     class="logo"
+    *ngIf="isDesktopNav"
+    (click)="onMenuItemClick()"
+    style="cursor: pointer"
+  >
+    <div class="title">
+      <div class="black-bgc">
+        <p class="surname">ADAM</p>
+      </div>
+      <div class="white-bgc">
+        <p class="name">HEMAMOU</p>
+      </div>
+    </div>
+    <div class="under-name">
+      <p class="developper">DEVELOPPER</p>
+      <span>
+        <img src="/svg/arrow.svg" alt="fleche" class="fleche" />
+      </span>
+    </div>
+  </div>
+
+  <!-- Mobile : navigation directe -->
+  <div
+    class="logo"
+    *ngIf="!isDesktopNav"
     [routerLink]="['/']"
     (click)="closeMenu()"
     style="cursor: pointer"
