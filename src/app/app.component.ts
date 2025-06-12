@@ -11,13 +11,7 @@ import { NgIf } from '@angular/common';
   imports: [RouterOutlet, BandAniamtionComponent, NgIf],
   template: `
     <app-band-animation *ngIf="isDesktop"></app-band-animation>
-    <main
-      [@slider]="
-        isDesktop && hasNavigated && prepareRoute(outlet) !== 'no-animation'
-          ? prepareRoute(outlet)
-          : null
-      "
-    >
+    <main [@slider]="isDesktop ? prepareRoute(outlet) : null">
       <router-outlet #outlet="outlet"></router-outlet>
     </main>
   `,
@@ -43,17 +37,7 @@ export class AppComponent {
     });
   }
 
-  public isProjectDetailsRoute = (routePath: string) =>
-    routePath === 'project/:id';
-
-  prepareRoute(outlet: RouterOutlet): string {
-    const path =
-      outlet &&
-      outlet.activatedRoute &&
-      outlet.activatedRoute.routeConfig &&
-      outlet.activatedRoute.routeConfig.path
-        ? outlet.activatedRoute.routeConfig.path
-        : '';
-    return path === 'project/:id' ? 'no-animation' : path;
+  prepareRoute(outlet: RouterOutlet) {
+    return this.hasNavigated && outlet.isActivated ? outlet.activatedRoute : '';
   }
 }
