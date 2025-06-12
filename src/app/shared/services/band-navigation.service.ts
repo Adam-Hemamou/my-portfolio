@@ -4,15 +4,17 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class BandNavigationService {
-  private _navigateToBand: ((route: string) => void) | null = null;
+  private _navigateToBand:
+    | ((route: string, targetRoute?: any[]) => void)
+    | null = null;
 
   registerHandler(fn: (route: string) => void) {
     this._navigateToBand = fn;
   }
 
-  goToBand(route: string) {
+  goToBand(route: string, targetRoute?: any[]) {
     if (this._navigateToBand) {
-      this._navigateToBand(route);
+      this._navigateToBand(route, targetRoute);
     }
   }
 }
