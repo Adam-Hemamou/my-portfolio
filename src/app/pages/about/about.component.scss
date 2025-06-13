@@ -657,6 +657,10 @@ swiper-container::part(bullet-active) {
     margin-right: 120px;
   }
 
+  swiper-slide {
+    margin-right: 0 !important;
+  }
+
   .activity-section {
     padding: 3em;
     margin-right: 240px;

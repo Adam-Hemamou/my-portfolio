@@ -3,18 +3,71 @@
     <div>
       <span class="footer-title">NAVIGATION</span>
       <ul>
-        <li><a [routerLink]="['/']">Accueil</a></li>
-        <li><a [routerLink]="['/about']">Mon Parcours</a></li>
-        <li><a [routerLink]="['/projects']">Mes Projets</a></li>
-        <li><a [routerLink]="['/contact']">Me Contacter</a></li>
+        <li>
+          <a
+            *ngIf="isDesktopNav; else accueilLink"
+            (click)="goToBand('')"
+            style="cursor: pointer"
+            >Accueil</a
+          >
+          <ng-template #accueilLink>
+            <a [routerLink]="['/']">Accueil</a>
+          </ng-template>
+        </li>
+        <li>
+          <a
+            *ngIf="isDesktopNav; else aboutLink"
+            (click)="goToBand('about')"
+            style="cursor: pointer"
+            >Mon Parcours</a
+          >
+          <ng-template #aboutLink>
+            <a [routerLink]="['/about']">Mon Parcours</a>
+          </ng-template>
+        </li>
+        <li>
+          <a
+            *ngIf="isDesktopNav; else projectsLink"
+            (click)="goToBand('project')"
+            style="cursor: pointer"
+            >Mes Projets</a
+          >
+          <ng-template #projectsLink>
+            <a [routerLink]="['/project']">Mes Projets</a>
+          </ng-template>
+        </li>
+        <li>
+          <a
+            *ngIf="isDesktopNav; else contactLink"
+            (click)="goToBand('contact')"
+            style="cursor: pointer"
+            >Me Contacter</a
+          >
+          <ng-template #contactLink>
+            <a [routerLink]="['/contact']">Me Contacter</a>
+          </ng-template>
+        </li>
       </ul>
     </div>
-    <a class="footer-cta" [routerLink]="['/contact']">
+    <a
+      class="footer-cta"
+      *ngIf="isDesktopNav; else ctaLink"
+      (click)="goToBand('contact')"
+      style="cursor: pointer"
+    >
       <span class="footer-arrow">
         <img src="/svg/arrow.svg" alt="flèche" />
       </span>
       <span>Travailler ensemble</span>
     </a>
+    <ng-template #ctaLink>
+      <a class="footer-cta" [routerLink]="['/contact']">
+        <span class="footer-arrow">
+          <img src="/svg/arrow.svg" alt="flèche" />
+        </span>
+        <span>Travailler ensemble</span>
+      </a>
+    </ng-template>
   </nav>
   <div class="footer-section footer-contact">
     <span>Adam: 0678252910</span>

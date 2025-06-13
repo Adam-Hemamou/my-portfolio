@@ -78,7 +78,7 @@ export class BandAniamtionComponent {
         setTimeout(() => {
           this.activeBandIndex = null;
           this.isVisible = true;
-          this.currentRoute = targetRoute ? '' : this.bands[index].route;
+          this.currentRoute = targetRoute ? 'R' : this.bands[index].route;
         }, 900);
       });
     }, 700);
