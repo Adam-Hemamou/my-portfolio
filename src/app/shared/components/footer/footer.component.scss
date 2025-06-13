@@ -17,6 +17,7 @@
     font-weight: 400;
     margin-bottom: 0.5em;
     display: block;
+    cursor: default;
   }
   ul {
     list-style: none;
@@ -95,12 +96,14 @@
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
   padding-bottom: 0.7em;
+  cursor: default;
 }
 
 .footer-contact span {
   display: block;
   margin-bottom: 0.2em;
   font-weight: 600;
+  cursor: default;
 }
 
 @media (min-width: 375px) {

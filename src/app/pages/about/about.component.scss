@@ -7,6 +7,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  cursor: default;
 
   .about-rectangles {
     display: none;
@@ -116,6 +117,7 @@
   background: #f7f7f7;
   padding: 1.5em 1em 1em 1em;
   margin: 0;
+  cursor: default;
 
   .journey-title {
     font-size: 2rem;
@@ -199,6 +201,7 @@
   margin: 0 auto;
   max-width: 100%;
   text-align: start;
+  cursor: default;
 }
 
 .skills-header {
@@ -267,6 +270,7 @@ swiper-container::part(bullet-active) {
 
 .activity-section {
   padding: 2em 1.5em;
+  cursor: default;
 }
 
 .activity-title {
@@ -650,8 +654,8 @@ swiper-container::part(bullet-active) {
     }
   }
   .stacks-grid {
-    padding: 2em 4rem 3em;
     margin-right: 240px;
+    padding: 2rem 3rem 3rem;
   }
   swiper-container::part(pagination) {
     margin-right: 120px;
@@ -659,6 +663,10 @@ swiper-container::part(bullet-active) {
 
   swiper-slide {
     margin-right: 0 !important;
+
+    &:nth-child(2) {
+      margin-left: 20px;
+    }
   }
 
   .activity-section {
