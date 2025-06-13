@@ -93,30 +93,28 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--color-primary);
+    background-color: #111;
     border: 1.5px solid #111;
-    padding: 0 1em;
-    margin-right: 0.5em;
+    padding: 0.6em 1em;
+
+    // margin-right: 0.5em;
   }
 
   .arrow img {
     width: 1.2em;
     height: 1.2em;
     display: block;
+    filter: invert(1);
   }
 
   span:not(.arrow) {
-    border: 1.5px solid #111;
-    padding: 0.45em 1.2em;
+    border-top: 1.5px solid #111;
+    border-bottom: 1.5px solid #111;
+    border-right: 1.5px solid #111;
+    padding: 0.6em 1.2em;
     background: #fff;
     font-size: 1rem;
     font-family: "Montserrat", sans-serif;
-    color: #111;
-    transition: background 0.2s, color 0.2s;
-  }
-
-  &:hover span:not(.arrow) {
-    background: var(--color-primary);
     color: #111;
   }
 }
@@ -140,7 +138,7 @@
   }
   .project-btn span:not(.arrow) {
     font-size: 1.2rem;
-    padding: 0.5em 1.3em;
+    padding: 0.6em 1.3em;
   }
 }
 
@@ -172,6 +170,7 @@
     box-sizing: border-box;
     padding: 0;
     margin-bottom: 2.5em;
+    cursor: pointer;
   }
 
   .project-image {
@@ -203,7 +202,7 @@
     display: flex;
     flex-direction: column;
     gap: 1.2em;
-    justify-content: flex-end;
+    justify-content: space-around;
     padding: 1.9em 1.8em;
     margin: 6px 6px 0 0;
     border-top: 2px solid var(--color-primary);
@@ -240,5 +239,32 @@
       font-size: 1.6rem;
       padding: 0.6em 1em;
     }
+  }
+}
+
+@media (min-width: 1280px) {
+  .project-card {
+    max-height: 320px;
+  }
+
+  .project-image {
+    min-width: 280px;
+  }
+
+  .project-label {
+    font-size: 1.6rem;
+  }
+
+  .project-content {
+    padding: 2.1em 2.3em;
+  }
+
+  .project-title {
+    font-size: 2.8rem;
+    margin-top: 10px;
+  }
+
+  .project-subtitle {
+    font-size: 2rem;
   }
 }
