@@ -28,7 +28,7 @@ import { BandNavigationService } from '../../shared/services/band-navigation.ser
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AboutComponent {
-  constructor(private bandNav: BandNavigationService, private router: Router) {}
+  constructor(private bandNav: BandNavigationService) {}
 
   isDesktopNav = false;
 
