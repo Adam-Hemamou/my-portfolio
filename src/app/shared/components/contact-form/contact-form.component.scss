@@ -37,7 +37,7 @@
   align-items: center;
   border: 1.5px solid #222;
   background: #fff;
-  color: #222;
+  color: var(--color-dark);
   font-family: "Montserrat", sans-serif;
   font-size: 1.15rem;
   font-weight: 400;
@@ -53,7 +53,7 @@
 }
 
 .contact-btn-arrow {
-  background: #222;
+  background: var(--color-dark);
   display: flex;
   align-items: center;
   justify-content: center;

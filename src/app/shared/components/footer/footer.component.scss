@@ -3,7 +3,7 @@
   z-index: 2000;
   border-top: 1px solid #111;
   background: var(--color-primary, #c6ff1a);
-  color: #111;
+  color: var(--color-dark);
   font-family: "Montserrat", sans-serif;
   padding: 1.5rem 1rem 1rem 1rem;
   display: flex;
@@ -42,14 +42,14 @@
     border: 1px solid #111;
     text-decoration: none;
     font-size: 0.8rem;
-    color: #111;
+    color: var(--color-dark);
     font-weight: 400;
     border-radius: 0;
     overflow: hidden;
     width: 280px;
     max-width: 100%;
     .footer-arrow {
-      background: #111;
+      background: var(--color-dark);
       display: flex;
       align-items: center;
       justify-content: center;

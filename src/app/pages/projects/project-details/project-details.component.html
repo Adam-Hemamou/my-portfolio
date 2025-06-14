@@ -9,7 +9,7 @@
       <div class="project-link-btns" *ngIf="project?.site || project?.github">
         <a
           *ngIf="project.site; else githubBtn"
-          class="project-btn"
+          class="project-btn-redirect"
           [href]="project.site"
           target="_blank"
           rel="noopener"
@@ -22,7 +22,7 @@
         <ng-template #githubBtn>
           <a
             *ngIf="project.github"
-            class="project-btn"
+            class="project-btn-redirect"
             [href]="project.github"
             target="_blank"
             rel="noopener"
