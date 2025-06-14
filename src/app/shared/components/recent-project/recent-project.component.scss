@@ -43,6 +43,15 @@
     }
   }
 }
+@media (min-width: 1024px) {
+  .projects-list {
+    padding: 3rem 2rem 2em;
+    margin-right: 240px;
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
+}
 @media (min-width: 1280px) {
   .projects-list {
     padding: 3rem 3rem 2em;

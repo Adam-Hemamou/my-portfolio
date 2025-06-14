@@ -90,6 +90,8 @@
   box-shadow: none;
 
   .arrow {
+    border: 1.5px solid #111;
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -107,10 +109,9 @@
     filter: invert(1);
   }
 
-  span:not(.arrow) {
-    border-top: 1.5px solid #111;
-    border-bottom: 1.5px solid #111;
-    border-right: 1.5px solid #111;
+  .btn-label {
+    border: 1.5px solid #111;
+
     padding: 0.6em 1.2em;
     background: #fff;
     font-size: 1rem;
@@ -136,7 +137,7 @@
   .project-content {
     padding: 1.4em 1.3em 1.3em 1.3em;
   }
-  .project-btn span:not(.arrow) {
+  .project-btn .btn-label {
     font-size: 1.2rem;
     padding: 0.6em 1.3em;
   }
@@ -235,9 +236,111 @@
       padding: 0 1.5em;
     }
 
-    span:not(.arrow) {
+    .btn-label {
       font-size: 1.6rem;
       padding: 0.6em 1em;
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .project-title {
+    font-size: 2.4rem;
+  }
+
+  .project-subtitle {
+    font-size: 1.7rem;
+  }
+  .project-card:hover .project-image::after {
+    opacity: 1;
+  }
+  .project-image {
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, #baff00 0%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.4s;
+      z-index: 2;
+      pointer-events: none;
+    }
+    img {
+      position: relative;
+      z-index: 1;
+    }
+  }
+  .project-btn {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: stretch;
+    height: 70px;
+    .arrow,
+    .arrow-hover {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 70px; // carré fixe
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.4s cubic-bezier(0.77, 0, 0.18, 1), opacity 0.4s;
+      pointer-events: none;
+    }
+    .arrow {
+      border: 1.5px solid #111;
+
+      background: #111;
+      z-index: 1;
+      img {
+        filter: invert(1);
+        width: 2em;
+        height: 2em;
+      }
+    }
+    .arrow-hover {
+      border-top: 1.5px solid #111;
+      border-bottom: 1.5px solid #111;
+      border-left: 1.5px solid #111;
+
+      background: var(--color-primary);
+      z-index: 1;
+      transform: translateX(-100%);
+      img {
+        width: 2em;
+        height: 2em;
+      }
+    }
+    .btn-label {
+      border: 1.5px solid #111;
+
+      position: relative;
+      z-index: 2;
+      margin-left: 70px; // même largeur que le carré
+      padding: 0.6em 1.2em;
+      background: #fff;
+      color: #111;
+      font-size: 1.6rem;
+      display: flex;
+      align-items: center;
+      height: 100%;
+      transition: background 0.4s, color 0.4s;
+    }
+  }
+  .project-card:hover .project-btn {
+    .arrow {
+      transform: translateX(100%);
+    }
+    .arrow-hover {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    .btn-label {
+      background: #fff;
+      color: #111;
     }
   }
 }

@@ -12,7 +12,7 @@ import { BandNavigationService } from '../../services/band-navigation.service';
 })
 export class MenuComponent {
   isOpen = false;
-  isDesktopNav = window.innerWidth >= 1280;
+  isDesktopNav = window.innerWidth >= 1024;
 
   menuItems = [
     { label: 'Accueil', link: '/' },
@@ -23,7 +23,7 @@ export class MenuComponent {
 
   constructor(private bandNav: BandNavigationService) {
     window.addEventListener('resize', () => {
-      this.isDesktopNav = window.innerWidth >= 1280;
+      this.isDesktopNav = window.innerWidth >= 1024;
     });
   }
 

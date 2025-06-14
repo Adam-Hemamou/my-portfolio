@@ -14,13 +14,13 @@ import { NgIf } from '@angular/common';
 export class ProjectCardComponent {
   @Input() project!: Project;
 
-  isDesktopNav = window.innerWidth >= 1280;
+  isDesktopNav = window.innerWidth >= 1024;
 
   constructor(private bandNav: BandNavigationService) {}
 
   ngOnInit() {
     window.addEventListener('resize', () => {
-      this.isDesktopNav = window.innerWidth >= 1280;
+      this.isDesktopNav = window.innerWidth >= 1024;
     });
   }
 

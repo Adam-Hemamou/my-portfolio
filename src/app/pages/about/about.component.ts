@@ -141,7 +141,7 @@ export class AboutComponent {
 
   checkScreen() {
     this.isDesktop = window.innerWidth >= 768;
-    this.isDesktopNav = window.innerWidth >= 1280;
+    this.isDesktopNav = window.innerWidth >= 1024;
   }
 
   get stackGroups(): Stack[][] {
