@@ -214,6 +214,48 @@
   }
 }
 
+@media (min-width: 1024px) and (max-width: 1279px) {
+  html {
+    overflow-y: scroll;
+  }
+  .hero-parent {
+    margin-right: 240px; /* ou la largeur de ton menu latéral version compacte */
+  }
+  .hero-title {
+    height: 400px;
+    margin-top: 1rem;
+  }
+  .dev-title {
+    font-size: 16vw;
+    padding-top: 1rem;
+  }
+  .web-title {
+    font-size: 21.5vw;
+    top: 13.5rem;
+    left: 73%;
+    -webkit-text-stroke: 1.2px var(--color-dark);
+  }
+  .hero-info {
+    top: 22.5rem;
+    margin-left: 2vw;
+    margin-top: 0;
+  }
+  .portfolio-title {
+    font-size: 1.5rem;
+  }
+  .portfolio-name {
+    font-size: 1.3rem;
+  }
+  .open-to-work {
+    font-size: 1.2rem;
+    margin-top: 0.7rem;
+    padding: 0.5em 1.3em 0.5em 1.1em;
+  }
+  .home-band {
+    margin-top: 0;
+  }
+}
+
 @media (min-width: 1280px) {
   html {
     overflow-y: scroll;

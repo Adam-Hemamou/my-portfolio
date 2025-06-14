@@ -19,13 +19,13 @@ import { NgIf } from '@angular/common';
 })
 export class AppComponent {
   hasNavigated = false;
-  isDesktop = window.innerWidth >= 1280;
+  isDesktop = window.innerWidth >= 1024;
   private firstNavigation = true;
 
   constructor(private router: Router) {
     this.router.events.subscribe(async (event) => {
       if (event instanceof NavigationEnd) {
-        if (window.innerWidth < 1280) {
+        if (window.innerWidth < 1024) {
           await this.smoothScrollToTop();
         }
         if (this.firstNavigation) {

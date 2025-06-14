@@ -125,10 +125,44 @@
   }
 }
 
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .projects-hero {
+    height: 400px;
+    padding: 3rem 2rem 3rem 2rem;
+    gap: 0;
+    margin-top: 1rem;
+
+    .projects-hero-content {
+      max-width: 350px;
+
+      .projects-title {
+        font-size: 1.7rem;
+      }
+
+      .projects-desc {
+        font-size: 1.1rem;
+      }
+    }
+
+    .projects-hero-svg {
+      width: 350px;
+      height: 350px;
+      margin-right: 200px;
+      padding-right: 2rem;
+    }
+  }
+
+  .projects-list {
+    padding: 2rem 2rem 2em;
+    margin-right: 240px;
+  }
+}
+
 @media (min-width: 1280px) {
   .projects-hero {
     height: 532px;
     padding: 3.5rem 0 3rem 3rem;
+    margin-top: 1rem;
     .projects-hero-content {
       flex: 1 1 0;
       max-width: 400px;

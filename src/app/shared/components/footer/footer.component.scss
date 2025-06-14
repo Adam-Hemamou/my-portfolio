@@ -276,6 +276,12 @@
   }
 }
 
+@media (min-width: 1024px) {
+  .footer {
+    padding: 2rem 2rem 1.5rem;
+  }
+}
+
 @media (min-width: 1280px) {
   .footer {
     padding: 2rem 3rem 1.5rem;

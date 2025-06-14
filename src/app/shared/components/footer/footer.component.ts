@@ -21,7 +21,7 @@ export class FooterComponent {
   }
 
   checkScreen() {
-    this.isDesktopNav = window.innerWidth >= 1280;
+    this.isDesktopNav = window.innerWidth >= 1024;
   }
 
   goToBand(route: string) {

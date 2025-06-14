@@ -167,6 +167,41 @@
   }
 }
 
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .contact-form {
+    padding: 3em 2em;
+    gap: 2em;
+    margin-right: 240px;
+  }
+  .contact-form label {
+    font-size: 1.25rem;
+  }
+  .contact-form input {
+    font-size: 1.15rem;
+    padding: 0 0.2em 0.9em;
+  }
+  .contact-btn {
+    min-height: 70px;
+    max-width: 420px;
+    margin: 1.2em auto;
+    font-size: 1.2rem;
+  }
+  .contact-btn-arrow {
+    width: 80px;
+    height: 70px;
+    min-width: 80px;
+    min-height: 70px;
+    img {
+      width: 1.8em;
+      height: 1.8em;
+    }
+  }
+  .contact-btn span:last-child {
+    font-size: 1.25rem;
+    height: 60px;
+  }
+}
+
 @media (min-width: 1280px) {
   .contact-form {
     padding: 3.5em 3em 3.5em;
