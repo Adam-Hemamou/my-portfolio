@@ -1,5 +1,5 @@
 .projects-hero {
-  background: #222;
+  background: var(--color-dark);
   color: #fff;
   margin-top: 0.8em;
   padding: 2.2rem 1.2rem 2rem 1.2rem;
@@ -54,7 +54,7 @@
   font-size: 1.1rem;
   font-family: "Montserrat", sans-serif;
   margin-bottom: 1.5rem;
-  color: #eee;
+  color: #fff;
   line-height: 1.5;
   margin-top: 1.2rem;
 }

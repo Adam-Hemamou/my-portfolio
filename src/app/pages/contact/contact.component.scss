@@ -1,5 +1,5 @@
 .contact-hero {
-  background: #222;
+  background: var(--color-dark);
   color: #fff;
   margin-top: 0.8em;
   padding: 2.2rem 1.2rem 2rem 1.2rem;
@@ -21,7 +21,7 @@
       width: 0;
     }
     to {
-      width: 11.5ch; // adapte à la longueur de "Contactez-moi"
+      width: 11.5ch;
     }
   }
 

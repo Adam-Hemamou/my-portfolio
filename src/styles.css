@@ -10,7 +10,9 @@
 
 :root {
   --color-primary: #bff000;
-  --color-dark: #201e1f;
+  /* #201e1f */
+  --color-lightdark: #111;
+  --color-dark: #000;
 }
 
 .hero-title {
@@ -93,7 +95,7 @@
 .open-to-work {
   display: flex;
   align-items: center;
-  background: #111;
+  background: var(--color-dark);
   color: #fff;
   border-radius: 2rem;
   padding: 0.3em 1em 0.3em 0.5em;

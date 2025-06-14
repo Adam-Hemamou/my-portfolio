@@ -1,5 +1,5 @@
 .about-hero {
-  background: #222;
+  background: var(--color-dark);
   color: #fff;
   margin-top: 0.8em;
   padding: 2.2rem 1.2rem 2rem 1.2rem;
@@ -72,7 +72,6 @@
   display: flex;
   align-items: center;
   border: 1px solid var(--color-primary, #c6ff1a);
-  background: #222;
   color: #fff;
   font-family: "Montserrat", sans-serif;
   font-size: 1.1rem;
@@ -108,8 +107,7 @@
     height: 46px;
     padding: 0 1em;
     font-size: 1.1rem;
-    background: #222;
-    border-left: 1px solid var(--color-primary, #c6ff1a);
+    background: var(--color-dark);
   }
 }
 
@@ -278,13 +276,13 @@ swiper-container::part(bullet-active) {
   font-weight: 700;
   font-family: "Montserrat", sans-serif;
   margin-bottom: 0.4em;
-  color: #000000;
+  color: var(--color-dark);
   line-height: 1;
 }
 
 .activity-desc {
   font-size: 0.8rem;
-  color: #000000;
+  color: var(--color-dark);
   margin-bottom: 2em;
   font-family: "Montserrat", sans-serif;
   max-width: 420px;
@@ -440,7 +438,7 @@ swiper-container::part(bullet-active) {
     .about-rectangles img {
       position: absolute;
       bottom: 0;
-      right: -5%;
+      right: -5.5%;
       width: 95%;
       height: 92%;
       object-fit: cover;
@@ -472,7 +470,6 @@ swiper-container::part(bullet-active) {
     flex: 1 1 0;
     max-width: 316px;
   }
-  // Ajoute ici tes rectangles décoratifs en ::before/::after si besoin
   .about-journey {
     display: flex;
     flex-direction: row;
@@ -582,6 +579,10 @@ swiper-container::part(bullet-active) {
       height: 320px;
       margin-right: 260px;
       margin-left: 0;
+
+      img {
+        right: -6%;
+      }
     }
   }
 
@@ -603,16 +604,17 @@ swiper-container::part(bullet-active) {
   }
 
   .about-cta {
-    width: 200px;
+    width: 240px;
     font-size: 1rem;
+    margin-top: 1.8rem;
 
     .about-arrow {
       width: 40px;
       height: 40px;
 
       img {
-        width: 1.1em;
-        height: 1.1em;
+        width: 1.5em;
+        height: 1.5em;
       }
     }
 
@@ -693,6 +695,10 @@ swiper-container::part(bullet-active) {
       height: 420px;
       margin-right: 240px;
       margin-left: 0;
+
+      img {
+        right: -4.4%;
+      }
     }
   }
 

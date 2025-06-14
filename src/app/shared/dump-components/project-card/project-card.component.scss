@@ -1,6 +1,6 @@
 .project-card {
   background: #fff;
-  border: 1px solid #111;
+  border: 1px solid var(--color-dark);
   box-shadow: none;
   border-radius: 0;
   overflow: hidden;
@@ -15,7 +15,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 1.1/1;
-  background: #222;
+  background: var(--color-dark);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -31,14 +31,14 @@
     top: 14px;
     right: 14px;
     background: var(--color-primary);
-    color: #111;
+    color: var(--color-dark);
     font-family: "Bebas Neue", sans-serif;
     font-size: 0.95rem;
     padding: 0.18em 1.1em;
     font-weight: 700;
-    border-radius: 2px;
     letter-spacing: 0.05em;
     box-shadow: none;
+    z-index: 1;
     text-transform: uppercase;
   }
 }
@@ -67,7 +67,7 @@
 .project-subtitle {
   font-family: "Montserrat", sans-serif;
   font-size: 1rem;
-  color: #444;
+  color: var(--color-lightdark);
   display: block;
   margin-bottom: 0.7em;
   margin-top: -0.2em;
@@ -88,18 +88,15 @@
   outline: none;
   cursor: pointer;
   box-shadow: none;
+  border: 1.5px solid var(--color-lightdark);
+  width: 220px;
 
   .arrow {
-    border: 1.5px solid #111;
-
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #111;
-    border: 1.5px solid #111;
+    background-color: var(--color-dark);
     padding: 0.6em 1em;
-
-    // margin-right: 0.5em;
   }
 
   .arrow img {
@@ -110,13 +107,12 @@
   }
 
   .btn-label {
-    border: 1.5px solid #111;
-
+    margin: 0 auto;
     padding: 0.6em 1.2em;
     background: #fff;
     font-size: 1rem;
     font-family: "Montserrat", sans-serif;
-    color: #111;
+    color: var(--color-dark);
   }
 }
 
@@ -137,9 +133,13 @@
   .project-content {
     padding: 1.4em 1.3em 1.3em 1.3em;
   }
-  .project-btn .btn-label {
-    font-size: 1.2rem;
-    padding: 0.6em 1.3em;
+  .project-btn {
+    width: 240px;
+
+    .btn-label {
+      font-size: 1.2rem;
+      padding: 0.6em 1.3em;
+    }
   }
 }
 
@@ -214,18 +214,19 @@
   }
 
   .project-title {
-    font-size: 2.6rem;
+    font-size: 2.4rem;
     font-weight: 700;
     margin-top: 0.2em;
     margin-bottom: 0.1em;
   }
 
   .project-subtitle {
-    font-size: 1.9rem;
+    font-size: 1.7rem;
     // margin-bottom: 1.2em;
   }
 
   .project-btn {
+    width: 290px;
     align-self: flex-start;
     .arrow img {
       width: 1.85em;
@@ -238,18 +239,18 @@
 
     .btn-label {
       font-size: 1.6rem;
-      padding: 0.6em 1em;
+      padding: 0.6em 0.7em;
     }
   }
 }
 
 @media (min-width: 1024px) {
   .project-title {
-    font-size: 2.4rem;
+    font-size: 2.2rem;
   }
 
   .project-subtitle {
-    font-size: 1.7rem;
+    font-size: 1.5rem;
   }
   .project-card:hover .project-image::after {
     opacity: 1;
@@ -277,6 +278,7 @@
     display: flex;
     align-items: stretch;
     height: 70px;
+    width: 300px;
     .arrow,
     .arrow-hover {
       position: absolute;
@@ -291,9 +293,7 @@
       pointer-events: none;
     }
     .arrow {
-      border: 1.5px solid #111;
-
-      background: #111;
+      background: var(--color-dark);
       z-index: 1;
       img {
         filter: invert(1);
@@ -302,10 +302,6 @@
       }
     }
     .arrow-hover {
-      border-top: 1.5px solid #111;
-      border-bottom: 1.5px solid #111;
-      border-left: 1.5px solid #111;
-
       background: var(--color-primary);
       z-index: 1;
       transform: translateX(-100%);
@@ -315,7 +311,7 @@
       }
     }
     .btn-label {
-      border: 1.5px solid #111;
+      border-left: 1.5px solid var(--color-dark);
 
       position: relative;
       z-index: 2;
@@ -359,15 +355,19 @@
   }
 
   .project-content {
-    padding: 2.1em 2.3em;
+    padding: 2.1em 1em 2.1em 2.3em;
   }
 
   .project-title {
-    font-size: 2.8rem;
-    margin-top: 10px;
+    font-size: 2.6rem;
+    margin-top: 5px;
   }
 
   .project-subtitle {
-    font-size: 2rem;
+    font-size: 1.8rem;
+  }
+
+  .project-btn {
+    min-height: 68.4px;
   }
 }
