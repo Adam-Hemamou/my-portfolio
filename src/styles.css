@@ -22,7 +22,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 3rem;
+  margin-top: 2.5rem;
   font-family: "Oswald", sans-serif;
   line-height: 1;
   cursor: default;
@@ -61,8 +61,8 @@
 
 .hero-info {
   position: absolute;
-  top: 10rem;
-  left: 2vw;
+  top: 8.8rem;
+  left: 1.5vw;
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -80,16 +80,16 @@
 
 .portfolio-title {
   font-weight: 600;
-  font-size: 0.65rem;
+  font-size: 0.8rem;
   line-height: 1;
   margin-bottom: 0;
 }
 
 .portfolio-name {
-  font-size: 0.55rem;
+  font-size: 0.7rem;
   color: #222;
   line-height: 1;
-  margin-top: -0.2em;
+  margin-top: 0.2em;
 }
 
 .open-to-work {
@@ -99,7 +99,7 @@
   color: #fff;
   border-radius: 2rem;
   padding: 0.3em 1em 0.3em 0.5em;
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   margin-top: 0.3rem;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
 }
@@ -125,19 +125,22 @@
     top: 5.4rem;
   }
   .hero-info {
-    top: 10.5rem;
+    top: 9.8rem;
   }
   .portfolio-title {
     font-size: 1rem;
   }
   .portfolio-name {
-    margin-top: 0.2em;
+    margin-top: 0.1em;
     font-size: 0.9rem;
   }
   .open-to-work {
     font-size: 0.85rem;
     margin-top: 0.4rem;
     padding: 0.4em 1.2em 0.4em 0.7em;
+  }
+  .home-band {
+    margin-top: 5em;
   }
 }
 
@@ -158,7 +161,7 @@
 @media (min-width: 414px) {
   .hero-title {
     height: 12rem;
-    /* margin-top: 6rem; */
+    margin-top: 3rem;
   }
   .dev-title {
     font-size: 21.5vw;
@@ -169,7 +172,7 @@
     top: 6.5rem;
   }
   .hero-info {
-    top: 13rem;
+    top: 12rem;
   }
   .portfolio-title {
     font-size: 1.1rem;

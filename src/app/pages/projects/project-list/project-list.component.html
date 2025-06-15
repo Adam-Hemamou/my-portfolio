@@ -7,6 +7,18 @@
       imperdiet.<br />
       Praesent suscipit ante at tincidunt varius.
     </p>
+    <a class="about-cta" *ngIf="isDesktopNav" (click)="onContactClick()">
+      <span class="about-arrow">
+        <img src="/svg/arrow.svg" alt="flèche" />
+      </span>
+      <span>Me contacter</span>
+    </a>
+    <a class="about-cta" *ngIf="!isDesktopNav" [routerLink]="['/contact']">
+      <span class="about-arrow">
+        <img src="/svg/arrow.svg" alt="flèche" />
+      </span>
+      <span>Me contacter</span>
+    </a>
   </div>
   <div class="projects-hero-svg">
     <img src="svg/carre.svg" alt="" />

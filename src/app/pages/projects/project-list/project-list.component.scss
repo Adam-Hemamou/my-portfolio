@@ -63,6 +63,49 @@
   padding: 40px 10px 20px;
 }
 
+.about-cta {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--color-primary, #c6ff1a);
+  color: #fff;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 0;
+  overflow: hidden;
+  width: 220px;
+  min-height: 46px;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+  padding: 0;
+
+  .about-arrow {
+    background: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+    min-height: 46px;
+    img {
+      width: 1.3em;
+      height: 1.3em;
+    }
+  }
+  span:last-child {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 46px;
+    padding: 0 1em;
+    font-size: 1.1rem;
+    background: var(--color-dark);
+  }
+}
+
 @media (min-width: 375px) {
   .projects-hero {
     padding: 2.5rem 1.5rem 2.2rem 1.5rem;
@@ -73,6 +116,23 @@
 
     .projects-desc {
       font-size: 1.05rem;
+    }
+
+    .about-cta {
+      width: 240px;
+      font-size: 1.15rem;
+      .about-arrow {
+        width: 50px;
+        height: 50px;
+        img {
+          width: 1.5em;
+          height: 1.5em;
+        }
+      }
+      span:last-child {
+        font-size: 1.15rem;
+        height: 50px;
+      }
     }
   }
 
@@ -89,6 +149,22 @@
 
     .projects-desc {
       font-size: 1.1rem;
+    }
+    .about-cta {
+      width: 260px;
+      font-size: 1.18rem;
+      .about-arrow {
+        width: 54px;
+        height: 54px;
+        img {
+          width: 1.6em;
+          height: 1.6em;
+        }
+      }
+      span:last-child {
+        font-size: 1.18rem;
+        height: 54px;
+      }
     }
   }
 }
@@ -144,6 +220,24 @@
       }
     }
 
+    .about-cta {
+      width: 240px;
+      font-size: 1rem;
+      margin-top: 2rem;
+      .about-arrow {
+        width: 40px;
+        height: 40px;
+        img {
+          width: 1.5em;
+          height: 1.5em;
+        }
+      }
+      span:last-child {
+        font-size: 1rem;
+        height: 40px;
+      }
+    }
+
     .projects-hero-svg {
       width: 350px;
       height: 350px;
@@ -180,6 +274,23 @@
       height: 420px;
       margin-right: 240px;
       padding-right: 3rem;
+    }
+    .about-cta {
+      width: 320px;
+      font-size: 1.4rem;
+      margin-top: 2rem;
+      .about-arrow {
+        width: 60px;
+        height: 60px;
+        img {
+          width: 1.8em;
+          height: 1.8em;
+        }
+      }
+      span:last-child {
+        font-size: 1.4rem;
+        height: 60px;
+      }
     }
   }
 
