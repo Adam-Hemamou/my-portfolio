@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { BandNavigationService } from '../../services/band-navigation.service';
 import { NgIf } from '@angular/common';
 
@@ -12,12 +12,17 @@ import { NgIf } from '@angular/common';
 })
 export class FooterComponent {
   isDesktopNav = false;
+  currentRoute = '';
 
-  constructor(private bandNav: BandNavigationService) {}
+  constructor(private bandNav: BandNavigationService, private router: Router) {}
 
   ngOnInit() {
     this.checkScreen();
     window.addEventListener('resize', this.checkScreen.bind(this));
+    this.router.events.subscribe(() => {
+      this.currentRoute = this.router.url.split('?')[0];
+    });
+    this.currentRoute = this.router.url.split('?')[0];
   }
 
   checkScreen() {

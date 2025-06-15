@@ -8,10 +8,13 @@
             *ngIf="isDesktopNav; else accueilLink"
             (click)="goToBand('')"
             style="cursor: pointer"
+            [class.active]="currentRoute === '/'"
             >Accueil</a
           >
           <ng-template #accueilLink>
-            <a [routerLink]="['/']">Accueil</a>
+            <a [routerLink]="['/']" [class.active]="currentRoute === '/'"
+              >Accueil</a
+            >
           </ng-template>
         </li>
         <li>
@@ -19,10 +22,15 @@
             *ngIf="isDesktopNav; else aboutLink"
             (click)="goToBand('about')"
             style="cursor: pointer"
+            [class.active]="currentRoute === '/about'"
             >Mon Parcours</a
           >
           <ng-template #aboutLink>
-            <a [routerLink]="['/about']">Mon Parcours</a>
+            <a
+              [routerLink]="['/about']"
+              [class.active]="currentRoute === '/about'"
+              >Mon Parcours</a
+            >
           </ng-template>
         </li>
         <li>
@@ -30,10 +38,15 @@
             *ngIf="isDesktopNav; else projectsLink"
             (click)="goToBand('project')"
             style="cursor: pointer"
+            [class.active]="currentRoute === '/project'"
             >Mes Projets</a
           >
           <ng-template #projectsLink>
-            <a [routerLink]="['/project']">Mes Projets</a>
+            <a
+              [routerLink]="['/project']"
+              [class.active]="currentRoute === '/project'"
+              >Mes Projets</a
+            >
           </ng-template>
         </li>
         <li>
@@ -41,10 +54,15 @@
             *ngIf="isDesktopNav; else contactLink"
             (click)="goToBand('contact')"
             style="cursor: pointer"
+            [class.active]="currentRoute === '/contact'"
             >Me Contacter</a
           >
           <ng-template #contactLink>
-            <a [routerLink]="['/contact']">Me Contacter</a>
+            <a
+              [routerLink]="['/contact']"
+              [class.active]="currentRoute === '/contact'"
+              >Me Contacter</a
+            >
           </ng-template>
         </li>
       </ul>
