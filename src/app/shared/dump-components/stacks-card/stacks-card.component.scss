@@ -10,6 +10,8 @@
   font-size: 0.8rem;
   padding-right: 8px;
   color: var(--color-primary);
+  height: 80px;
+  width: 130px;
 
   // Reflet lumineux en haut à gauche
   &::after {
@@ -113,5 +115,19 @@
   }
   .stack-name {
     font-size: 1.1rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .stack-card {
+    width: 220px;
+    height: 145px;
+  }
+  .stack-icon {
+    width: 70px;
+    height: 70px;
+  }
+  .stack-name {
+    font-size: 1.5rem;
   }
 }

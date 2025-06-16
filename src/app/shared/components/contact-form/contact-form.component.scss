@@ -109,7 +109,7 @@
 }
 @media (min-width: 414px) {
   .contact-form {
-    padding: 2.5em 2em 3.2em;
+    padding: 2.5em 1.5em 3.2em;
   }
   .contact-form label {
     font-size: 1.1rem;
@@ -135,7 +135,7 @@
 }
 @media (min-width: 768px) {
   .contact-form {
-    padding: 3em 3em 3.5em;
+    padding: 3em 2em 3.5em;
     gap: 2.2em;
     margin: 0 auto;
   }
@@ -232,6 +232,36 @@
   }
   .contact-btn span:last-child {
     font-size: 1.5rem;
+    height: 70px;
+  }
+}
+@media (min-width: 1440px) {
+  .contact-form {
+    padding: 4em 5em;
+  }
+  .contact-form label {
+    font-size: 1.6rem;
+  }
+  .contact-form input {
+    font-size: 1.6rem;
+  }
+  .contact-btn {
+    min-height: 100px;
+    max-width: 500px;
+    margin: 1.5em auto;
+  }
+  .contact-btn-arrow {
+    width: 100px;
+    height: 100px;
+    min-width: 100px;
+    min-height: 100px;
+    img {
+      width: 2.4em;
+      height: 2.4em;
+    }
+  }
+  .contact-btn span:last-child {
+    font-size: 1.8rem;
     height: 70px;
   }
 }
