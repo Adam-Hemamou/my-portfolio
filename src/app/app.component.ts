@@ -35,7 +35,7 @@ export class AppComponent {
         }
       }
       window.addEventListener('resize', () => {
-        this.isDesktop = window.innerWidth >= 1280;
+        this.isDesktop = window.innerWidth >= 1024;
       });
     });
   }
@@ -48,7 +48,6 @@ export class AppComponent {
         return;
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      // Attend que le scroll soit terminé (~400ms)
       setTimeout(resolve, 400);
     });
   }

@@ -17,7 +17,7 @@ export const slider = trigger('slider', [
         ':enter',
         [
           style({ transform: 'translateX(100%)' }),
-          animate('900ms ease-in-out', style({ transform: 'translateX(0)' })),
+          animate('1200ms ease-in-out', style({ transform: 'translateX(0)' })),
         ],
         { optional: true }
       ),
@@ -26,7 +26,7 @@ export const slider = trigger('slider', [
         [
           style({ transform: 'translateX(0)' }),
           animate(
-            '900ms ease-in-out',
+            '1200ms ease-in-out',
             style({ transform: 'translateX(-100%)' })
           ),
         ],
