@@ -13,7 +13,7 @@
 
 @media (min-width: 375px) {
   .projects-list {
-    padding: 40px 12px 20px;
+    padding: 1.5em 1.5em 1em 1.5em;
     h2 {
       font-size: 1.5rem;
     }
@@ -29,7 +29,6 @@
 }
 @media (min-width: 414px) {
   .projects-list {
-    padding: 40px 14px 20px;
     h2 {
       font-size: 1.7rem;
     }
@@ -37,7 +36,7 @@
 }
 @media (min-width: 768px) {
   .projects-list {
-    padding: 40px 20px 20px;
+    padding: 2.5rem 2rem 2rem 2rem;
     h2 {
       font-size: 1.7rem;
     }
@@ -63,7 +62,7 @@
 }
 @media (min-width: 1440px) {
   .projects-list {
-    padding: 3rem 4rem 2em;
+    padding: 3rem 10rem 2em 5.5rem;
     h2 {
       font-size: 2.5rem;
     }

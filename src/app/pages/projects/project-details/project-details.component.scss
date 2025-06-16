@@ -411,7 +411,7 @@
     grid-column: 2;
     grid-row: 1 / span 3;
     align-self: center;
-    justify-self: center;
+    justify-self: flex-end;
     margin: 0;
     width: 300px;
     height: 360px;
@@ -623,6 +623,103 @@
     }
 
     .tools-grid {
+      margin-right: 240px;
+    }
+  }
+}
+@media (min-width: 1440px) {
+  .project-hero {
+    padding: 3.5rem 2rem 3.5rem 4rem;
+    .project-hero-content {
+      max-width: 550px;
+
+      .project-title {
+        font-size: 3rem;
+      }
+      .project-context {
+        font-size: 1.6rem;
+      }
+      .project-link-btns {
+        .project-btn-redirect {
+          width: 360px;
+          .arrow {
+            width: 70px;
+            height: 70px;
+
+            img {
+              width: 2em;
+              height: 2em;
+            }
+          }
+          span:last-child {
+            font-size: 1.6rem;
+            height: 70px;
+          }
+        }
+      }
+    }
+    .project-hero-svg {
+      width: 480px;
+      height: 530px;
+      padding-right: 1.5rem;
+    }
+  }
+
+  .project-main-layout {
+    grid-template-columns: 550px 1fr;
+    margin-right: 240px;
+    padding: 3rem 4rem;
+
+    @media (min-width: 1480px) {
+      grid-template-columns: 600px 1fr;
+    }
+  }
+
+  .challenge-title {
+    font-size: 3rem;
+  }
+
+  .challenge-list {
+    li {
+      font-size: 1.6rem;
+    }
+    .challenge-puce {
+      width: 1.3em;
+      height: 1.3em;
+    }
+  }
+
+  .solution-section {
+    .solution-title {
+      font-size: 2.8rem;
+    }
+    .solution-content {
+      font-size: 1.5rem;
+    }
+  }
+
+  .project-rectangles {
+    width: 500px;
+    height: 600px;
+  }
+
+  .tools-section {
+    padding: 3.5rem 4rem 5rem;
+
+    .tools-content {
+      padding-left: 0.5em;
+      margin-right: 240px;
+
+      .tools-title {
+        font-size: 2.8rem;
+      }
+      .tools-subtitle {
+        font-size: 1.8rem;
+      }
+    }
+
+    .tools-grid {
+      margin-top: 10px;
       margin-right: 240px;
     }
   }

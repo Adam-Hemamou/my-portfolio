@@ -371,3 +371,33 @@
     min-height: 68.4px;
   }
 }
+@media (min-width: 1440px) {
+  .project-card {
+    max-height: 360px;
+  }
+
+  .project-image {
+    min-width: 250px;
+  }
+
+  .project-label {
+    font-size: 1.8rem;
+  }
+
+  .project-content {
+    padding: 2.1em 1em 2.1em 2.3em;
+  }
+
+  .project-title {
+    font-size: 2.8rem;
+    margin-top: 5px;
+  }
+
+  .project-subtitle {
+    font-size: 1.9rem;
+  }
+
+  .project-btn {
+    min-height: 68.4px;
+  }
+}

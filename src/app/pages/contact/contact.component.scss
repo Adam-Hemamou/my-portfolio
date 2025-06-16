@@ -82,7 +82,7 @@
 }
 @media (min-width: 414px) {
   .contact-hero {
-    padding: 2.5rem 2rem 2rem;
+    padding: 2.5rem 1.5rem 2rem;
     .contact-title {
       font-size: 2.2rem;
     }
@@ -100,10 +100,10 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 2.5rem 2.5rem 2rem 2.5rem;
+    padding: 2rem 1rem 2em 2em;
     .contact-hero-content {
       flex: 1 1 0;
-      max-width: 320px;
+      max-width: 340px;
     }
     .contact-hero-svg {
       display: flex;
@@ -175,6 +175,31 @@
     }
     .contact-desc {
       font-size: 1.5rem;
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  .contact-hero {
+    padding: 3.5rem 2rem 3.5rem 4rem;
+
+    .contact-hero-content {
+      max-width: 550px;
+    }
+    .contact-title {
+      font-size: 3rem;
+    }
+    .contact-subtitle {
+      font-size: 1.8rem;
+    }
+    .contact-desc {
+      font-size: 1.6rem;
+    }
+    .contact-hero-svg {
+      width: 450px;
+      height: 450px;
+      margin-right: 240px;
+      padding-right: 1.5rem;
     }
   }
 }
