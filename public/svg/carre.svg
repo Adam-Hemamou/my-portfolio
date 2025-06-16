@@ -9,8 +9,6 @@
     </filter>
   </defs>
 
-  <!-- Fond noir -->
-  <!-- <rect width="100%" height="100%" fill="black" /> -->
 
   <!-- Rectangles lumineux -->
   <rect x="53.5" y="368.5" width="342" height="316" stroke="#BFF000" stroke-width="1.5" filter="url(#strong-glow)" />

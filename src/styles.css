@@ -15,6 +15,18 @@
   --color-dark: #000;
 }
 
+.neon-svg {
+  filter: drop-shadow(0 0 1px #fff) drop-shadow(0 0 1px #bff000)
+    drop-shadow(0px 20px 2px #bff000);
+}
+.white-neon-svg {
+  filter: drop-shadow(0 0 1px #fff) drop-shadow(0 0 1px #bff000)
+    drop-shadow(-20px -20px 1px #bff000);
+}
+.white-neon1-svg {
+  filter: drop-shadow(0 0 1px #fff) drop-shadow(0 0 1px #bff000);
+}
+
 .hero-title {
   position: relative;
   width: 100%;
