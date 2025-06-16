@@ -81,7 +81,7 @@ export class BandAniamtionComponent {
           this.currentRoute = targetRoute ? 'R' : this.bands[index].route;
         }, 900);
       });
-    }, 700);
+    }, 600);
   }
 
   shouldSlide(index: number): boolean {
