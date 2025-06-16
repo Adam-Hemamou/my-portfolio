@@ -474,6 +474,8 @@ swiper-container::part(bullet-active) {
       position: absolute;
       border: 1.5px solid #c6ff1a;
       pointer-events: none;
+      filter: drop-shadow(0 0 1px #fff) drop-shadow(0 0 1px #bff000)
+        drop-shadow(-10px 10px 1px #bff000);
     }
     .about-rectangles::before {
       top: 0;
