@@ -34,7 +34,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 2.5rem;
+  margin-top: 2rem;
   font-family: "Oswald", sans-serif;
   line-height: 1;
   cursor: default;
@@ -73,7 +73,7 @@
 
 .hero-info {
   position: absolute;
-  top: 8.8rem;
+  top: 8.5rem;
   left: 1.5vw;
   display: flex;
   flex-direction: column;

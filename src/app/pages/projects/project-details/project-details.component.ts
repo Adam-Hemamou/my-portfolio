@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectService } from '../../../shared/services/project.service';
-import { Project } from '../../../shared/models/project.type';
+import { Project } from '../../../shared/types/project.type';
 import { MenuComponent } from '../../../shared/components/menu/menu.component';
 import { FooterComponent } from '../../../shared/components/footer/footer.component';
 import { AnimateBandComponent } from '../../../shared/components/animate-band/animate-band.component';

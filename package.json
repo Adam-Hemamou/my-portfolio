@@ -25,6 +25,7 @@
     "@angular/platform-browser": "^19.0.0",
     "@angular/platform-browser-dynamic": "^19.0.0",
     "@angular/router": "^19.0.0",
+    "aos": "^2.3.4",
     "front-matter": "^4.0.2",
     "marked": "^15.0.7",
     "marked-gfm-heading-id": "^4.1.1",

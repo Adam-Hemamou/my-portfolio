@@ -14,8 +14,8 @@ export const slideInBands = trigger('slideInBands', [
       '.band',
       [
         style({ transform: 'translateX(500%)' }),
-        stagger(120, [
-          animate('300ms ease-out', style({ transform: 'translateX(0)' })),
+        stagger(100, [
+          animate('600ms ease-out', style({ transform: 'translateX(0)' })),
         ]),
       ],
       { optional: true }

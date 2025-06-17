@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Project } from '../../models/project.type';
+import { Project } from '../../types/project.type';
 import { NgFor } from '@angular/common';
 import { ProjectCardComponent } from '../../dump-components/project-card/project-card.component';
 
