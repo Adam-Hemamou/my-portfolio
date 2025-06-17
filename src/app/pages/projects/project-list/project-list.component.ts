@@ -3,7 +3,7 @@ import { AnimateBandComponent } from '../../../shared/components/animate-band/an
 import { MenuComponent } from '../../../shared/components/menu/menu.component';
 import { FooterComponent } from '../../../shared/components/footer/footer.component';
 import { ProjectCardComponent } from '../../../shared/dump-components/project-card/project-card.component';
-import { Project } from '../../../shared/models/project.type';
+import { Project } from '../../../shared/types/project.type';
 import { NgFor, NgIf } from '@angular/common';
 import { ProjectService } from '../../../shared/services/project.service';
 import { BandNavigationService } from '../../../shared/services/band-navigation.service';

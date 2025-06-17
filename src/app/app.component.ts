@@ -48,7 +48,7 @@ export class AppComponent {
         return;
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      setTimeout(resolve, 400);
+      setTimeout(resolve, 5000);
     });
   }
 

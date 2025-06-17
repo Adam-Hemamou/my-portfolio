@@ -3,18 +3,31 @@
   <div class="about-hero-content">
     <h2>
       <span class="about-name">Adam Hemamou</span>
-      <span class="about-job">Développeur web</span>
+      <span
+        class="about-job"
+        data-aos="fade-up"
+        data-aos-delay="200"
+        data-aos-duration="800"
+        >Développeur web</span
+      >
     </h2>
-    <p class="about-desc">
+    <p
+      class="about-desc"
+      data-aos="fade-up"
+      data-aos-delay="200"
+      data-aos-duration="800"
+    >
       Bonjour, je m'appelle Adam, et je suis un jeune developpeur freelance, je
       suis toujours à la recherche de projets innovant et ambitieux.
     </p>
-    <a class="about-cta" *ngIf="isDesktopNav" (click)="onContactClick()">
-      <span class="about-arrow">
-        <img src="/svg/arrow.svg" alt="flèche" />
-      </span>
-      <span>Me contacter</span>
-    </a>
+    <div data-aos="fade-up" data-aos-delay="200" data-aos-duration="800">
+      <a class="about-cta" *ngIf="isDesktopNav" (click)="onContactClick()">
+        <span class="about-arrow">
+          <img src="/svg/arrow.svg" alt="flèche" />
+        </span>
+        <span>Me contacter</span>
+      </a>
+    </div>
 
     <a class="about-cta" *ngIf="!isDesktopNav" [routerLink]="['/contact']">
       <span class="about-arrow">
@@ -23,7 +36,12 @@
       <span>Me contacter</span>
     </a>
   </div>
-  <div class="about-rectangles">
+  <div
+    class="about-rectangles"
+    data-aos="fade-up"
+    data-aos-delay="600"
+    data-aos-duration="800"
+  >
     <img src="/me/me.png" alt="Adam Hemamou" />
     <!-- Les rectangles décoratifs en CSS -->
   </div>

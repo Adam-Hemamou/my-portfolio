@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Project } from '../../models/project.type';
+import { Project } from '../../types/project.type';
 import { Router, RouterLink } from '@angular/router';
 import { BandNavigationService } from '../../services/band-navigation.service';
 import { NgIf } from '@angular/common';

@@ -3,10 +3,10 @@ import { FooterComponent } from '../../shared/components/footer/footer.component
 import { MenuComponent } from '../../shared/components/menu/menu.component';
 import { AnimateBandComponent } from '../../shared/components/animate-band/animate-band.component';
 import { StacksCardComponent } from '../../shared/dump-components/stacks-card/stacks-card.component';
-import { Stack } from '../../shared/models/stack.type';
+import { Stack } from '../../shared/types/stack.type';
 import { NgFor, NgIf } from '@angular/common';
 import { ActivityCardComponent } from '../../shared/dump-components/activity-card/activity-card.component';
-import { Activity } from '../../shared/models/activity.type';
+import { Activity } from '../../shared/types/activity.type';
 import { Router, RouterLink } from '@angular/router';
 import { BandNavigationService } from '../../shared/services/band-navigation.service';
 
