@@ -2,11 +2,29 @@
 <div *ngIf="project">
   <div class="project-hero">
     <div class="project-hero-content">
-      <h2 class="project-title">{{ project.title }}</h2>
-      <p class="project-context">
+      <h2
+        class="project-title"
+        data-aos="fade-right"
+        data-aos-delay="200"
+        data-aos-duration="800"
+      >
+        {{ project.title }}
+      </h2>
+      <p
+        class="project-context"
+        data-aos="fade-right"
+        data-aos-delay="300"
+        data-aos-duration="800"
+      >
         {{ project.context }}
       </p>
-      <div class="project-link-btns" *ngIf="project?.site || project?.github">
+      <div
+        class="project-link-btns"
+        *ngIf="project?.site || project?.github"
+        data-aos="fade-right"
+        data-aos-delay="400"
+        data-aos-duration="800"
+      >
         <a
           *ngIf="project.site; else githubBtn"
           class="project-btn-redirect"
@@ -35,7 +53,12 @@
         </ng-template>
       </div>
     </div>
-    <div class="project-hero-svg">
+    <div
+      class="project-hero-svg"
+      data-aos="fade-up"
+      data-aos-delay="600"
+      data-aos-duration="800"
+    >
       <img src="svg/carre-blck-noneom.svg" class="neon-svg" alt="" />
     </div>
   </div>
@@ -48,8 +71,20 @@
         <span>{{ c }}</span>
       </li>
     </ul>
-    <div class="project-rectangles">
-      <img [src]="project.image" [alt]="project.title" class="project-photo" />
+    <div
+      class="project-rectangles"
+      data-aos="fade-up"
+      data-aos-delay="200"
+      data-aos-duration="800"
+    >
+      <img
+        [src]="project.image"
+        [alt]="project.title"
+        class="project-photo"
+        data-aos="fade-up"
+        data-aos-delay="400"
+        data-aos-duration="800"
+      />
     </div>
     <div class="solution-section" *ngIf="project.solution">
       <h3 class="solution-title">Solution</h3>

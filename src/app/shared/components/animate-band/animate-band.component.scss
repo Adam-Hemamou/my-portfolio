@@ -2,6 +2,8 @@
   overflow: hidden;
   background: var(--color-primary);
   cursor: default;
+  position: relative;
+  z-index: 10;
 }
 
 .band-track {
