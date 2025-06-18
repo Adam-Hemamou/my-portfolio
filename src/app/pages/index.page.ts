@@ -17,10 +17,14 @@ import { FooterComponent } from '../shared/components/footer/footer.component';
     <app-menu></app-menu>
     <div class="hero-parent">
       <h1 class="hero-title">
-        <span class="dev-title" data-aos="fade-right" data-aos-duration="800"
+        <span class="dev-title" data-aos="fade-up" data-aos-duration="800"
           >DÉVELOPPEUR</span
         >
-        <span class="web-title" data-aos="fade-right" data-aos-duration="800"
+        <span
+          class="web-title"
+          data-aos="fade-up"
+          data-aos-delay="200"
+          data-aos-duration="800"
           >WEB</span
         >
       </h1>

@@ -42,9 +42,7 @@
 
 .dev-title {
   position: absolute;
-  left: 50%;
   top: 0.5rem;
-  transform: translateX(-50%);
   font-size: 21vw;
   color: var(--color-dark);
   font-weight: 900;
@@ -56,7 +54,7 @@
 
 .web-title {
   position: absolute;
-  left: 72%;
+  left: 45%;
   top: 4.5rem;
   transform: translateX(-50%);
   font-size: 30vw;
@@ -66,6 +64,7 @@
   margin-left: auto;
   margin-top: -0.3em;
   margin-right: 0.2em;
+  z-index: 1;
 
   -webkit-text-stroke: 1px var(--color-dark);
   /* text-stroke: 0.5px var(--color-dark); */
@@ -137,7 +136,7 @@
     top: 5.4rem;
   }
   .hero-info {
-    top: 9.8rem;
+    top: 9.4rem;
   }
   .portfolio-title {
     font-size: 1rem;
@@ -152,7 +151,7 @@
     padding: 0.4em 1.2em 0.4em 0.7em;
   }
   .home-band {
-    margin-top: 5em;
+    margin-top: 4em;
   }
 }
 
@@ -173,7 +172,7 @@
 @media (min-width: 414px) {
   .hero-title {
     height: 12rem;
-    margin-top: 3rem;
+    margin-top: 2.5rem;
   }
   .dev-title {
     font-size: 21.5vw;
@@ -184,7 +183,7 @@
     top: 6.5rem;
   }
   .hero-info {
-    top: 12rem;
+    top: 11.5rem;
   }
   .portfolio-title {
     font-size: 1.1rem;
@@ -196,6 +195,10 @@
     font-size: 0.92rem;
     margin-top: 0.5rem;
   }
+
+  .home-band {
+    margin-top: 3.5em;
+  }
 }
 
 @media (min-width: 768px) {
@@ -203,25 +206,26 @@
     height: 20rem;
   }
   .dev-title {
-    font-size: 21vw;
+    font-size: 21.5vw;
     top: 2.5rem;
   }
   .web-title {
-    font-size: 28vw;
-    left: 72.6%;
+    font-size: 27vw;
+    left: 52%;
     top: 12.2rem;
   }
   .hero-info {
-    top: 21rem;
+    top: 19.5rem;
+    left: 0;
   }
   .portfolio-title {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
   }
   .portfolio-name {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
   }
   .open-to-work {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     margin-top: 0.6rem;
     padding: 0.5em 1.3em 0.5em 1.1em;
   }
@@ -236,35 +240,29 @@
     overflow-y: scroll;
   }
   .hero-parent {
-    margin-right: 240px; /* ou la largeur de ton menu latéral version compacte */
+    margin-right: 240px;
   }
   .hero-title {
     height: 400px;
     margin-top: 1rem;
   }
   .dev-title {
-    font-size: 16vw;
-    padding-top: 1rem;
+    font-size: 16.5vw;
+    padding-top: 0.7rem;
   }
   .web-title {
     font-size: 21.5vw;
     top: 13.5rem;
-    left: 73%;
+    left: 49.9%;
     -webkit-text-stroke: 1.2px var(--color-dark);
   }
   .hero-info {
-    top: 22.5rem;
-    margin-left: 2vw;
+    top: 21.3rem;
+    margin-left: 3.2vw;
     margin-top: 0;
   }
-  .portfolio-title {
-    font-size: 1.5rem;
-  }
-  .portfolio-name {
-    font-size: 1.3rem;
-  }
+
   .open-to-work {
-    font-size: 1.2rem;
     margin-top: 0.7rem;
     padding: 0.5em 1.3em 0.5em 1.1em;
   }
@@ -285,29 +283,29 @@
     margin-top: 1rem;
   }
   .dev-title {
-    font-size: 18vw;
+    font-size: 17.7vw;
   }
   .web-title {
-    font-size: 25vw;
-    top: 16rem;
-    left: 73%;
+    font-size: 24.8vw;
+    top: 16.4rem;
+    left: 46.5%;
     -webkit-text-stroke: 1.8px var(--color-dark);
   }
   .hero-info {
-    top: 27rem;
-    margin-left: 0.5vw;
+    top: 26.5rem;
+    margin-left: 3vw;
     margin-top: 0;
   }
   .portfolio-title {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
   .portfolio-name {
-    font-size: 1.8rem;
+    font-size: 1.9rem;
   }
   .open-to-work {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     margin-top: 0.85rem;
-    padding: 0.5em 1.5em 0.5em 1.3em;
+    padding: 0.55em 1.5em 0.59em 1.3em;
   }
 
   .home-band {
@@ -317,17 +315,17 @@
 
 @media (min-width: 1440px) {
   .dev-title {
-    top: 1;
-    font-size: 17vw;
+    top: 3rem;
+    font-size: 17.5vw;
   }
   .web-title {
     font-size: 20vw;
-    top: 18rem;
-    left: 75.5%;
+    top: 19rem;
+    left: 56%;
   }
   .hero-info {
-    top: 27rem;
-    margin-left: 4vw;
+    top: 28.5rem;
+    margin-left: 4.5vw;
   }
 
   .portfolio-title {
