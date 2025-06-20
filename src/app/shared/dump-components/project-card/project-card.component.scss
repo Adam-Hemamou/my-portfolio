@@ -343,11 +343,12 @@
 
 @media (min-width: 1280px) {
   .project-card {
-    max-height: 320px;
+    max-height: 350px;
   }
 
   .project-image {
-    min-width: 280px;
+    min-width: 350px;
+    width: 40%;
   }
 
   .project-label {
@@ -356,6 +357,7 @@
 
   .project-content {
     padding: 2.1em 1em 2.1em 2.3em;
+    width: 60%;
   }
 
   .project-title {

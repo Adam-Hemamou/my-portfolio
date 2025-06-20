@@ -22,6 +22,7 @@ export class RecentProjectComponent {
       solution: '',
       challenge: [],
       outils: [],
+      images: [],
     },
     {
       id: 'wow-game',
@@ -33,6 +34,7 @@ export class RecentProjectComponent {
       solution: '',
       challenge: [],
       outils: [],
+      images: [],
     },
   ];
 }

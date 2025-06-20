@@ -28,6 +28,12 @@ export class ProjectService {
         { name: 'Google Analytics', icon: '/stacks/google.png' },
         { name: 'Vercel', icon: '/stacks/vercel.png' },
       ],
+      images: [
+        '/project-img/6.png',
+        '/project-img/square.png',
+        '/project-img/square.png',
+        '/project-img/7.png',
+      ],
       site: 'https://ondeo-angency.com',
     },
     {
@@ -54,6 +60,12 @@ export class ProjectService {
         { name: 'Postman', icon: '/stacks/postman.png' },
         { name: 'Google Maps', icon: '/stacks/google-maps.png' },
       ],
+      images: [
+        '/project-img/6.png',
+        '/project-img/square.png',
+        '/project-img/square.png',
+        '/project-img/7.png',
+      ],
       github: 'https://github.com/Adam-Hemamou/Eco-scan',
     },
     {
@@ -75,6 +87,12 @@ export class ProjectService {
         { name: 'Java', icon: '/stacks/java.png' },
         { name: 'Spring', icon: '/stacks/spring.png' },
         { name: 'Postman', icon: '/stacks/postman.png' },
+      ],
+      images: [
+        '/project-img/6.png',
+        '/project-img/square.png',
+        '/project-img/square.png',
+        '/project-img/7.png',
       ],
       github: 'https://github.com/Adam-Hemamou/card-game-front',
     },
@@ -104,6 +122,12 @@ export class ProjectService {
         { name: 'SQL', icon: '/stacks/sql.png' },
         { name: 'Postman', icon: '/stacks/postman.png' },
       ],
+      images: [
+        '/project-img/6.png',
+        '/project-img/square.png',
+        '/project-img/square.png',
+        '/project-img/7.png',
+      ],
       github: 'https://github.com/Adam-Hemamou/BabyPlace',
     },
     {
@@ -122,6 +146,12 @@ export class ProjectService {
         "Utilisation de l'API L’Oréal pour récupérer les données des produits",
         "Mise un place d'un questionnaire pour trouver les produits adaptés aux besoins des utilisateurs",
         "Mise en place d'un système de recommandation basé sur d'autres utilisateurs ayant des besoins similaires",
+      ],
+      images: [
+        '/project-img/6.png',
+        '/project-img/square.png',
+        '/project-img/square.png',
+        '/project-img/7.png',
       ],
       outils: [
         { name: 'React.js', icon: '/stacks/react.png' },
@@ -145,6 +175,12 @@ export class ProjectService {
         'Maquettage du site avec Figma',
         'Création d’un formulaire dynamique pour collecter les données des utilisateurs',
         "Calcul de l’empreinte carbone en fonction des données saisies à l'aide d'une API web",
+      ],
+      images: [
+        '/project-img/6.png',
+        '/project-img/square.png',
+        '/project-img/square.png',
+        '/project-img/7.png',
       ],
       outils: [
         { name: 'React.js', icon: '/stacks/react.png' },
