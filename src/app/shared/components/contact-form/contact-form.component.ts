@@ -11,7 +11,6 @@ import { ContactData } from '../../types/contact-data.type';
   styleUrls: ['./contact-form.component.scss'],
 })
 export class ContactFormComponent {
-  email: string = import.meta.env['VITE_CONTACT_FORM_EMAIL'];
   templateId: string = import.meta.env['VITE_EMAIL_JS_TEMPLATE_ID'];
   serviceId: string = import.meta.env['VITE_EMAIL_JS_SERVICE_ID'];
   publicKey: string = import.meta.env['VITE_EMAIL_JS_PUBLIC_KEY'];
@@ -62,7 +61,7 @@ export class ContactFormComponent {
       if (this.notification) this.notification.leaving = true;
       setTimeout(() => {
         this.notification = null;
-      }, 500); // durée de l'animation de sortie
-    }, 2000); // durée d'affichage
+      }, 500);
+    }, 2000);
   }
 }

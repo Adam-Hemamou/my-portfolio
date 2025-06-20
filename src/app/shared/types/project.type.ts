@@ -10,6 +10,7 @@ export type Project = {
   solution?: string;
   challenge?: string[];
   outils?: Stack[];
+  images: string[];
   site?: string;
   github?: string;
 };

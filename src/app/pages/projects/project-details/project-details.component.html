@@ -106,4 +106,26 @@
     ></app-stacks-card>
   </div>
 </div>
+<swiper-container
+  *ngIf="project"
+  class="project-images-carousel"
+  slides-per-view="1"
+  slides-per-group="1"
+  space-between="20"
+  pagination="true"
+>
+  <swiper-slide *ngFor="let img of project.images">
+    <div class="img-container">
+      <img [src]="img" alt="Image projet" style="width: 100%" />
+    </div>
+  </swiper-slide>
+</swiper-container>
+
+<div class="project-images-grid" *ngIf="project">
+  <img class="img-landscape" [src]="project.images[0]" />
+  <img class="img-square" [src]="project.images[1]" />
+  <img class="img-square" [src]="project.images[2]" />
+  <img class="img-landscape" [src]="project.images[3]" />
+</div>
+
 <app-footer></app-footer>
