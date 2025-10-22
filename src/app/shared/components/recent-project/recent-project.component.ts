@@ -14,7 +14,7 @@ export class RecentProjectComponent {
   projects: Project[] = [
     {
       id: 'ondeo',
-      image: '/project-img/test.png',
+      image: '/project-img/ondeo/0.png',
       label: 'WEBSITE',
       title: 'ONDEO',
       subtitle: 'Agence créative',
@@ -26,7 +26,7 @@ export class RecentProjectComponent {
     },
     {
       id: 'wow-game',
-      image: '/project-img/test.png',
+      image: '/project-img/wow-land/40.png',
       label: 'JEU',
       title: 'WOW LAND',
       subtitle: 'Jeu de carte à scanner',
