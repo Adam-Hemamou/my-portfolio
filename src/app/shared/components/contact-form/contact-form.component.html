@@ -17,12 +17,16 @@
 
   <label>MESSAGE *</label>
   <input type="text" name="msg" [(ngModel)]="formData.msg" required />
-
   <button type="submit" class="contact-btn">
-    <span class="contact-btn-arrow">
-      <img src="/svg/arrow.svg" alt="flèche" />
-    </span>
-    <span>Envoyer mon message</span>
+    <div class="contact-btn-arrow-container">
+      <span class="contact-btn-arrow">
+        <img src="/svg/arrow.svg" alt="flèche" />
+      </span>
+      <span class="contact-btn-arrow-hover">
+        <img src="/svg/arrow.svg" alt="flèche" />
+      </span>
+    </div>
+    <span class="contact-txt">Envoyer mon message</span>
   </button>
 </form>
 <div

@@ -68,14 +68,19 @@
       </ul>
     </div>
     <a
-      class="footer-cta"
+      class="footer-cta-desk"
       *ngIf="isDesktopNav; else ctaLink"
       (click)="goToBand('contact')"
       style="cursor: pointer"
     >
-      <span class="footer-arrow">
-        <img src="/svg/arrow.svg" alt="flèche" />
-      </span>
+      <div class="footer-arrow-container">
+        <span class="footer-arrow">
+          <img src="/svg/arrow.svg" alt="flèche" />
+        </span>
+        <span class="footer-arrow-hover">
+          <img src="/svg/arrow.svg" alt="flèche" />
+        </span>
+      </div>
       <span>Travailler ensemble</span>
     </a>
     <ng-template #ctaLink>

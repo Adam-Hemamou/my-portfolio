@@ -42,15 +42,7 @@
         font-weight: 300;
       }
 
-      span {
-        width: 30px;
-        height: 20px;
-        background-color: var(--color-primary);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: solid 1px var(--color-dark);
-
+      .arrow-container {
         img {
           max-width: 100%;
           max-height: 100%;
@@ -84,7 +76,7 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: auto; // Laisse la hauteur s'adapter au contenu
+  height: auto;
   background: var(--color-primary);
   z-index: 101;
   transition: transform 0.4s cubic-bezier(0.77, 0, 0.18, 1);
@@ -93,7 +85,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  transform: translateY(-100%); // Caché au-dessus de l'écran
+  transform: translateY(-100%);
 
   ul {
     list-style: none;
@@ -139,22 +131,11 @@
   }
 }
 
-// Effet radiant au clic (active ou focus)
-// .menu-link:hover {
-//   background: linear-gradient(
-//     90deg,
-//     rgba(255, 255, 255, 0.915) 0%,
-//     var(--color-primary) 40%,
-//     var(--color-primary) 100%
-//   );
-// }
-
 .menu-link {
   position: relative;
   overflow: hidden;
   z-index: 1;
 
-  // Pseudo-élément pour le gradient animé
   &::before {
     content: "";
     position: absolute;
@@ -172,14 +153,12 @@
     transition: width 0.4s cubic-bezier(0.77, 0, 0.18, 1);
   }
 
-  // Le contenu du lien reste au-dessus
   .menu-text,
   .menu-icon {
     position: relative;
     z-index: 1;
   }
 
-  // Animation au hover
   &:hover::before {
     width: 100%;
   }
@@ -188,6 +167,48 @@
 .menu-drawer.open {
   transform: translateY(0);
   pointer-events: auto;
+}
+
+.arrow-container {
+  position: relative;
+  overflow: hidden;
+  width: 30px;
+  height: 20px;
+  border: solid 1px var(--color-dark);
+
+  .arrow,
+  .arrow-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.4s cubic-bezier(0.77, 0, 0.18, 1);
+  }
+
+  .arrow {
+    background-color: var(--color-primary);
+    z-index: 1;
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      filter: none;
+    }
+  }
+
+  .arrow-hover {
+    background-color: var(--color-dark);
+    z-index: 1;
+    transform: translateX(-100%);
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      filter: invert(1);
+    }
+  }
 }
 
 @media (min-width: 375px) {
@@ -203,7 +224,8 @@
         .developper {
           font-size: 0.9rem;
         }
-        span {
+        .arrow-container {
+          // ← Change span par .arrow-container
           width: 31px;
           height: 21px;
         }
@@ -239,7 +261,8 @@
         .developper {
           font-size: 1rem;
         }
-        span {
+        .arrow-container {
+          // ← Change span par .arrow-container
           width: 32px;
           height: 22px;
         }
@@ -275,7 +298,8 @@
         .developper {
           font-size: 1.1rem;
         }
-        span {
+        .arrow-container {
+          // ← Change span par .arrow-container
           width: 33px;
           height: 23px;
         }
@@ -317,9 +341,17 @@
         .developper {
           font-size: 1.5rem;
         }
-        span {
+        .arrow-container {
           width: 40px;
           height: 30px;
+
+          .arrow,
+          .arrow-hover {
+            img {
+              width: 18px;
+              height: 18px;
+            }
+          }
         }
       }
     }
@@ -328,11 +360,6 @@
       padding-right: 20px;
       p {
         font-size: 2rem;
-      }
-
-      img {
-        width: 38px;
-        height: 40px;
       }
     }
   }
@@ -359,5 +386,16 @@
   .menu-overlay,
   .menu-drawer {
     display: none !important;
+  }
+
+  .logo:hover {
+    .under-name .arrow-container {
+      .arrow {
+        transform: translateX(100%);
+      }
+      .arrow-hover {
+        transform: translateX(0);
+      }
+    }
   }
 }
