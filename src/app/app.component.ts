@@ -3,23 +3,33 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { slider } from './shared/animations/slider.animation';
 import { BandAniamtionComponent } from './shared/components/band-aniamtion/band-aniamtion.component';
 import { NgIf } from '@angular/common';
-// import { BandAniamtionComponent } from './shared/components/animate-band/animate-band.component';
+import { WelcomeComponent } from './pages/welcome/welcome/welcome.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, BandAniamtionComponent, NgIf],
+  imports: [RouterOutlet, BandAniamtionComponent, NgIf, WelcomeComponent],
   template: `
-    <app-band-animation *ngIf="isDesktop"></app-band-animation>
-    <main [@slider]="isDesktop ? prepareRoute(outlet) : null">
-      <router-outlet #outlet="outlet"></router-outlet>
-    </main>
+    <!-- Page Welcome avec GIF (avant tout) -->
+    <app-welcome
+      *ngIf="showWelcome"
+      (welcomeCompleted)="onWelcomeCompleted()"
+    ></app-welcome>
+
+    <!-- App normale après Welcome -->
+    <div *ngIf="!showWelcome">
+      <app-band-animation *ngIf="isDesktop"></app-band-animation>
+      <main [@slider]="isDesktop ? prepareRoute(outlet) : null">
+        <router-outlet #outlet="outlet"></router-outlet>
+      </main>
+    </div>
   `,
   animations: [slider],
 })
 export class AppComponent {
   hasNavigated = false;
   isDesktop = window.innerWidth >= 1024;
+  showWelcome = true;
   private firstNavigation = true;
 
   constructor(private router: Router) {
@@ -28,6 +38,7 @@ export class AppComponent {
         if (window.innerWidth < 1024) {
           await this.smoothScrollToTop();
         }
+        // Logique originale simple
         if (this.firstNavigation) {
           this.firstNavigation = false;
         } else {
@@ -38,6 +49,10 @@ export class AppComponent {
         this.isDesktop = window.innerWidth >= 1024;
       });
     });
+  }
+
+  onWelcomeCompleted() {
+    this.showWelcome = false;
   }
 
   private smoothScrollToTop(): Promise<void> {
