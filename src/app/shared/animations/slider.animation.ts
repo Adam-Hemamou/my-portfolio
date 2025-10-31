@@ -8,6 +8,11 @@ import {
 } from '@angular/animations';
 
 export const slider = trigger('slider', [
+  // Ignore les transitions depuis/vers un état vide (premier chargement)
+  transition('void => *', []),
+  transition('* => void', []),
+
+  // Animation normale entre les pages (pas depuis vide)
   transition('* <=> *', [
     query(':enter, :leave', style({ position: 'fixed', width: '100%' }), {
       optional: true,
