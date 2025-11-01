@@ -13,14 +13,15 @@ export class ProjectService {
       title: 'ONDEO',
       subtitle: 'Agence créative',
       context:
-        'Création du site vitrine de l’agence ONDEO, spécialisée dans la création de sites web et d’applications mobiles.',
+        'ONDEO est une agence spécialisée dans le montage vidéo et le motion design, souhaitant un site vitrine pour présenter ses services et ses réalisations.',
       solution:
-        'Création d’un site vitrine moderne et responsive, mettant en avant les services de l’agence.',
+        "Création d’un site vitrine moderne et responsive, reflétant l'identité visuelle de l’agence et mettant en valeur ses services et réalisations.",
       challenge: [
+        "Réaliser la maquette en accord avec l'image et l'identité visuelle de l’agence",
         'Assurer une bonne expérience utilisateur sur tous les appareils',
         'Mettre en avant les services de l’agence de manière claire et attractive',
         'Développement avec Analog.js (Angular + SSG) pour des performances optimales',
-        'Intégraton de biblotheque tierces: Email.js, AOS, Swiper',
+        'Intégration de bibliothèques tierces: Email.js, AOS, Swiper, Calendly',
       ],
       outils: [
         { name: 'Angular.js', icon: '/stacks/angular.png' },
@@ -41,16 +42,17 @@ export class ProjectService {
       image: '/project-img/eco-scan/5.png',
       label: 'APPLICATION',
       title: 'ECOSCAN',
-      subtitle: 'Application ecorésponsable',
+      subtitle: 'Application écoresponsable',
       context:
-        'Développement d’une application web pour aider les utilisateurs à réduire leur empreinte carbone en scannant les codes-barres des produits.',
+        'Application web écoresponsable visant à aider les utilisateurs à trier leurs déchets et à adopter des comportements plus durables, tout en rendant le processus ludique et motivant grâce à un système de points et de récompenses.',
       solution:
-        'Création d’une application web intuitive et facile à utiliser, permettant aux utilisateurs de scanner les codes-barres des produits pour obtenir des informations sur leur méthode de recyclage.',
+        'Création d’une application web intuitive permettant de scanner produits et points de dépôt pour obtenir des infos sur le tri, localiser les zones de recyclage via Google Maps et cumuler des points échangeables contre des coupons auprès d’entreprises partenaires.',
       challenge: [
-        "Conception d'une base de données pour stocker les informations sur les déchets",
-        "Utiliser de l'API google maps pour localiser les points de recyclage",
-        'Utilisation de la dependence Ngx-scanner afin de scanner les Qr codes sur les déchets',
-        'Créer une interface utilisateur intuitive, dynamique & responsive',
+        'Conception d’une base de données complète regroupant informations sur les déchets, points de dépôt, utilisateurs, entreprises et coupons.',
+        'Intégration de l’API Google Maps pour localiser les points de recyclage.',
+        'Mise en place d’un système de points et de récompenses pour encourager les comportements écoresponsables.',
+        'Implémentation du scan de QR codes avec la dépendance Ngx-scanner.',
+        'Création d’une interface utilisateur intuitive, responsive et engageante.',
       ],
       outils: [
         { name: 'Figma', icon: '/stacks/figma.png' },
@@ -75,12 +77,15 @@ export class ProjectService {
       title: 'WOW LAND',
       subtitle: 'The Game',
       context:
-        'Développement d’un jeu vidéo inspiré de l’univers de WAW, un projet fictif de jeu vidéo.',
+        'Jeu de cartes interactif pour 2 joueurs, où les cartes physiques contiennent des QR codes déclenchant des actions dans l’application.',
       solution:
-        'Création d’un jeu vidéo en 2D avec des graphismes pixel art, mettant en avant les personnages et l’univers de WAW.',
+        'Développement d’un jeu vidéo 2D avec une logique de tour par tour, où chaque carte scannée déclenche des effets (attaque, armure, soins, poison, ...).',
       challenge: [
-        'Créer un gameplay fluide et intuitif',
-        'Développer des graphismes attrayants en pixel art',
+        'Concevoir une base de données pour enregistrer les cartes et leurs effets',
+        'Implémenter la logique tour par tour et la résolution des effets via le design pattern Chain of Responsibility',
+        'Centraliser la logique du jeu avec le design pattern Facade pour simplifier l’architecture',
+        'Implémentation du scan de QR codes avec la dépendance Ngx-scanner.',
+        'Réaliser le projet en seulement 2 jours pour un mini hackathon.',
       ],
       outils: [
         { name: 'Angular.js', icon: '/stacks/angular.png' },
@@ -103,15 +108,15 @@ export class ProjectService {
       title: 'BABYPLACE',
       subtitle: 'Plateforme de mise en relation',
       context:
-        "Développement d'une plateforme visant à connecter des professionnels de la petite enfance avec des parents",
+        'Plateforme connectant les parents aux professionnels de la petite enfance pour faciliter la recherche et la communication.',
       solution:
-        'Création d’une plateforme web moderne et intuitive, facilitant la mise en relation entre les parents et les professionnels de la petite enfance.',
+        'Création d’une plateforme web moderne et intuitive, permettant aux parents de rechercher et contacter des professionnels, et aux structures d’enregistrer leur crèche, gérer leurs rendez-vous et suivre leurs interactions avec les familles.',
       challenge: [
-        "Conception d'une base de données pour stocker les informations sur les professionnels et les parents",
-        "Mise ne place d'une API REST pour gérer les données avec un CRUD complet",
+        "Conception d'une base de données pour gérer les informations des professionnels, des crèches et des parents",
+        "Mise en place d'une API REST pour gérer les données avec un CRUD complet",
         'Authentification et autorisation des utilisateurs avec JWT (Parents et Professionnels)',
-        "Création d'un systeme de prise de rendez-vous",
-        "Integration d'une bibliotheque afin d'utiliser un stepper pour l'inscription",
+        "Création d'un système de prise de rendez-vous intégré pour les deux types d'utilisateurs",
+        "Intégration d'un stepper pour simplifier le processus d'inscription",
         'Assurer une bonne expérience utilisateur sur tous les appareils',
       ],
       outils: [
@@ -139,13 +144,14 @@ export class ProjectService {
       context:
         'Application pour L’Oréal visant à proposer des produits adaptés aux personnes atteintes de cancer, 3°e place au hackathon',
       solution:
-        "Création d'une application web permettant aux utilisateurs de trouver des produits cosmétiques adaptés à leur condition, avec des conseils et des recommandations personnalisées.",
+        "Création d’une application web intuitive permettant aux utilisateurs de trouver des produits adaptés à leur condition, avec des conseils personnalisés et un système de recommandations basé sur les besoins similaires d'autres utilisateurs.",
       challenge: [
         "Création d'une interface utilisateur intuitive et accessible",
         'Authentification et autorisation des utilisateurs avec JWT',
         "Utilisation de l'API L’Oréal pour récupérer les données des produits",
-        "Mise un place d'un questionnaire pour trouver les produits adaptés aux besoins des utilisateurs",
-        "Mise en place d'un système de recommandation basé sur d'autres utilisateurs ayant des besoins similaires",
+        'Création d’un questionnaire pour déterminer les produits adaptés aux besoins des utilisateurs',
+        'Développement d’un système de recommandation basé sur les utilisateurs similaires (machine learning)',
+        'Réaliser le projet en seulement 3 jours lors du hackathon national',
       ],
       images: [
         '/project-img/elegance/25-rec.png',
@@ -168,13 +174,14 @@ export class ProjectService {
       title: 'GREENPOINT',
       subtitle: 'Générateur de bilan de CO2',
       context:
-        'Site dynamique pour calculer l’empreinte carbone d’un l’utilisateur',
+        'Site dynamique et interactif permettant aux utilisateurs d’évaluer leur empreinte carbone et de suivre leur progression écologique.',
       solution:
-        "Création d’un site web permettant aux utilisateurs de calculer leur empreinte carbone en fonction de leurs habitudes de consommation avec des axes d'amelioration.",
+        'Création d’un site web moderne et dynamique avec un questionnaire interactif pour calculer l’empreinte carbone, fournir des conseils personnalisés et attribuer des points en fonction des progrès réalisés.',
       challenge: [
-        'Maquettage du site avec Figma',
-        'Création d’un formulaire dynamique pour collecter les données des utilisateurs',
-        "Calcul de l’empreinte carbone en fonction des données saisies à l'aide d'une API web",
+        'Maquettage du site avec Figma pour une interface intuitive',
+        'Création d’un formulaire interactif pour collecter les données des utilisateurs',
+        'Calcul de l’empreinte carbone à partir des réponses à l’aide d’une API web',
+        'Mise en place d’un système de suivi des progrès et d’attribution de points pour motiver l’engagement écologique',
       ],
       images: [
         '/project-img/green-point/19-rec.png',
