@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectService } from '../../../shared/services/project.service';
 import { Project } from '../../../shared/types/project.type';
@@ -7,6 +7,7 @@ import { FooterComponent } from '../../../shared/components/footer/footer.compon
 import { AnimateBandComponent } from '../../../shared/components/animate-band/animate-band.component';
 import { NgFor, NgIf } from '@angular/common';
 import { StacksCardComponent } from '../../../shared/dump-components/stacks-card/stacks-card.component';
+import { SEOService } from '../../../shared/services/seo.service';
 
 @Component({
   selector: 'app-project-details',
@@ -23,8 +24,9 @@ import { StacksCardComponent } from '../../../shared/dump-components/stacks-card
   styleUrls: ['./project-details.component.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class ProjectDetailsComponent {
+export class ProjectDetailsComponent implements OnInit {
   project!: Project | undefined;
+  private seoService = inject(SEOService);
 
   constructor(
     private route: ActivatedRoute,
@@ -32,5 +34,16 @@ export class ProjectDetailsComponent {
   ) {
     const id = this.route.snapshot.paramMap.get('id');
     this.project = id ? this.projectService.getProjectById(id) : undefined;
+  }
+
+  ngOnInit() {
+    if (this.project) {
+      this.seoService.updateSEO({
+        title: `${this.project.title} - ${this.project.subtitle} | Portfolio Adam Hemamou`,
+        description: `Découvrez ${this.project.title} : ${this.project.context}`,
+        keywords: `${this.project.title}, ${this.project.outils?.map(o => o.name).join(', ')}, Adam Hemamou, projet`,
+        url: `https://adamhemamou.com/project/${this.project.id}`
+      });
+    }
   }
 }

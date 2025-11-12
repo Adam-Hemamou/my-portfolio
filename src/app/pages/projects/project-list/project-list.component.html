@@ -1,7 +1,7 @@
 <app-menu></app-menu>
 <div class="projects-hero">
   <div class="projects-hero-content">
-    <h2 class="projects-title">Mes projets</h2>
+    <h1 class="projects-title">Mes projets</h1>
     <p
       class="projects-desc"
       data-aos="fade-right"
@@ -15,7 +15,7 @@
     <div data-aos="fade-right" data-aos-delay="400" data-aos-duration="800">
       <a class="about-cta" *ngIf="isDesktopNav" (click)="onContactClick()">
         <span class="about-arrow">
-          <img src="/svg/arrow.svg" alt="flèche" />
+          <img src="/svg/arrow.svg" alt="Icône flèche - Me contacter" />
         </span>
         <span>Me contacter</span>
       </a>
@@ -23,7 +23,7 @@
     <div data-aos="fade-right" data-aos-delay="400" data-aos-duration="800">
       <a class="about-cta" *ngIf="!isDesktopNav" [routerLink]="['/contact']">
         <span class="about-arrow">
-          <img src="/svg/arrow.svg" alt="flèche" />
+          <img src="/svg/arrow.svg" alt="Icône flèche - Me contacter" />
         </span>
         <span>Me contacter</span>
       </a>

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { SEOService } from '../shared/services/seo.service';
 import { MenuComponent } from '../shared/components/menu/menu.component';
 import { AnimateBandComponent } from '../shared/components/animate-band/animate-band.component';
 import { RecentProjectComponent } from '../shared/components/recent-project/recent-project.component';
@@ -67,4 +68,17 @@ import { FooterComponent } from '../shared/components/footer/footer.component';
     <app-footer></app-footer>
   `,
 })
-export default class HomeComponent {}
+export default class HomeComponent implements OnInit {
+  private seoService = inject(SEOService);
+
+  ngOnInit() {
+    this.seoService.updateSEO({
+      title: 'Adam Hemamou - Développeur Full Stack Freelance | Portfolio',
+      description:
+        "Portfolio d'Adam Hemamou, développeur full stack freelance spécialisé en Angular, React, Node.js. Découvrez mes projets : ONDEO, EcoScan, BabyPlace et plus.",
+      keywords:
+        'Adam Hemamou, développeur full stack, freelance, Angular, React, JavaScript, Node.js, portfolio, développement web',
+      url: 'https://ton-domaine.com/',
+    });
+  }
+}

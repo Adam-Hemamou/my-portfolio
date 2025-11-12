@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AnimateBandComponent } from '../../../shared/components/animate-band/animate-band.component';
 import { MenuComponent } from '../../../shared/components/menu/menu.component';
 import { FooterComponent } from '../../../shared/components/footer/footer.component';
@@ -8,6 +8,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { ProjectService } from '../../../shared/services/project.service';
 import { BandNavigationService } from '../../../shared/services/band-navigation.service';
 import { RouterLink } from '@angular/router';
+import { SEOService } from '../../../shared/services/seo.service';
 
 @Component({
   selector: 'app-project-list',
@@ -25,6 +26,7 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./project-list.component.scss'],
 })
 export class ProjectListComponent {
+  private seoService = inject(SEOService);
   projects: Project[] = this.projectService.getProjects();
 
   isDesktopNav = false;
@@ -37,6 +39,14 @@ export class ProjectListComponent {
   ngOnInit() {
     this.checkScreen();
     window.addEventListener('resize', this.checkScreen.bind(this));
+    this.seoService.updateSEO({
+      title: 'Mes Projets - Adam Hemamou | Portfolio Développeur Web',
+      description:
+        'Découvrez mes projets de développement web : ONDEO (site vitrine), EcoScan (app écoresponsable), BabyPlace (plateforme), WOW Land (jeu) et plus.',
+      keywords:
+        'projets web, développement, sites vitrines, applications web, Angular, React, portfolio Adam Hemamou',
+      url: 'https://ton-domaine.com/project',
+    });
   }
 
   checkScreen() {
