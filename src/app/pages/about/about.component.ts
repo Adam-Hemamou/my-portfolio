@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, inject } from '@angular/core';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { MenuComponent } from '../../shared/components/menu/menu.component';
 import { AnimateBandComponent } from '../../shared/components/animate-band/animate-band.component';
@@ -9,6 +9,7 @@ import { ActivityCardComponent } from '../../shared/dump-components/activity-car
 import { Activity } from '../../shared/types/activity.type';
 import { Router, RouterLink } from '@angular/router';
 import { BandNavigationService } from '../../shared/services/band-navigation.service';
+import { SEOService } from '../../shared/services/seo.service';
 
 @Component({
   selector: 'app-about',
@@ -27,7 +28,9 @@ import { BandNavigationService } from '../../shared/services/band-navigation.ser
   styleUrls: ['./about.component.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AboutComponent {
+export class AboutComponent implements OnInit {
+  private seoService = inject(SEOService);
+
   constructor(private bandNav: BandNavigationService) {}
 
   isDesktopNav = false;
@@ -137,6 +140,13 @@ export class AboutComponent {
   ngOnInit() {
     this.checkScreen();
     window.addEventListener('resize', this.checkScreen.bind(this));
+
+    this.seoService.updateSEO({
+      title: 'À propos - Adam Hemamou | Mon Parcours de Développeur Full Stack',
+      description: 'Découvrez le parcours d\'Adam Hemamou, développeur full stack freelance. Formation Wild Code School, compétences Angular, React, Node.js, Java Spring.',
+      keywords: 'Adam Hemamou, développeur, formation, Wild Code School, Angular, React, Node.js, Java, Spring, freelance',
+      url: 'https://ton-domaine.com/about'
+    });
   }
 
   checkScreen() {

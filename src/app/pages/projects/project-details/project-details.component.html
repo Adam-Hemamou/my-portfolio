@@ -1,15 +1,15 @@
 <app-menu></app-menu>
-<div *ngIf="project">
+<div *ngIf="project as project">
   <div class="project-hero">
     <div class="project-hero-content">
-      <h2
+      <h1
         class="project-title"
         data-aos="fade-right"
         data-aos-delay="300"
         data-aos-duration="800"
       >
         {{ project.title }}
-      </h2>
+      </h1>
       <p
         class="project-context"
         data-aos="fade-right"
@@ -33,7 +33,7 @@
           rel="noopener"
         >
           <span class="arrow">
-            <img src="/svg/arrow.svg" alt="flèche" />
+            <img src="/svg/arrow.svg" alt="Icône flèche - Visiter le site" />
           </span>
           <span>Visiter le site</span>
         </a>
@@ -46,7 +46,7 @@
             rel="noopener"
           >
             <span class="arrow">
-              <img src="/svg/arrow.svg" alt="flèche" />
+              <img src="/svg/arrow.svg" alt="Icône flèche - Visiter le site" />
             </span>
             <span>Voir le projet</span>
           </a>
@@ -59,7 +59,11 @@
       data-aos-delay="650"
       data-aos-duration="800"
     >
-      <img src="svg/carre-blck-noneom.svg" class="neon-svg" alt="" />
+      <img
+        src="svg/carre-blck-noneom.svg"
+        class="neon-svg"
+        alt="Élément décoratif géométrique"
+      />
     </div>
   </div>
   <app-animate-band></app-animate-band>
@@ -67,7 +71,7 @@
     <h3 class="challenge-title">Challenge</h3>
     <ul class="challenge-list">
       <li *ngFor="let c of project.challenge">
-        <img src="/svg/puce.svg" alt="puce" class="challenge-puce" />
+        <img src="/svg/puce.svg" alt="puce liste" class="challenge-puce" />
         <span>{{ c }}</span>
       </li>
     </ul>
@@ -79,7 +83,7 @@
     >
       <img
         [src]="project.image"
-        [alt]="project.title"
+        [alt]="'Capture d\'écran du projet ' + project.title"
         class="project-photo"
         data-aos="fade-up"
         data-aos-delay="400"
@@ -118,19 +122,39 @@
   >
     <swiper-slide *ngFor="let img of project.images">
       <div class="img-container">
-        <img [src]="img" alt="Image projet" style="width: 100%" />
+        <img
+          [src]="img"
+          [alt]="'Image du projet ' + project.title"
+          style="width: 100%"
+        />
       </div>
     </swiper-slide>
   </swiper-container>
 
   <div class="project-images-flex" *ngIf="project">
     <div class="row">
-      <img class="img-landscape" [src]="project.images[0]" alt="" />
-      <img class="img-square" [src]="project.images[1]" alt="" />
+      <img
+        class="img-landscape"
+        [src]="project.images[0]"
+        [alt]="'Image du projet ' + project.title"
+      />
+      <img
+        class="img-square"
+        [src]="project.images[1]"
+        [alt]="'Image du projet ' + project.title"
+      />
     </div>
     <div class="row">
-      <img class="img-square" [src]="project.images[2]" alt="" />
-      <img class="img-landscape" [src]="project.images[3]" alt="" />
+      <img
+        class="img-square"
+        [src]="project.images[2]"
+        [alt]="'Image du projet ' + project.title"
+      />
+      <img
+        class="img-landscape"
+        [src]="project.images[3]"
+        [alt]="'Image du projet ' + project.title"
+      />
     </div>
   </div>
 </div>
