@@ -1,10 +1,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,100..900;1,100..900&family=Russo+One&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+
 .menu {
   width: 100%;
   margin-top: 10px;
   display: flex;
   justify-content: space-between;
+
+  // ✅ Menu fixe seulement en mobile
+  @media (max-width: 1023px) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    z-index: 50; // Au-dessus du contenu mais sous les overlays
+    margin-top: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); // Ombre subtile
+  }
+
   .logo {
     padding-left: 10px;
     .title {
@@ -248,6 +264,7 @@
     }
   }
 }
+
 @media (min-width: 390px) {
   .menu {
     .logo {
@@ -262,7 +279,6 @@
           font-size: 1rem;
         }
         .arrow-container {
-          // ← Change span par .arrow-container
           width: 32px;
           height: 22px;
         }
@@ -285,6 +301,7 @@
     }
   }
 }
+
 @media (min-width: 414px) {
   .menu {
     .logo {
@@ -299,7 +316,6 @@
           font-size: 1.1rem;
         }
         .arrow-container {
-          // ← Change span par .arrow-container
           width: 33px;
           height: 23px;
         }
@@ -327,9 +343,9 @@
     }
   }
 }
+
 @media (min-width: 768px) {
   .menu {
-    margin-top: 20px;
     .logo {
       padding-left: 20px;
       .title {
@@ -381,7 +397,17 @@
   }
 }
 
+// ✅ Desktop : retour au comportement normal (pas fixe)
 @media (min-width: 1024px) {
+  .menu {
+    position: static; // ✅ Annule le fixed en desktop
+    background: transparent; // ✅ Enlève le fond
+    box-shadow: none; // ✅ Enlève l'ombre
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 10px; // ✅ Retour au margin normal
+  }
+
   .nav,
   .menu-overlay,
   .menu-drawer {

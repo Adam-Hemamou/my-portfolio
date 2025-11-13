@@ -1,7 +1,7 @@
 .projects-hero {
   background: var(--color-dark);
   color: #fff;
-  margin-top: 0.8em;
+  margin-top: 3em;
   padding: 2.2rem 1.2rem 2rem 1.2rem;
   text-align: left;
   display: flex;
@@ -178,6 +178,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 2rem 1rem 2em 2em;
+    margin-top: 5em;
     .projects-hero-content {
       flex: 1 1 0;
       max-width: 340px;

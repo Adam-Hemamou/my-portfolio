@@ -1,7 +1,7 @@
 .contact-hero {
   background: var(--color-dark);
   color: #fff;
-  margin-top: 0.8em;
+  margin-top: 3em;
   padding: 2.2rem 1.2rem 2rem 1.2rem;
   text-align: left;
   display: flex;
@@ -101,6 +101,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 2rem 1rem 2em 2em;
+    margin-top: 5em;
     .contact-hero-content {
       flex: 1 1 0;
       max-width: 340px;
@@ -109,8 +110,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 300px;
-      height: 300px;
+      width: 280px;
+      height: 280px;
       flex-shrink: 0;
       img {
         width: 100%;
@@ -137,8 +138,8 @@
       max-width: 350px;
     }
     .contact-hero-svg {
-      width: 350px;
-      height: 350px;
+      width: 320px;
+      height: 320px;
       margin-right: 240px;
     }
     .contact-title {
