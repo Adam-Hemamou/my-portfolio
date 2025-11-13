@@ -16,10 +16,10 @@ export default defineConfig(({ mode }) => ({
       vite: {
         inlineStylesExtension: 'scss',
       },
-      ssr: false,
       static: true,
+      ssr: false,
       prerender: {
-        routes: [
+        routes: async () => [
           '/',
           '/about',
           '/contact',
