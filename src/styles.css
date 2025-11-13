@@ -38,6 +38,7 @@
   font-family: "Oswald", sans-serif;
   line-height: 1;
   cursor: default;
+  margin-top: 85px;
 }
 
 .dev-title {
@@ -129,6 +130,9 @@
 }
 
 @media (min-width: 375px) {
+  .hero-title {
+    margin-top: 88px;
+  }
   .dev-title {
     top: 0.5rem;
   }
@@ -157,10 +161,10 @@
 
 @media (min-width: 390px) {
   .hero-title {
-    margin-top: 4rem;
+    margin-top: 90px;
   }
   .hero-info {
-    top: 11.5rem;
+    top: 9.7rem;
   }
 
   .open-to-work {
@@ -172,7 +176,8 @@
 @media (min-width: 414px) {
   .hero-title {
     height: 12rem;
-    margin-top: 2.5rem;
+
+    margin-top: 100px;
   }
   .dev-title {
     font-size: 21.5vw;
@@ -183,7 +188,7 @@
     top: 6.5rem;
   }
   .hero-info {
-    top: 11.5rem;
+    top: 11.35rem;
   }
   .portfolio-title {
     font-size: 1.1rem;
@@ -197,13 +202,14 @@
   }
 
   .home-band {
-    margin-top: 3.5em;
+    margin-top: 2.7em;
   }
 }
 
 @media (min-width: 768px) {
   .hero-title {
     height: 20rem;
+    margin-top: 130px;
   }
   .dev-title {
     font-size: 21.5vw;
@@ -215,7 +221,7 @@
     top: 12.2rem;
   }
   .hero-info {
-    top: 19.5rem;
+    top: 19.2rem;
     left: 0;
   }
   .portfolio-title {

@@ -1,7 +1,7 @@
 .about-hero {
   background: var(--color-dark);
   color: #fff;
-  margin-top: 0.8em;
+  margin-top: 3em;
   padding: 2.2rem 1.2rem 2rem 1.2rem;
   text-align: left;
   display: flex;
@@ -728,7 +728,7 @@ swiper-container::part(bullet-active) {
   }
 
   .about-hero-content {
-    max-width: 400px;
+    max-width: 450px;
   }
 
   .about-name {
