@@ -5,6 +5,7 @@ import {
   group,
   query,
   transition,
+  state,
 } from '@angular/animations';
 
 export const slider = trigger('slider', [
@@ -12,7 +13,11 @@ export const slider = trigger('slider', [
   transition('void => *', []),
   transition('* => void', []),
 
-  // Animation normale entre les pages (pas depuis vide)
+  // ✅ Nouvelle transition pour navigation navigateur (pas d'animation)
+  transition('* => browserNav', []),
+  transition('browserNav => *', []),
+
+  // Animation normale entre les pages (pas depuis vide, pas browserNav)
   transition('* <=> *', [
     query(':enter, :leave', style({ position: 'fixed', width: '100%' }), {
       optional: true,

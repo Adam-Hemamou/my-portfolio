@@ -8,6 +8,7 @@ export class BandNavigationService {
     | ((route: string, targetRoute?: any[]) => void)
     | null = null;
 
+  // ✅ Garde les méthodes importantes
   registerHandler(fn: (route: string) => void) {
     this._navigateToBand = fn;
   }

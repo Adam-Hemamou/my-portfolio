@@ -24,14 +24,13 @@ export class BandAniamtionComponent {
   isVisible: boolean = true;
   currentRoute: string = '';
 
-  constructor(private router: Router, private bandNav: BandNavigationService) {}
+  constructor(private router: Router, private bandNav: BandNavigationService) {} // ✅ Garde le service
 
   ngOnInit() {
-    // Initialise la route courante au chargement
+    // ✅ Garde registerHandler car c'est utilisé ailleurs
     this.bandNav.registerHandler(this.goToBandByRoute.bind(this));
     this.currentRoute = this.router.url.substring(1);
 
-    // Mets à jour la route courante à chaque navigation
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.currentRoute = this.router.url.substring(1);
@@ -47,6 +46,7 @@ export class BandAniamtionComponent {
     this.hoveredBandIndex = null;
   }
 
+  // ✅ Garde goToBandByRoute car c'est appelé par le service
   public goToBandByRoute(route: string, targetRoute?: any[]) {
     const index = this.bands.findIndex((b) => b.route === route);
     if (index !== -1) {
@@ -58,6 +58,8 @@ export class BandAniamtionComponent {
     if (this.bands[index].route === this.currentRoute && !targetRoute) {
       return;
     }
+
+    // ✅ Supprime juste notifyBandClick()
     this.activeBandIndex = index;
 
     if (window.scrollY > 0) {
