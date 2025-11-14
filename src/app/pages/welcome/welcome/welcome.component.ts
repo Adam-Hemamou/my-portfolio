@@ -10,7 +10,7 @@ export class WelcomeComponent implements OnInit {
   @Output() welcomeCompleted = new EventEmitter<void>();
 
   fadeOut = false;
-  private gifDuration = 4500;
+  private gifDuration = 3500;
 
   ngOnInit() {
     setTimeout(() => {

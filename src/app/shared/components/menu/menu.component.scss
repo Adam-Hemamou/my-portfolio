@@ -14,7 +14,7 @@
     left: 0;
     right: 0;
     background: white;
-    z-index: 50; // Au-dessus du contenu mais sous les overlays
+    z-index: 3000; // ✅ Au-dessus du footer (2000) !
     margin-top: 0;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -84,7 +84,7 @@
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.3);
-  z-index: 100;
+  z-index: 3100; // ✅ Au-dessus du menu fixe
 }
 
 .menu-drawer {
@@ -94,7 +94,7 @@
   width: 100vw;
   height: auto;
   background: var(--color-primary);
-  z-index: 101;
+  z-index: 3200; // ✅ Au-dessus de l'overlay
   transition: transform 0.4s cubic-bezier(0.77, 0, 0.18, 1);
   pointer-events: none;
   display: flex;
