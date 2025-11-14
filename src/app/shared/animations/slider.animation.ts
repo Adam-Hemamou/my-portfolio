@@ -5,19 +5,13 @@ import {
   group,
   query,
   transition,
-  state,
 } from '@angular/animations';
 
 export const slider = trigger('slider', [
-  // Ignore les transitions depuis/vers un état vide (premier chargement)
   transition('void => *', []),
   transition('* => void', []),
-
-  // ✅ Nouvelle transition pour navigation navigateur (pas d'animation)
   transition('* => browserNav', []),
   transition('browserNav => *', []),
-
-  // Animation normale entre les pages (pas depuis vide, pas browserNav)
   transition('* <=> *', [
     query(':enter, :leave', style({ position: 'fixed', width: '100%' }), {
       optional: true,

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { slider } from './shared/animations/slider.animation';
+import { mobileFade } from './shared/animations/mobile-fade.animation';
 import { fadeOverlay } from './shared/animations/fade-overlay.animation';
 import { BandAniamtionComponent } from './shared/components/band-aniamtion/band-aniamtion.component';
 import { NgIf } from '@angular/common';
@@ -19,18 +20,21 @@ import { WelcomeComponent } from './pages/welcome/welcome/welcome.component';
     <div *ngIf="!showWelcome">
       <div
         class="browser-nav-overlay"
-        *ngIf="isBrowserNavigation"
+        *ngIf="isBrowserNavigation && isDesktop"
         [@fadeOverlay]
       ></div>
 
       <app-band-animation *ngIf="isDesktop"></app-band-animation>
 
-      <main [@slider]="isDesktop ? prepareRoute(outlet) : null">
+      <main
+        [@slider]="isDesktop ? prepareRoute(outlet) : null"
+        [@mobileFade]="!isDesktop ? prepareRoute(outlet) : null"
+      >
         <router-outlet #outlet="outlet"></router-outlet>
       </main>
     </div>
   `,
-  animations: [slider, fadeOverlay],
+  animations: [slider, mobileFade, fadeOverlay],
   styles: [
     `
       .browser-nav-overlay {
@@ -102,15 +106,14 @@ export class AppComponent {
   prepareRoute(outlet: RouterOutlet) {
     if (!outlet.isActivated) return '';
 
-    // ✅ Logique simplifiée
     if (this.isBrowserNavigation) {
-      return 'browserNav'; // Animation ignore ce cas
+      return 'browserNav';
     }
 
     if (!this.hasNavigated) {
-      return ''; // Première navigation
+      return '';
     }
 
-    return outlet.activatedRoute; // Animation normale
+    return outlet.activatedRoute;
   }
 }

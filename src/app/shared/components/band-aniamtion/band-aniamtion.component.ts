@@ -24,13 +24,14 @@ export class BandAniamtionComponent {
   isVisible: boolean = true;
   currentRoute: string = '';
 
-  constructor(private router: Router, private bandNav: BandNavigationService) {} // ✅ Garde le service
+  constructor(private router: Router, private bandNav: BandNavigationService) {}
 
   ngOnInit() {
-    // ✅ Garde registerHandler car c'est utilisé ailleurs
+    // Initialise la route courante au chargement
     this.bandNav.registerHandler(this.goToBandByRoute.bind(this));
     this.currentRoute = this.router.url.substring(1);
 
+    // Mets à jour la route courante à chaque navigation
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.currentRoute = this.router.url.substring(1);
@@ -46,7 +47,6 @@ export class BandAniamtionComponent {
     this.hoveredBandIndex = null;
   }
 
-  // ✅ Garde goToBandByRoute car c'est appelé par le service
   public goToBandByRoute(route: string, targetRoute?: any[]) {
     const index = this.bands.findIndex((b) => b.route === route);
     if (index !== -1) {
@@ -58,15 +58,33 @@ export class BandAniamtionComponent {
     if (this.bands[index].route === this.currentRoute && !targetRoute) {
       return;
     }
-
-    // ✅ Supprime juste notifyBandClick()
     this.activeBandIndex = index;
 
     if (window.scrollY > 0) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // ✅ Distance absolue en pixels
+      const scrollDistance = window.scrollY;
+
+      let delay: number;
+
+      if (scrollDistance > 3150) {
+        delay = 800; // Plus de 3000px = 800ms
+      } else if (scrollDistance > 2000) {
+        delay = 500; // Plus de 2000px = 600ms
+      } else if (scrollDistance > 1000) {
+        delay = 300; // Plus de 1000px = 400ms
+      } else if (scrollDistance > 500) {
+        delay = 200; // Plus de 500px = 250ms
+      } else {
+        delay = 0;
+      }
+
+      console.log(`📊 Distance: ${scrollDistance}px → Délai: ${delay}ms`);
+
       setTimeout(() => {
         this.navigateToBand(index, targetRoute);
-      }, 200);
+      }, delay);
     } else {
       this.navigateToBand(index, targetRoute);
     }
