@@ -228,6 +228,16 @@
   justify-items: center;
   align-items: center;
   padding: 0 1em 2.5em;
+
+  // ✅ Stabilise la grille pendant swipe
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: auto;
+
+  // ✅ Empêche les débordements
+  overflow: hidden;
+  position: relative;
 }
 
 swiper-container {
@@ -251,19 +261,26 @@ swiper-container::part(pagination) {
 swiper-container::part(bullet) {
   width: 14px;
   height: 8px;
-  border-radius: 2px;
+  border-radius: 50%; // ✅ Plus arrondi pour transition fluide
   background: var(--color-primary);
   opacity: 0.3;
   margin: 0 4px;
-  transition: all 0.2s;
+  transition: all 0.3s ease; // ✅ Transition plus longue et fluide
   box-shadow: none;
+  cursor: pointer;
+  // ✅ Force la forme initiale
+  transform: scale(1);
+  will-change: transform, opacity, border-radius;
 }
 
 swiper-container::part(bullet-active) {
   opacity: 1;
   height: 10px;
-  width: 10px;
+  width: 10px; // ✅ Plus large quand actif
+  border-radius: 50%; // ✅ Demi-cercle parfait
   background: var(--color-primary);
+  transform: scale(1.1); // ✅ Légèrement plus grand
+  transition: all 0.3s ease; // ✅ Même transition fluide
 }
 
 .activity-section {
