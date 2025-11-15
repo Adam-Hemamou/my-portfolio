@@ -26,19 +26,20 @@ export const mobileFade = trigger('mobileFade', [
     ),
 
     group([
+      // ✅ Page qui part - fade simple sans mouvement vertical
       query(
         ':leave',
         [
           style({
             opacity: 1,
-            transform: 'translateY(0)',
+            transform: 'translateY(0)', // ✅ Pas de mouvement
             zIndex: 1,
           }),
           animate(
-            '250ms ease-in',
+            '200ms ease-in',
             style({
               opacity: 0,
-              transform: 'translateY(8px)',
+              transform: 'translateY(0)', // ✅ Reste à sa place
               background: 'white',
             })
           ),
@@ -46,20 +47,21 @@ export const mobileFade = trigger('mobileFade', [
         { optional: true }
       ),
 
+      // ✅ Page qui arrive - fade simple sans mouvement vertical
       query(
         ':enter',
         [
           style({
             opacity: 0,
-            transform: 'translateY(-10px)',
+            transform: 'translateY(0)', // ✅ Pas de mouvement
             background: 'white',
             zIndex: 2,
           }),
           animate(
-            '400ms 150ms ease-out',
+            '300ms 100ms ease-out',
             style({
               opacity: 1,
-              transform: 'translateY(0)',
+              transform: 'translateY(0)', // ✅ Reste à sa place
               background: 'transparent',
             })
           ),
