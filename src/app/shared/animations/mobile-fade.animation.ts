@@ -15,31 +15,28 @@ export const mobileFade = trigger('mobileFade', [
   transition('* <=> *', [
     query(
       ':enter, :leave',
-      style({
-        position: 'fixed',
-        width: '100%',
-        height: '100%',
-        top: 0,
-        left: 0,
-      }),
-      { optional: true }
+      style({ position: 'fixed', width: '100%', height: '100%', left: 0 }),
+      {
+        optional: true,
+      }
     ),
 
     group([
-      // ✅ Page qui part - fade simple sans mouvement vertical
+      // ✅ Page qui part - reste à sa position actuelle
       query(
         ':leave',
         [
           style({
             opacity: 1,
-            transform: 'translateY(0)', // ✅ Pas de mouvement
+            top: '0px', // ✅ Garde sa position de scroll actuelle
             zIndex: 1,
+            transform: 'translateY(0)',
           }),
           animate(
-            '200ms ease-in',
+            '250ms ease-in',
             style({
               opacity: 0,
-              transform: 'translateY(0)', // ✅ Reste à sa place
+              transform: 'translateY(-20px)', // ✅ Fade vers le haut
               background: 'white',
             })
           ),
@@ -47,21 +44,22 @@ export const mobileFade = trigger('mobileFade', [
         { optional: true }
       ),
 
-      // ✅ Page qui arrive - fade simple sans mouvement vertical
+      // ✅ Page qui arrive - apparaît directement en haut
       query(
         ':enter',
         [
           style({
             opacity: 0,
-            transform: 'translateY(0)', // ✅ Pas de mouvement
-            background: 'white',
+            top: '0px', // ✅ Directement en haut du viewport
             zIndex: 2,
+            transform: 'translateY(20px)',
+            background: 'white',
           }),
           animate(
-            '300ms 100ms ease-out',
+            '400ms 150ms ease-out',
             style({
               opacity: 1,
-              transform: 'translateY(0)', // ✅ Reste à sa place
+              transform: 'translateY(0)',
               background: 'transparent',
             })
           ),

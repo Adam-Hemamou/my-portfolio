@@ -152,7 +152,7 @@ export class AboutComponent implements OnInit {
         "Découvrez le parcours d'Adam Hemamou, développeur full stack freelance. Formation Wild Code School, compétences Angular, React, Node.js, Java Spring.",
       keywords:
         'Adam Hemamou, développeur, formation, Wild Code School, Angular, React, Node.js, Java, Spring, freelance',
-      url: 'https://adamh-dev.comabout',
+      url: 'https://adamh-dev.com/about',
     });
   }
 

@@ -1,4 +1,9 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, inject } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectService } from '../../../shared/services/project.service';
 import { Project } from '../../../shared/types/project.type';
@@ -41,8 +46,10 @@ export class ProjectDetailsComponent implements OnInit {
       this.seoService.updateSEO({
         title: `${this.project.title} - ${this.project.subtitle} | Portfolio Adam Hemamou`,
         description: `Découvrez ${this.project.title} : ${this.project.context}`,
-        keywords: `${this.project.title}, ${this.project.outils?.map(o => o.name).join(', ')}, Adam Hemamou, projet`,
-        url: `https://adamhemamou.com/project/${this.project.id}`
+        keywords: `${this.project.title}, ${this.project.outils
+          ?.map((o) => o.name)
+          .join(', ')}, Adam Hemamou, projet`,
+        url: `https://adamh-dev.com/project/${this.project.id}`,
       });
     }
   }

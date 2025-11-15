@@ -27,7 +27,7 @@ export class ContactComponent {
         'Contactez Adam Hemamou pour vos projets de développement web. Freelance spécialisé en Angular, React, Node.js. Réponse garantie sous 24h.',
       keywords:
         'contact développeur, freelance disponible, devis gratuit, projet web, Adam Hemamou',
-      url: 'https://adamh-dev.comcontact',
+      url: 'https://adamh-dev.com/contact',
     });
   }
 }
