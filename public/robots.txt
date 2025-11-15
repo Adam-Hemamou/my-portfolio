@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ton-domaine.com/sitemap.xml
+Sitemap: https://adamh-dev.comsitemap.xml

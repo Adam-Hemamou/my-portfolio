@@ -78,7 +78,7 @@ export default class HomeComponent implements OnInit {
         "Portfolio d'Adam Hemamou, développeur full stack freelance spécialisé en Angular, React, Node.js. Découvrez mes projets : ONDEO, EcoScan, BabyPlace et plus.",
       keywords:
         'Adam Hemamou, développeur full stack, freelance, Angular, React, JavaScript, Node.js, portfolio, développement web',
-      url: 'https://ton-domaine.com/',
+      url: 'https://adamh-dev.com',
     });
   }
 }

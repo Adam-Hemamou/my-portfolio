@@ -1,4 +1,9 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, inject } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { MenuComponent } from '../../shared/components/menu/menu.component';
 import { AnimateBandComponent } from '../../shared/components/animate-band/animate-band.component';
@@ -143,9 +148,11 @@ export class AboutComponent implements OnInit {
 
     this.seoService.updateSEO({
       title: 'À propos - Adam Hemamou | Mon Parcours de Développeur Full Stack',
-      description: 'Découvrez le parcours d\'Adam Hemamou, développeur full stack freelance. Formation Wild Code School, compétences Angular, React, Node.js, Java Spring.',
-      keywords: 'Adam Hemamou, développeur, formation, Wild Code School, Angular, React, Node.js, Java, Spring, freelance',
-      url: 'https://ton-domaine.com/about'
+      description:
+        "Découvrez le parcours d'Adam Hemamou, développeur full stack freelance. Formation Wild Code School, compétences Angular, React, Node.js, Java Spring.",
+      keywords:
+        'Adam Hemamou, développeur, formation, Wild Code School, Angular, React, Node.js, Java, Spring, freelance',
+      url: 'https://adamh-dev.comabout',
     });
   }
 
