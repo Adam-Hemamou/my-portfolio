@@ -250,7 +250,7 @@ swiper-container::part(pagination) {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: 4px;
   margin: 0 auto;
   width: 100%;
   display: flex;
@@ -261,7 +261,7 @@ swiper-container::part(pagination) {
 swiper-container::part(bullet) {
   width: 14px;
   height: 8px;
-  border-radius: 50%; // ✅ Plus arrondi pour transition fluide
+  border-radius: 2px; // ✅ Plus arrondi pour transition fluide
   background: var(--color-primary);
   opacity: 0.3;
   margin: 0 4px;
@@ -276,11 +276,11 @@ swiper-container::part(bullet) {
 swiper-container::part(bullet-active) {
   opacity: 1;
   height: 10px;
-  width: 10px; // ✅ Plus large quand actif
-  border-radius: 50%; // ✅ Demi-cercle parfait
+  width: 10px;
+  border-radius: 50%;
   background: var(--color-primary);
-  transform: scale(1.1); // ✅ Légèrement plus grand
-  transition: all 0.3s ease; // ✅ Même transition fluide
+  transform: scale(1.1);
+  transition: all 0.3s ease;
 }
 
 .activity-section {
