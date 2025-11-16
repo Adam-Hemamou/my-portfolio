@@ -276,11 +276,11 @@ swiper-container::part(bullet) {
 swiper-container::part(bullet-active) {
   opacity: 1;
   height: 10px;
-  width: 10px; // ✅ Plus large quand actif
-  border-radius: 50%; // ✅ Demi-cercle parfait
+  width: 10px;
+  border-radius: 50%;
   background: var(--color-primary);
-  transform: scale(1.1); // ✅ Légèrement plus grand
-  transition: all 0.3s ease; // ✅ Même transition fluide
+  transform: scale(1.1);
+  transition: all 0.3s ease;
 }
 
 .activity-section {

@@ -70,7 +70,8 @@ export class AppComponent {
           }, 600);
         }
 
-        if (window.innerWidth < 1024) {
+        // ✅ Scroll seulement sur desktop
+        if (window.innerWidth >= 1024) {
           await this.smoothScrollToTop();
         }
 
@@ -93,12 +94,6 @@ export class AppComponent {
 
   private smoothScrollToTop(): Promise<void> {
     return new Promise((resolve) => {
-      // ✅ Skip le scroll en mobile - laisse l'utilisateur où il est
-      if (window.innerWidth < 1024) {
-        resolve();
-        return;
-      }
-
       const start = window.scrollY;
       if (start === 0) {
         resolve();
