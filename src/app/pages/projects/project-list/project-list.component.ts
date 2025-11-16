@@ -45,7 +45,7 @@ export class ProjectListComponent {
         'Découvrez mes projets de développement web : ONDEO (site vitrine), EcoScan (app écoresponsable), BabyPlace (plateforme), WOW Land (jeu) et plus.',
       keywords:
         'projets web, développement, sites vitrines, applications web, Angular, React, portfolio Adam Hemamou',
-      url: 'https://adamh-dev.comproject',
+      url: 'https://adamh-dev.com/project',
     });
   }
 

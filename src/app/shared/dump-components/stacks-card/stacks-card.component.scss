@@ -12,7 +12,9 @@
   color: var(--color-primary);
   height: 80px;
   width: 130px;
-
+  transform: translateZ(0); // Force GPU acceleration
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   // Reflet lumineux en haut à gauche
   &::after {
     content: "";
