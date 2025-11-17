@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { slider } from './shared/animations/slider.animation';
-import { mobileFade } from './shared/animations/mobile-fade.animation';
 import { fadeOverlay } from './shared/animations/fade-overlay.animation';
 import { BandAniamtionComponent } from './shared/components/band-aniamtion/band-aniamtion.component';
 import { NgIf } from '@angular/common';
 import { WelcomeComponent } from './pages/welcome/welcome/welcome.component';
+import { mobileFade } from './shared/services/mobile-fade.service';
 
 @Component({
   selector: 'app-root',
@@ -29,13 +29,12 @@ import { WelcomeComponent } from './pages/welcome/welcome/welcome.component';
       <main
         [@slider]="isDesktop ? prepareRoute(outlet) : null"
         [@mobileFade]="!isDesktop ? prepareRoute(outlet) : null"
-        (@mobileFade.start)="onMobileFadeStart()"
       >
         <router-outlet #outlet="outlet"></router-outlet>
       </main>
     </div>
   `,
-  animations: [slider, mobileFade, fadeOverlay],
+  animations: [slider, fadeOverlay, mobileFade],
   styles: [
     `
       .browser-nav-overlay {
@@ -71,6 +70,11 @@ export class AppComponent {
           }, 600);
         }
 
+        // ✅ AJOUTE ça pour forcer scroll sur mobile !
+        if (window.innerWidth < 1024 && !this.firstNavigation) {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         if (this.firstNavigation) {
           this.firstNavigation = false;
         } else {
@@ -88,15 +92,16 @@ export class AppComponent {
     this.showWelcome = false;
   }
 
-  // ✅ Force le scroll AU DÉBUT de l'animation
-  onMobileFadeStart() {
-    if (!this.isDesktop && this.hasNavigated) {
-      // Force le scroll pendant que le blanc couvre encore
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-      }, 500); // Pendant que l'overlay blanc est actif
-    }
-  }
+  // // ✅ Force le scroll quand l'animation termine
+  // (@mobileFade.done)="onMobileFadeDone()"
+
+  // onMobileFadeDone() {
+  //   if (!this.isDesktop && this.hasNavigated) {
+  //     window.scrollTo(0, 0);
+  //     document.documentElement.scrollTop = 0;
+  //     document.body.scrollTop = 0;
+  //   }
+  // }
 
   prepareRoute(outlet: RouterOutlet) {
     if (!outlet.isActivated) return '';

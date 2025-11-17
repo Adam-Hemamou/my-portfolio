@@ -3,7 +3,7 @@
   <!-- Page d'accueil -->
   <url>
     <loc>https://adamh-dev.com/</loc>
-    <lastmod>2024-11-11</lastmod>
+    <lastmod>2024-11-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -11,7 +11,7 @@
   <!-- Page About -->
   <url>
     <loc>https://adamh-dev.com/about</loc>
-    <lastmod>2024-11-11</lastmod>
+    <lastmod>2024-11-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -19,7 +19,7 @@
   <!-- Page liste des projets -->
   <url>
     <loc>https://adamh-dev.com/project</loc>
-    <lastmod>2024-11-11</lastmod>
+    <lastmod>2024-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -27,42 +27,42 @@
   <!-- Projets individuels -->
   <url>
     <loc>https://adamh-dev.com/project/ondeo</loc>
-    <lastmod>2024-11-11</lastmod>
+    <lastmod>2024-11-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>https://adamh-dev.com/project/ecoscan</loc>
-    <lastmod>2024-11-11</lastmod>
+    <lastmod>2024-11-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>https://adamh-dev.com/project/wow-game</loc>
-    <lastmod>2024-11-11</lastmod>
+    <lastmod>2024-11-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>https://adamh-dev.com/project/babyplace</loc>
-    <lastmod>2024-11-11</lastmod>
+    <lastmod>2024-11-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>https://adamh-dev.com/project/elegance</loc>
-    <lastmod>2024-11-11</lastmod>
+    <lastmod>2024-11-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>https://adamh-dev.com/project/green-point</loc>
-    <lastmod>2024-11-11</lastmod>
+    <lastmod>2024-11-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -70,7 +70,7 @@
   <!-- Page Contact -->
   <url>
     <loc>https://adamh-dev.com/contact</loc>
-    <lastmod>2024-11-11</lastmod>
+    <lastmod>2024-11-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
