@@ -29,6 +29,7 @@ import { WelcomeComponent } from './pages/welcome/welcome/welcome.component';
       <main
         [@slider]="isDesktop ? prepareRoute(outlet) : null"
         [@mobileFade]="!isDesktop ? prepareRoute(outlet) : null"
+        (@mobileFade.start)="onMobileFadeStart()"
       >
         <router-outlet #outlet="outlet"></router-outlet>
       </main>
@@ -70,10 +71,6 @@ export class AppComponent {
           }, 600);
         }
 
-        if (window.innerWidth < 1024) {
-          await this.smoothScrollToTop();
-        }
-
         if (this.firstNavigation) {
           this.firstNavigation = false;
         } else {
@@ -91,22 +88,14 @@ export class AppComponent {
     this.showWelcome = false;
   }
 
-  private smoothScrollToTop(): Promise<void> {
-    return new Promise((resolve) => {
-      // ✅ Skip le scroll en mobile - laisse l'utilisateur où il est
-      if (window.innerWidth < 1024) {
-        resolve();
-        return;
-      }
-
-      const start = window.scrollY;
-      if (start === 0) {
-        resolve();
-        return;
-      }
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      setTimeout(resolve, 5000);
-    });
+  // ✅ Force le scroll AU DÉBUT de l'animation
+  onMobileFadeStart() {
+    if (!this.isDesktop && this.hasNavigated) {
+      // Force le scroll pendant que le blanc couvre encore
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+      }, 500); // Pendant que l'overlay blanc est actif
+    }
   }
 
   prepareRoute(outlet: RouterOutlet) {
