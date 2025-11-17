@@ -32,7 +32,7 @@ export default defineConfig(({ mode }) => ({
           '/project/green-point',
         ],
         sitemap: {
-          host: 'https://adamhemamou.com',
+          host: 'https://adamh-dev.com',
         },
       },
     }),
