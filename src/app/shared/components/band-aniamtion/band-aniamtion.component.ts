@@ -60,22 +60,21 @@ export class BandAniamtionComponent {
     }
     this.activeBandIndex = index;
 
-    if (window.scrollY > 0) {
+    // ✅ Scroll seulement sur desktop !
+    if (window.scrollY > 0 && window.innerWidth >= 1024) { // Ajoute la condition desktop
       window.scrollTo({ top: 0, behavior: 'smooth' });
 
-      // ✅ Distance absolue en pixels
       const scrollDistance = window.scrollY;
-
       let delay: number;
 
       if (scrollDistance > 3150) {
-        delay = 800; // Plus de 3000px = 800ms
+        delay = 800;
       } else if (scrollDistance > 2000) {
-        delay = 500; // Plus de 2000px = 600ms
+        delay = 500;
       } else if (scrollDistance > 1000) {
-        delay = 300; // Plus de 1000px = 400ms
+        delay = 300;
       } else if (scrollDistance > 500) {
-        delay = 200; // Plus de 500px = 250ms
+        delay = 200;
       } else {
         delay = 0;
       }
@@ -86,6 +85,7 @@ export class BandAniamtionComponent {
         this.navigateToBand(index, targetRoute);
       }, delay);
     } else {
+      // ✅ Sur mobile, navigation immédiate sans scroll
       this.navigateToBand(index, targetRoute);
     }
   }

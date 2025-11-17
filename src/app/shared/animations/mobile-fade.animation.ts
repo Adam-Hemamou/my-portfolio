@@ -13,54 +13,46 @@ export const mobileFade = trigger('mobileFade', [
   transition('* => browserNav', []),
   transition('browserNav => *', []),
   transition('* <=> *', [
-    query(
-      ':enter, :leave',
-      style({ position: 'fixed', width: '100%', height: '100%', left: 0 }),
-      {
-        optional: true,
-      }
-    ),
-
     group([
-      // ✅ Page qui part - reste à sa position actuelle
       query(
         ':leave',
         [
           style({
             opacity: 1,
-            top: '0px', // ✅ Garde sa position de scroll actuelle
             zIndex: 1,
-            transform: 'translateY(0)',
+            position: 'relative',
           }),
-          animate(
-            '250ms ease-in',
-            style({
-              opacity: 0,
-              transform: 'translateY(-20px)', // ✅ Fade vers le haut
-              background: 'white',
-            })
-          ),
+          animate('300ms ease-in', style({ opacity: 0 })),
         ],
         { optional: true }
       ),
 
-      // ✅ Page qui arrive - apparaît directement en haut
       query(
         ':enter',
         [
           style({
             opacity: 0,
-            top: '0px', // ✅ Directement en haut du viewport
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
             zIndex: 2,
-            transform: 'translateY(20px)',
-            background: 'white',
+            background: 'white', // ✅ Garde le blanc plus longtemps
+            overflow: 'auto',
           }),
           animate(
-            '400ms 150ms ease-out',
+            '600ms 200ms ease-out', // Animation plus longue
             style({
               opacity: 1,
-              transform: 'translateY(0)',
-              background: 'transparent',
+              background: 'white', // Garde le blanc jusqu'à la fin
+            })
+          ),
+          // ✅ Transition du background APRÈS l'opacity
+          animate(
+            '100ms ease-out',
+            style({
+              background: 'transparent', // Transition finale
             })
           ),
         ],
