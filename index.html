@@ -20,9 +20,8 @@
 
     <!-- Canonical (important pour Google) -->
     <link rel="canonical" href="https://adamh-dev.com" />
-    <meta property="og:url" content="https://adamh-dev.com" />
 
-    <!-- Open Graph -->
+    <!-- Open Graph COMPLET -->
     <meta
       property="og:title"
       content="Adam Hemamou - Développeur Full Stack Freelance"
@@ -35,8 +34,42 @@
       property="og:image"
       content="https://adamh-dev.com/logo-web/A-512.png"
     />
+    <meta
+      property="og:image:secure_url"
+      content="https://adamh-dev.com/logo-web/A-512.png"
+    />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+    <meta property="og:image:type" content="image/png" />
     <meta property="og:url" content="https://adamh-dev.com" />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Adam Hemamou Portfolio" />
+    <meta property="og:locale" content="fr_FR" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Adam Hemamou - Développeur Full Stack Freelance"
+    />
+    <meta
+      name="twitter:description"
+      content="Développeur freelance spécialisé en Angular, React, Node.js. Créateur de solutions web modernes et performantes."
+    />
+    <meta
+      name="twitter:image"
+      content="https://adamh-dev.com/logo-web/A-512.png"
+    />
+    <meta name="twitter:image:alt" content="Logo Adam Hemamou - AH" />
+
+    <!-- SEO supplémentaire -->
+    <meta name="theme-color" content="#000000" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
 
     <!-- Schema.org -->
     <script type="application/ld+json">
@@ -79,27 +112,34 @@
       }
     </script>
 
-    <!-- Favicons (garde ton code existant) -->
+    <!-- ✅ NOUVEAUX FAVICONS PROFESSIONNELS -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
     <!-- Favicon moderne (navigateurs récents) -->
     <link rel="icon" type="image/svg+xml" href="/logo-web/A.svg" />
 
-    <!-- Favicons classiques (tous navigateurs) -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/logo-web/A-32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/logo-web/A-16.png" />
-
-    <!-- Apple (iPhone, iPad, Mac Safari) -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/logo-web/A-180.png" />
-
-    <!-- Android/Chrome -->
+    <!-- Android/Chrome (nouveaux) -->
     <link
       rel="icon"
       type="image/png"
       sizes="192x192"
-      href="/logo-web/A-192.png"
+      href="/android-chrome-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="/android-chrome-512x512.png"
     />
 
     <!-- Windows (tuiles) -->
-    <meta name="msapplication-TileImage" content="/logo-web/A-144.png" />
+    <meta
+      name="msapplication-TileImage"
+      content="/android-chrome-192x192.png"
+    />
     <meta name="msapplication-TileColor" content="#000000" />
 
     <!-- Polices -->
@@ -109,6 +149,25 @@
     />
 
     <link rel="stylesheet" href="/src/styles.css" />
+
+    <!-- Sitemap et références -->
+    <link
+      rel="sitemap"
+      type="application/xml"
+      title="Sitemap"
+      href="/sitemap.xml"
+    />
+
+    <!-- DNS prefetch pour optimiser -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+
+    <!-- Preload du logo pour affichage rapide -->
+    <link
+      rel="preload"
+      href="/logo-web/A-512.png"
+      as="image"
+      type="image/png"
+    />
   </head>
   <body>
     <app-root></app-root>
