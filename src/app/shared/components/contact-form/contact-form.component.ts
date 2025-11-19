@@ -11,9 +11,9 @@ import { ContactData } from '../../types/contact-data.type';
   styleUrls: ['./contact-form.component.scss'],
 })
 export class ContactFormComponent {
-  templateId: string = import.meta.env['VITE_EMAIL_JS_TEMPLATE_ID'];
-  serviceId: string = import.meta.env['VITE_EMAIL_JS_SERVICE_ID'];
-  publicKey: string = import.meta.env['VITE_EMAIL_JS_PUBLIC_KEY'];
+  templateId: string = 'template_rjkvt2d';
+  serviceId: string = 'service_zkwjgre';
+  publicKey: string = 'qD_atInEL6hAV19gW';
   notification: {
     type: 'success' | 'error';
     message: string;
