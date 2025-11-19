@@ -72,7 +72,10 @@ export class AppComponent {
 
         // ✅ AJOUTE ça pour forcer scroll sur mobile !
         if (window.innerWidth < 1024 && !this.firstNavigation) {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+          // ✅ Attendre que l'animation fade soit finie (500ms + marge)
+          setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }, 5);
         }
 
         if (this.firstNavigation) {
@@ -91,17 +94,6 @@ export class AppComponent {
   onWelcomeCompleted() {
     this.showWelcome = false;
   }
-
-  // // ✅ Force le scroll quand l'animation termine
-  // (@mobileFade.done)="onMobileFadeDone()"
-
-  // onMobileFadeDone() {
-  //   if (!this.isDesktop && this.hasNavigated) {
-  //     window.scrollTo(0, 0);
-  //     document.documentElement.scrollTop = 0;
-  //     document.body.scrollTop = 0;
-  //   }
-  // }
 
   prepareRoute(outlet: RouterOutlet) {
     if (!outlet.isActivated) return '';

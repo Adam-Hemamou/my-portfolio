@@ -51,6 +51,10 @@
   font-family: "Bebas Neue", sans-serif;
   z-index: 2;
   white-space: nowrap;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  transform: translateZ(0);
 }
 
 .web-title {
@@ -66,9 +70,26 @@
   margin-top: -0.3em;
   margin-right: 0.2em;
   z-index: 1;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: var(--color-dark);
 
   -webkit-text-stroke: 1px var(--color-dark);
   /* text-stroke: 0.5px var(--color-dark); */
+}
+
+@supports (-webkit-touch-callout: none) {
+  /* Styles spécifiques iOS */
+  .hero-title {
+    position: relative;
+    transform: translateZ(0);
+  }
+
+  .dev-title,
+  .web-title {
+    position: absolute;
+    will-change: transform;
+    backface-visibility: hidden;
+  }
 }
 
 .hero-info {
