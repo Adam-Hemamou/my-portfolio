@@ -1,0 +1,56 @@
+.band-container {
+  top: 0;
+  right: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: row-reverse;
+  z-index: 1000;
+  position: fixed;
+}
+.band-container .band {
+  transition: transform 0.5s ease, z-index 0.3s ease;
+  background-color: var(--color-primary);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--color-dark);
+  width: 60px;
+  height: 100%;
+  display: flex;
+  padding: 1rem 0;
+  justify-content: space-between;
+  align-items: center;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  color: black;
+  font-size: 30px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.band-container .band p {
+  transform: rotate(180deg);
+  margin: 0;
+  padding-top: 5px;
+}
+.band-container .band .band-icon {
+  width: 34px;
+  height: 34px;
+  display: block;
+}
+.band-container .band::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, #c6ff00 0%, #cefe1f 25%, #dcf778 50%, #edf9c1 75%, #f2f9dc 100%);
+  opacity: 0;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 0;
+}
+.band-container .band:hover::after {
+  opacity: 1;
+}
+.band-container .band > * {
+  position: relative;
+  z-index: 1;
+}/*# sourceMappingURL=band-aniamtion.component.css.map */

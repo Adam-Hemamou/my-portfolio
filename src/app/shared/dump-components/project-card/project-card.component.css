@@ -20,27 +20,26 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-
-  img {
-    width: 100%;
-    object-fit: contain;
-  }
-
-  .project-label {
-    position: absolute;
-    top: 14px;
-    right: 14px;
-    background: var(--color-primary);
-    color: var(--color-dark);
-    font-family: "Bebas Neue", sans-serif;
-    font-size: 0.95rem;
-    padding: 0.18em 1.1em;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    box-shadow: none;
-    z-index: 1;
-    text-transform: uppercase;
-  }
+}
+.project-image img {
+  width: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.project-image .project-label {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: var(--color-primary);
+  color: var(--color-dark);
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 0.95rem;
+  padding: 0.18em 1.1em;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  box-shadow: none;
+  z-index: 1;
+  text-transform: uppercase;
 }
 
 .project-content {
@@ -90,39 +89,36 @@
   box-shadow: none;
   border: 1.5px solid var(--color-lightdark);
   width: 220px;
-
-  .arrow {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--color-dark);
-    padding: 0.6em 1em;
-  }
-
-  .arrow img {
-    width: 1.2em;
-    height: 1.2em;
-    display: block;
-    filter: invert(1);
-  }
-
-  .btn-label {
-    margin: 0 auto;
-    padding: 0.6em 1.2em;
-    background: #fff;
-    font-size: 1rem;
-    font-family: "Montserrat", sans-serif;
-    color: var(--color-dark);
-  }
+}
+.project-btn .arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-dark);
+  padding: 0.6em 1em;
+}
+.project-btn .arrow img {
+  width: 1.2em;
+  height: 1.2em;
+  display: block;
+  filter: invert(1);
+}
+.project-btn .btn-label {
+  margin: 0 auto;
+  padding: 0.6em 1.2em;
+  background: #fff;
+  font-size: 1rem;
+  font-family: "Montserrat", sans-serif;
+  color: var(--color-dark);
 }
 
 @media (min-width: 375px) {
   .project-card {
     max-width: 375px;
-    .project-label {
-      font-size: 1.2rem;
-      padding: 0.3em 1.1em;
-    }
+  }
+  .project-card .project-label {
+    font-size: 1.2rem;
+    padding: 0.3em 1.1em;
   }
   .project-title {
     font-size: 1.7rem;
@@ -135,20 +131,18 @@
   }
   .project-btn {
     width: 240px;
-
-    .btn-label {
-      font-size: 1.2rem;
-      padding: 0.6em 1.3em;
-    }
+  }
+  .project-btn .btn-label {
+    font-size: 1.2rem;
+    padding: 0.6em 1.3em;
   }
 }
-
 @media (min-width: 414px) {
   .project-card {
     max-width: 414px;
-    .project-label {
-      font-size: 1.3rem;
-    }
+  }
+  .project-card .project-label {
+    font-size: 1.3rem;
   }
   .project-title {
     font-size: 1.8rem;
@@ -160,7 +154,6 @@
     padding: 1.5em 1.4em 1.4em 1.4em;
   }
 }
-
 @media (min-width: 768px) {
   .project-card {
     max-width: 100%;
@@ -173,7 +166,6 @@
     margin-bottom: 2.5em;
     cursor: pointer;
   }
-
   .project-image {
     width: 45%;
     min-width: 260px;
@@ -183,21 +175,21 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .project-label {
-      top: 18px;
-      left: 18px;
-      right: unset;
-      font-size: 1.5rem;
-      padding: 0.22em 1.2em;
-    }
   }
-
+  .project-image img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+       object-fit: cover;
+    display: block;
+  }
+  .project-image .project-label {
+    top: 18px;
+    left: 18px;
+    right: unset;
+    font-size: 1.5rem;
+    padding: 0.22em 1.2em;
+  }
   .project-content {
     width: 55%;
     display: flex;
@@ -212,43 +204,35 @@
     border-left: none;
     box-sizing: border-box;
   }
-
   .project-title {
     font-size: 2.4rem;
     font-weight: 700;
     margin-top: 0.2em;
     margin-bottom: 0.1em;
   }
-
   .project-subtitle {
     font-size: 1.7rem;
-    // margin-bottom: 1.2em;
   }
-
   .project-btn {
     width: 290px;
     align-self: flex-start;
-    .arrow img {
-      width: 1.85em;
-      height: 1.85em;
-    }
-
-    .arrow {
-      padding: 0 1.5em;
-    }
-
-    .btn-label {
-      font-size: 1.6rem;
-      padding: 0.6em 0.7em;
-    }
+  }
+  .project-btn .arrow img {
+    width: 1.85em;
+    height: 1.85em;
+  }
+  .project-btn .arrow {
+    padding: 0 1.5em;
+  }
+  .project-btn .btn-label {
+    font-size: 1.6rem;
+    padding: 0.6em 0.7em;
   }
 }
-
 @media (min-width: 1024px) {
   .project-title {
     font-size: 2.2rem;
   }
-
   .project-subtitle {
     font-size: 1.5rem;
   }
@@ -257,20 +241,20 @@
   }
   .project-image {
     position: relative;
-    &::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, #baff00 0%, transparent 100%);
-      opacity: 0;
-      transition: opacity 0.4s;
-      z-index: 2;
-      pointer-events: none;
-    }
-    img {
-      position: relative;
-      z-index: 1;
-    }
+  }
+  .project-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, #baff00 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.4s;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .project-image img {
+    position: relative;
+    z-index: 1;
   }
   .project-btn {
     position: relative;
@@ -279,100 +263,86 @@
     align-items: stretch;
     height: 70px;
     width: 300px;
-    .arrow,
-    .arrow-hover {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 70px; // carré fixe
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition:
-        transform 0.4s cubic-bezier(0.77, 0, 0.18, 1),
-        opacity 0.4s;
-      pointer-events: none;
-    }
-    .arrow {
-      background: var(--color-dark);
-      z-index: 1;
-      img {
-        filter: invert(1);
-        width: 2em;
-        height: 2em;
-      }
-    }
-    .arrow-hover {
-      background: var(--color-primary);
-      z-index: 1;
-      transform: translateX(-100%);
-      img {
-        width: 2em;
-        height: 2em;
-      }
-    }
-    .btn-label {
-      border-left: 1.5px solid var(--color-dark);
-
-      position: relative;
-      z-index: 2;
-      margin-left: 70px; // même largeur que le carré
-      padding: 0.6em 1.2em;
-      background: #fff;
-      color: #111;
-      font-size: 1.6rem;
-      display: flex;
-      align-items: center;
-      height: 100%;
-      transition:
-        background 0.4s,
-        color 0.4s;
-    }
   }
-  .project-card:hover .project-btn {
-    .arrow {
-      transform: translateX(100%);
-    }
-    .arrow-hover {
-      transform: translateX(0);
-      opacity: 1;
-    }
-    .btn-label {
-      background: #fff;
-      color: #111;
-    }
+  .project-btn .arrow,
+  .project-btn .arrow-hover {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 70px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.4s cubic-bezier(0.77, 0, 0.18, 1), opacity 0.4s;
+    pointer-events: none;
+  }
+  .project-btn .arrow {
+    background: var(--color-dark);
+    z-index: 1;
+  }
+  .project-btn .arrow img {
+    filter: invert(1);
+    width: 2em;
+    height: 2em;
+  }
+  .project-btn .arrow-hover {
+    background: var(--color-primary);
+    z-index: 1;
+    transform: translateX(-100%);
+  }
+  .project-btn .arrow-hover img {
+    width: 2em;
+    height: 2em;
+  }
+  .project-btn .btn-label {
+    border-left: 1.5px solid var(--color-dark);
+    position: relative;
+    z-index: 2;
+    margin-left: 70px;
+    padding: 0.6em 1.2em;
+    background: #fff;
+    color: #111;
+    font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    transition: background 0.4s, color 0.4s;
+  }
+  .project-card:hover .project-btn .arrow {
+    transform: translateX(100%);
+  }
+  .project-card:hover .project-btn .arrow-hover {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  .project-card:hover .project-btn .btn-label {
+    background: #fff;
+    color: #111;
   }
 }
-
 @media (min-width: 1280px) {
   .project-card {
     max-height: 350px;
   }
-
   .project-image {
     min-width: 350px;
     width: 40%;
   }
-
   .project-label {
     font-size: 1.6rem;
   }
-
   .project-content {
     padding: 2.1em 1em 2.1em 2.3em;
     width: 60%;
   }
-
   .project-title {
     font-size: 2.6rem;
     margin-top: 5px;
   }
-
   .project-subtitle {
     font-size: 1.8rem;
   }
-
   .project-btn {
     min-height: 68.4px;
   }
@@ -381,28 +351,22 @@
   .project-card {
     max-height: 360px;
   }
-
   .project-image {
     min-width: 250px;
   }
-
   .project-label {
     font-size: 1.8rem;
   }
-
   .project-content {
     padding: 2.1em 1em 2.1em 2.3em;
   }
-
   .project-title {
     font-size: 2.8rem;
     margin-top: 5px;
   }
-
   .project-subtitle {
     font-size: 1.9rem;
   }
-
   .project-btn {
     min-height: 68.4px;
   }
@@ -412,31 +376,26 @@
     max-height: 450px;
     margin-bottom: 4em;
   }
-
   .project-image {
     min-width: 320px;
   }
-
   .project-title {
     font-size: 3.4rem;
   }
 }
-
 @media (min-width: 1800px) {
   .project-card {
     max-height: 450px;
     margin-bottom: 4em;
   }
-
   .project-content {
     gap: 3em;
   }
-
   .project-btn {
     width: 400px;
-    .btn-label {
-      font-size: 2rem;
-      padding-left: 60px;
-    }
   }
-}
+  .project-btn .btn-label {
+    font-size: 2rem;
+    padding-left: 60px;
+  }
+}/*# sourceMappingURL=project-card.component.css.map */

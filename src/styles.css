@@ -342,7 +342,7 @@
 
 @media (min-width: 1440px) {
   .dev-title {
-    top: 3rem;
+    top: 3.8rem;
     font-size: 17.5vw;
   }
   .web-title {
@@ -351,7 +351,7 @@
     left: 56%;
   }
   .hero-info {
-    top: 27.8rem;
+    top: 26.8rem;
     margin-left: 4.5vw;
   }
 
@@ -363,5 +363,70 @@
   }
   .open-to-work {
     font-size: 1.8rem;
+  }
+}
+@media (min-width: 1600px) {
+  .dev-title {
+    top: 3rem;
+    font-size: 17vw;
+  }
+  .web-title {
+    top: 19rem;
+    left: 57%;
+    font-size: 18.5vw;
+  }
+  .hero-info {
+    top: 27.3rem;
+    margin-left: 6.5vw;
+  }
+}
+@media (min-width: 1800px) {
+  .hero-title {
+    height: 600px;
+  }
+  .dev-title {
+    top: 3rem;
+    font-size: 17vw;
+  }
+  .web-title {
+    top: 21.5rem;
+    left: 57.5%;
+    font-size: 18.5vw;
+  }
+  .hero-info {
+    top: 29.5rem;
+    margin-left: 7vw;
+  }
+
+  .portfolio-title {
+    font-size: 3.5rem;
+  }
+  .portfolio-name {
+    font-size: 2.5rem;
+  }
+  .open-to-work {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 2000px) {
+  .hero-title {
+    height: 700px;
+  }
+
+  .dev-title {
+    top: 4rem;
+    font-size: 18vw;
+  }
+
+  .web-title {
+    top: 25.5rem;
+    left: 60%;
+    font-size: 18.5vw;
+  }
+
+  .hero-info {
+    top: 34.7rem;
+    margin-left: 6vw;
   }
 }

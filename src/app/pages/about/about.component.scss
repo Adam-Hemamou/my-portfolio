@@ -40,7 +40,8 @@
   white-space: nowrap;
   overflow: hidden;
   border-right: 0.15em solid var(--color-primary, #c6ff1a); // curseur
-  animation: typewriter 2.4s steps(13) 1 both,
+  animation:
+    typewriter 2.4s steps(13) 1 both,
     // 13 = nombre de lettres de ton nom
     blinkCursor 0.5s step-end 4.2,
     // 4.2 = 2.1s * 2 (pour clignoter pendant l'écriture)
@@ -82,7 +83,9 @@
   width: 220px;
   min-height: 46px;
   text-decoration: none;
-  transition: background 0.2s, color 0.2s;
+  transition:
+    background 0.2s,
+    color 0.2s;
   padding: 0;
 
   .about-arrow {
@@ -948,6 +951,61 @@ swiper-container::part(bullet-active) {
       .activity-desc {
         font-size: 1.5rem;
       }
+    }
+  }
+}
+
+@media (min-width: 1600px) {
+  .about-hero {
+    padding: 3.5rem 6rem 3.5rem 5rem;
+  }
+
+  .skills-section {
+    .stacks-grid {
+      padding: 3rem 7rem;
+      gap: 5em;
+    }
+  }
+}
+
+@media (min-width: 1800px) {
+  .about-hero {
+    height: 600px;
+    padding: 3.5rem 7rem;
+  }
+
+  .about-journey {
+    padding: 3.5rem 4rem;
+  }
+
+  .skills-section {
+    .skills-header {
+      padding: 2rem 4rem 0;
+    }
+    .stacks-grid {
+      padding: 3rem 10rem;
+      gap: 5em;
+    }
+  }
+}
+
+@media (min-width: 2000px) {
+  .about-hero {
+    padding: 3.5rem 8rem;
+    height: 700px;
+  }
+
+  .about-journey {
+    padding: 3.5rem 5rem;
+  }
+
+  .skills-section {
+    .skills-header {
+      padding: 2rem 5rem 0;
+    }
+    .stacks-grid {
+      padding: 3rem 12rem;
+      gap: 6em;
     }
   }
 }

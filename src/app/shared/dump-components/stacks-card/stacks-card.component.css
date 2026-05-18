@@ -1,7 +1,7 @@
 .stack-card {
   position: relative;
   overflow: hidden;
-  border-radius: 0 !important; // coins carrés
+  border-radius: 0 !important;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -12,42 +12,31 @@
   color: var(--color-primary);
   height: 80px;
   width: 130px;
-  transform: translateZ(0); // Force GPU acceleration
+  transform: translateZ(0);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  // Reflet lumineux en haut à gauche
-  &::after {
-    content: "";
-    position: absolute;
-    top: -18px;
-    left: -18px;
-    width: 80px;
-    height: 60px;
-    background: radial-gradient(
-      ellipse at top left,
-      rgba(191, 240, 0, 0.38) 10%,
-      rgba(191, 240, 0, 0.13) 50%,
-      rgba(191, 240, 0, 0.04) 80%,
-      transparent 100%
-    );
-    filter: blur(6px);
-    pointer-events: none;
-    z-index: 2;
-  }
-
-  // Contour lumineux subtil
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 0 !important;
-    border: 2px solid rgba(192, 240, 0, 0.509);
-    box-shadow:
-      0 0 16px 2px rgba(191, 240, 0, 0.13),
-      0 0 48px 8px rgba(192, 240, 0, 0.348);
-    pointer-events: none;
-    z-index: 1;
-  }
+}
+.stack-card::after {
+  content: "";
+  position: absolute;
+  top: -18px;
+  left: -18px;
+  width: 80px;
+  height: 60px;
+  background: radial-gradient(ellipse at top left, rgba(191, 240, 0, 0.38) 10%, rgba(191, 240, 0, 0.13) 50%, rgba(191, 240, 0, 0.04) 80%, transparent 100%);
+  filter: blur(6px);
+  pointer-events: none;
+  z-index: 2;
+}
+.stack-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 0 !important;
+  border: 2px solid rgba(192, 240, 0, 0.509);
+  box-shadow: 0 0 16px 2px rgba(191, 240, 0, 0.13), 0 0 48px 8px rgba(192, 240, 0, 0.348);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .stack-icon {
@@ -76,7 +65,6 @@
     font-size: 0.85rem;
   }
 }
-
 @media (min-width: 414px) {
   .stack-card {
     width: 160px;
@@ -91,7 +79,6 @@
     font-size: 0.95rem;
   }
 }
-
 @media (min-width: 768px) {
   .stack-card {
     width: 150px;
@@ -106,7 +93,6 @@
     font-size: 0.95rem;
   }
 }
-
 @media (min-width: 1280px) {
   .stack-card {
     width: 180px;
@@ -120,7 +106,6 @@
     font-size: 1.1rem;
   }
 }
-
 @media (min-width: 1440px) {
   .stack-card {
     width: 220px;
@@ -134,11 +119,10 @@
     font-size: 1.5rem;
   }
 }
-
 @media (min-width: 1800px) {
   .stack-card {
     padding-right: 20px;
     width: 240px;
     height: 165px;
   }
-}
+}/*# sourceMappingURL=stacks-card.component.css.map */

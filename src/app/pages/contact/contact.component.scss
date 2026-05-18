@@ -36,8 +36,10 @@
     white-space: nowrap;
     overflow: hidden;
     border-right: 0.15em solid var(--color-primary, #c6ff1a);
-    animation: typewriter-contact 2.4s steps(13) 1 both,
-      blinkCursor 0.5s step-end 4.2, hideCursor 0.01s linear 2.11s forwards;
+    animation:
+      typewriter-contact 2.4s steps(13) 1 both,
+      blinkCursor 0.5s step-end 4.2,
+      hideCursor 0.01s linear 2.11s forwards;
     color: var(--color-primary, #c6ff1a);
     font-size: 1.8rem;
     font-weight: 700;
@@ -201,6 +203,28 @@
       height: 450px;
       margin-right: 240px;
       padding-right: 1.5rem;
+    }
+  }
+}
+
+@media (min-width: 1600px) {
+  .contact-hero {
+    padding: 3.5rem 6rem;
+
+    .contact-hero-svg {
+      padding-right: 0;
+      margin-right: 220px;
+    }
+  }
+}
+@media (min-width: 1800px) {
+  .contact-hero {
+    padding: 3.5rem 8rem;
+    height: 600px;
+
+    .contact-hero-svg {
+      padding-right: 0;
+      margin-right: 200px;
     }
   }
 }

@@ -1,0 +1,212 @@
+.contact-hero {
+  background: var(--color-dark);
+  color: #fff;
+  margin-top: 3em;
+  padding: 2.2rem 1.2rem 2rem 1.2rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-radius: 0;
+  cursor: default;
+}
+@keyframes blinkCursor {
+  50% {
+    border-right-color: transparent;
+  }
+}
+@keyframes typewriter-contact {
+  from {
+    width: 0;
+  }
+  to {
+    width: 12.5ch;
+  }
+}
+@keyframes hideCursor {
+  to {
+    border-right-color: transparent;
+  }
+}
+.contact-hero .contact-title {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 0.15em solid var(--color-primary, #c6ff1a);
+  animation: typewriter-contact 2.4s steps(13) 1 both, blinkCursor 0.5s step-end 4.2, hideCursor 0.01s linear 2.11s forwards;
+  color: var(--color-primary, #c6ff1a);
+  font-size: 1.8rem;
+  font-weight: 700;
+  font-family: "Montserrat", sans-serif;
+}
+.contact-hero .contact-subtitle {
+  color: var(--color-primary, #c6ff1a);
+  font-size: 1.4rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 200;
+  display: block;
+  margin-bottom: 1.2rem;
+}
+.contact-hero .contact-desc {
+  font-size: 1rem;
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 1.5rem;
+  color: #eee;
+  line-height: 1.5;
+}
+.contact-hero .contact-hero-svg {
+  display: none;
+}
+
+@media (min-width: 375px) {
+  .contact-hero {
+    padding: 2.5rem 1.5rem 2.2rem 1.5rem;
+  }
+  .contact-hero .contact-title {
+    font-size: 2rem;
+  }
+  .contact-hero .contact-subtitle {
+    font-size: 1.5rem;
+  }
+  .contact-hero .contact-desc {
+    font-size: 1.05rem;
+  }
+}
+@media (min-width: 414px) {
+  .contact-hero {
+    padding: 2.5rem 1.5rem 2rem;
+  }
+  .contact-hero .contact-title {
+    font-size: 2.2rem;
+  }
+  .contact-hero .contact-subtitle {
+    font-size: 1.8rem;
+  }
+  .contact-hero .contact-desc {
+    font-size: 1.15rem;
+  }
+}
+@media (min-width: 768px) {
+  .contact-hero {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 1rem 2em 2em;
+    margin-top: 5em;
+  }
+  .contact-hero .contact-hero-content {
+    flex: 1 1 0;
+    max-width: 340px;
+  }
+  .contact-hero .contact-hero-svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 280px;
+    height: 280px;
+    flex-shrink: 0;
+  }
+  .contact-hero .contact-hero-svg img {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .contact-hero .contact-title {
+    font-size: 2.1rem;
+  }
+  .contact-hero .contact-subtitle {
+    font-size: 1.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  .contact-hero {
+    height: 400px;
+    padding: 3rem 1rem 3rem 2rem;
+    margin-top: 1rem;
+  }
+  .contact-hero .contact-hero-content {
+    flex: 1 1 0;
+    max-width: 350px;
+  }
+  .contact-hero .contact-hero-svg {
+    width: 320px;
+    height: 320px;
+    margin-right: 240px;
+  }
+  .contact-hero .contact-title {
+    font-size: 1.7rem;
+  }
+  .contact-hero .contact-subtitle {
+    font-size: 1.5rem;
+  }
+  .contact-hero .contact-desc {
+    font-size: 1.1rem;
+  }
+}
+@media (min-width: 1280px) {
+  .contact-hero {
+    height: 532px;
+    padding: 3.5rem 0 3rem 3rem;
+  }
+  .contact-hero .contact-hero-content {
+    flex: 1 1 0;
+    max-width: 450px;
+  }
+  .contact-hero .contact-hero-svg {
+    width: 420px;
+    height: 420px;
+    margin-right: 240px;
+    padding-right: 3rem;
+  }
+  .contact-hero .contact-title {
+    font-size: 2.4rem;
+  }
+  .contact-hero .contact-subtitle {
+    font-size: 1.8rem;
+  }
+  .contact-hero .contact-desc {
+    font-size: 1.5rem;
+  }
+}
+@media (min-width: 1440px) {
+  .contact-hero {
+    padding: 3.5rem 2rem 3.5rem 4rem;
+  }
+  .contact-hero .contact-hero-content {
+    max-width: 550px;
+  }
+  .contact-hero .contact-title {
+    font-size: 3rem;
+  }
+  .contact-hero .contact-subtitle {
+    font-size: 1.8rem;
+  }
+  .contact-hero .contact-desc {
+    font-size: 1.6rem;
+  }
+  .contact-hero .contact-hero-svg {
+    width: 450px;
+    height: 450px;
+    margin-right: 240px;
+    padding-right: 1.5rem;
+  }
+}
+@media (min-width: 1600px) {
+  .contact-hero {
+    padding: 3.5rem 6rem;
+  }
+  .contact-hero .contact-hero-svg {
+    padding-right: 0;
+    margin-right: 220px;
+  }
+}
+@media (min-width: 1800px) {
+  .contact-hero {
+    padding: 3.5rem 8rem;
+    height: 600px;
+  }
+  .contact-hero .contact-hero-svg {
+    padding-right: 0;
+    margin-right: 200px;
+  }
+}/*# sourceMappingURL=contact.component.css.map */

@@ -52,7 +52,9 @@
   min-width: 220px;
   min-height: 46px;
   text-decoration: none;
-  transition: background 0.2s, color 0.2s;
+  transition:
+    background 0.2s,
+    color 0.2s;
   padding: 0;
   .arrow {
     background: var(--color-primary, #c6ff1a);
@@ -807,12 +809,12 @@ swiper-container::part(bullet-active) {
   }
 
   .img-section {
+    margin-right: 240px;
     .img-section-title {
       font-size: 2.4rem;
     }
   }
-  .project_images_flex {
-    margin-right: 240px;
+  .project-images-flex {
     .img-landscape {
       width: 500px;
       height: 380px;
@@ -926,7 +928,27 @@ swiper-container::part(bullet-active) {
       font-size: 2.8rem;
     }
   }
+}
+@media (min-width: 1800px) {
+  .project-hero {
+    height: 600px;
+    padding: 3.5rem 8rem 3.5rem 7rem;
+  }
+  .project-rectangles {
+    width: 700px;
+    height: 800px;
+  }
+
   .project-images-flex {
     margin-bottom: 4rem;
+
+    .img-landscape {
+      width: 560px;
+      height: 520px;
+    }
+    .img-square {
+      width: 520px;
+      height: 520px;
+    }
   }
 }

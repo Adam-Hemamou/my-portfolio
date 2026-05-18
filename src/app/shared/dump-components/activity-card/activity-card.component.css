@@ -12,18 +12,17 @@
   width: 300px;
   min-height: 320px;
   max-width: 100%;
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    right: -12px;
-    bottom: -12px;
-    border: 2px solid var(--color-primary);
-    z-index: -1;
-    pointer-events: none;
-  }
+}
+.activity-card::after {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: -12px;
+  bottom: -12px;
+  border: 2px solid var(--color-primary);
+  z-index: -1;
+  pointer-events: none;
 }
 
 .activity-card__img {
@@ -68,7 +67,6 @@
     font-size: 1rem;
   }
 }
-
 @media (min-width: 414px) {
   .activity-card {
     width: 340px;
@@ -84,7 +82,6 @@
     font-size: 1.1rem;
   }
 }
-
 @media (min-width: 768px) {
   .activity-card {
     width: 320px;
@@ -101,7 +98,6 @@
     font-size: 1rem;
   }
 }
-
 @media (min-width: 1280px) {
   .activity-card {
     width: 407px;
@@ -118,7 +114,6 @@
     font-size: 1.3rem;
   }
 }
-
 @media (min-width: 1440px) {
   .activity-card {
     width: 497px;
@@ -135,14 +130,12 @@
     font-size: 1.5rem;
   }
 }
-
 @media (min-width: 1800px) {
   .activity-card {
     width: 600px;
     min-height: 540px;
   }
-
   .activity-card__desc {
     margin-top: 1.5em;
   }
-}
+}/*# sourceMappingURL=activity-card.component.css.map */

@@ -1,0 +1,52 @@
+.band-container {
+  overflow: hidden;
+  background: var(--color-primary);
+  cursor: default;
+  position: relative;
+  z-index: 10;
+}
+
+.band-track {
+  display: flex;
+  width: -moz-max-content;
+  width: max-content;
+  min-width: 100vw;
+  animation: scroll-band 16s linear infinite;
+}
+
+.band-text {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--color-dark);
+  padding: 0.7em 0em;
+  white-space: nowrap;
+}
+
+@keyframes scroll-band {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+@media (min-width: 414px) {
+  .band-text {
+    font-size: 1.1rem;
+    padding: 0.6em 0em;
+  }
+}
+@media (min-width: 768px) {
+  .band-text {
+    font-size: 1.5rem;
+    padding: 0.8em 0em;
+  }
+}
+@media (min-width: 1280px) {
+  .band-text {
+    font-size: 1.7rem;
+    padding: 0.9em 0em;
+  }
+}/*# sourceMappingURL=animate-band.component.css.map */

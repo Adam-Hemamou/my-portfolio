@@ -1,0 +1,376 @@
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  padding: 2em 1em 3em;
+}
+
+.contact-form label {
+  font-weight: 700;
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: 1px;
+}
+
+.contact-form input {
+  border: none;
+  border-bottom: 2px solid #222;
+  -o-border-image: linear-gradient(to right, #222 60%, #c6ff1a 100%);
+     border-image: linear-gradient(to right, #222 60%, #c6ff1a 100%);
+  border-image-slice: 1;
+  background: transparent;
+  padding: 0 0.2em 0.5em;
+  margin-bottom: 1em;
+  font-size: 1.1rem;
+  outline: none;
+  font-family: "Montserrat", sans-serif;
+  transition: border-color 0.2s;
+}
+
+.contact-form input:focus {
+  border-bottom: 2px solid #c6ff1a;
+}
+
+.contact-btn {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #222;
+  background: #fff;
+  color: var(--color-dark);
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.15rem;
+  font-weight: 400;
+  cursor: pointer;
+  border-radius: 0;
+  overflow: hidden;
+  width: 100%;
+  max-width: 400px;
+  min-height: 63px;
+  margin-top: 0.8em;
+  transition: background 0.2s, color 0.2s;
+  padding: 0;
+}
+
+.contact-btn-arrow-container {
+  position: relative;
+  overflow: hidden;
+  width: 72px;
+  height: 62px;
+  min-width: 72px;
+  min-height: 62px;
+  border-right: solid 1px var(--color-dark);
+}
+.contact-btn-arrow-container .contact-btn-arrow,
+.contact-btn-arrow-container .contact-btn-arrow-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.4s cubic-bezier(0.77, 0, 0.18, 1);
+}
+.contact-btn-arrow-container .contact-btn-arrow {
+  background-color: var(--color-dark);
+  z-index: 1;
+}
+.contact-btn-arrow-container .contact-btn-arrow img {
+  width: 1.6em;
+  height: 1.6em;
+  filter: invert(1);
+}
+.contact-btn-arrow-container .contact-btn-arrow-hover {
+  background-color: var(--color-primary);
+  z-index: 1;
+  transform: translateX(-100%);
+}
+.contact-btn-arrow-container .contact-btn-arrow-hover img {
+  width: 1.6em;
+  height: 1.6em;
+  filter: none;
+}
+
+.contact-btn .contact-txt {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.5em;
+  font-size: 1.15rem;
+}
+
+.form-notification {
+  position: fixed;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 300px;
+  padding: 0.7em 1.5em;
+  font-size: 1.2rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  text-align: center;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: top 0.4s cubic-bezier(0.77, 0, 0.18, 1), opacity 0.3s;
+}
+.form-notification.success {
+  background: var(--color-primary);
+  color: var(--color-dark);
+  border: 1px solid var(--color-dark);
+}
+.form-notification.error {
+  background: #fc2e2e;
+  color: #fff;
+  border: 1px solid var(--color-dark);
+}
+
+.form-notification.active {
+  animation: slideDown 0.5s cubic-bezier(0.77, 0, 0.18, 1);
+  top: 40px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.form-notification.leaving {
+  animation: slideUp 0.5s cubic-bezier(0.77, 0, 0.18, 1);
+  top: -80px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes slideDown {
+  from {
+    top: -80px;
+    opacity: 0;
+  }
+  to {
+    top: 40px;
+    opacity: 1;
+  }
+}
+@keyframes slideUp {
+  from {
+    top: 40px;
+    opacity: 1;
+  }
+  to {
+    top: -80px;
+    opacity: 0;
+  }
+}
+@media (min-width: 375px) {
+  .contact-form {
+    padding: 2.5em 1.5em 3em;
+  }
+  .contact-form label {
+    font-size: 1.05rem;
+  }
+  .contact-form input {
+    font-size: 1.15rem;
+    padding: 0 0.2em 0.7em;
+  }
+  .contact-btn {
+    min-height: 62px;
+    max-width: 420px;
+  }
+  .contact-btn-arrow-container {
+    width: 72px;
+    height: 62px;
+    min-width: 72px;
+    min-height: 62px;
+  }
+  .contact-btn-arrow-container .contact-btn-arrow img,
+  .contact-btn-arrow-container .contact-btn-arrow-hover img {
+    width: 1.9em;
+    height: 1.9em;
+  }
+  .contact-btn .contact-txt {
+    font-size: 1.18rem;
+  }
+}
+@media (min-width: 414px) {
+  .contact-form {
+    padding: 2.5em 1.5em 3.2em;
+  }
+  .contact-form label {
+    font-size: 1.1rem;
+  }
+  .contact-form input {
+    font-size: 1.18rem;
+    padding: 0 0.2em 0.8em;
+  }
+  .contact-btn {
+    min-height: 66px;
+    max-width: 440px;
+  }
+  .contact-btn-arrow-container {
+    width: 76px;
+    height: 66px;
+    min-width: 76px;
+    min-height: 66px;
+  }
+  .contact-btn .contact-txt {
+    padding: 0 0.3em;
+    font-size: 1.3rem;
+  }
+}
+@media (min-width: 768px) {
+  .contact-form {
+    padding: 3em 2em 3.5em;
+    gap: 2.2em;
+    margin: 0 auto;
+  }
+  .contact-form label {
+    font-size: 1.4rem;
+  }
+  .contact-form input {
+    font-size: 1.3rem;
+    padding: 0 0.2em 1em;
+  }
+  .contact-btn {
+    min-height: 80px;
+    max-width: 480px;
+    margin: 1.5em auto;
+  }
+  .contact-btn-arrow-container {
+    width: 90px;
+    height: 80px;
+    min-width: 90px;
+    min-height: 80px;
+  }
+  .contact-btn-arrow-container .contact-btn-arrow img,
+  .contact-btn-arrow-container .contact-btn-arrow-hover img {
+    width: 2.1em;
+    height: 2.1em;
+  }
+  .contact-btn .contact-txt {
+    font-size: 1.5rem;
+  }
+  .form-notification {
+    min-width: 420px;
+    font-size: 1.6rem;
+  }
+}
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .contact-form {
+    padding: 3em 2em;
+    gap: 2em;
+    margin-right: 240px;
+  }
+  .contact-form label {
+    font-size: 1.25rem;
+  }
+  .contact-form input {
+    font-size: 1.15rem;
+    padding: 0 0.2em 0.9em;
+  }
+  .contact-btn {
+    min-height: 70px;
+    max-width: 420px;
+    margin: 1.2em auto;
+    font-size: 1.2rem;
+  }
+  .contact-btn-arrow-container {
+    width: 80px;
+    height: 70px;
+    min-width: 80px;
+    min-height: 70px;
+  }
+  .contact-btn-arrow-container .contact-btn-arrow img,
+  .contact-btn-arrow-container .contact-btn-arrow-hover img {
+    width: 1.8em;
+    height: 1.8em;
+  }
+  .contact-btn .contact-txt {
+    font-size: 1.25rem;
+  }
+  .contact-btn:hover .contact-btn-arrow-container .contact-btn-arrow {
+    transform: translateX(100%);
+  }
+  .contact-btn:hover .contact-btn-arrow-container .contact-btn-arrow-hover {
+    transform: translateX(0);
+  }
+}
+@media (min-width: 1280px) {
+  .contact-form {
+    padding: 3.5em 3em 3.5em;
+    gap: 2.2em;
+    margin-right: 240px;
+  }
+  .contact-form label {
+    font-size: 1.4rem;
+  }
+  .contact-form input {
+    font-size: 1.3rem;
+    padding: 0 0.2em 1em;
+  }
+  .contact-btn {
+    min-height: 80px;
+    max-width: 480px;
+    margin: 1.5em auto;
+  }
+  .contact-btn-arrow-container {
+    width: 90px;
+    height: 80px;
+    min-width: 90px;
+    min-height: 80px;
+  }
+  .contact-btn-arrow-container .contact-btn-arrow img,
+  .contact-btn-arrow-container .contact-btn-arrow-hover img {
+    width: 2.1em;
+    height: 2.1em;
+  }
+  .contact-btn .contact-txt {
+    font-size: 1.5rem;
+  }
+  .form-notification {
+    min-width: 500px;
+  }
+  .contact-btn:hover .contact-btn-arrow-container .contact-btn-arrow {
+    transform: translateX(100%);
+  }
+  .contact-btn:hover .contact-btn-arrow-container .contact-btn-arrow-hover {
+    transform: translateX(0);
+  }
+}
+@media (min-width: 1440px) {
+  .contact-form {
+    padding: 4em 5em;
+  }
+  .contact-form label {
+    font-size: 1.6rem;
+  }
+  .contact-form input {
+    font-size: 1.6rem;
+  }
+  .contact-btn {
+    min-height: 100px;
+    max-width: 500px;
+    margin: 1.5em auto;
+  }
+  .contact-btn-arrow-container {
+    width: 100px;
+    height: 100px;
+    min-width: 100px;
+    min-height: 100px;
+  }
+  .contact-btn-arrow-container .contact-btn-arrow img,
+  .contact-btn-arrow-container .contact-btn-arrow-hover img {
+    width: 2.4em;
+    height: 2.4em;
+  }
+  .contact-btn .contact-txt {
+    font-size: 1.8rem;
+  }
+  .contact-btn:hover .contact-btn-arrow-container .contact-btn-arrow {
+    transform: translateX(100%);
+  }
+  .contact-btn:hover .contact-btn-arrow-container .contact-btn-arrow-hover {
+    transform: translateX(0);
+  }
+}/*# sourceMappingURL=contact-form.component.css.map */
