@@ -146,3 +146,15 @@
     margin-top: 1.5em;
   }
 }
+
+@media (min-width: 2000px) {
+  .activity-card {
+    width: 600px;
+    min-height: 540px;
+  }
+
+  .activity-card__desc {
+    margin-top: 1.5em;
+    font-size: 1.8rem;
+  }
+}

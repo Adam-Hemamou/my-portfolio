@@ -434,6 +434,23 @@
 
   .project-btn {
     width: 400px;
+
+    .arrow {
+      height: 100%;
+      img {
+        width: 2.5em;
+        height: 2.5em;
+      }
+    }
+
+    .arrow-hover {
+      height: 100%;
+      img {
+        width: 2.5em;
+        height: 2.5em;
+      }
+    }
+
     .btn-label {
       font-size: 2rem;
       padding-left: 60px;
