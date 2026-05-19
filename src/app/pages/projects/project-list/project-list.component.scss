@@ -375,3 +375,49 @@
     }
   }
 }
+
+@media (min-width: 2000px) {
+  .projects-hero {
+    height: 700px;
+
+    .projects-hero-content {
+      max-width: 700px;
+
+      .projects-title {
+        font-size: 4rem;
+      }
+
+      .projects-desc {
+        font-size: 2rem;
+      }
+
+      .about-cta {
+        width: 430px;
+        margin-top: 2.5rem;
+
+        .about-arrow {
+          width: 80px;
+          height: 80px;
+
+          img {
+            width: 2.5em;
+            height: 2.5em;
+          }
+        }
+
+        span:last-child {
+          font-size: 2.5rem;
+        }
+      }
+    }
+
+    .projects-hero-svg {
+      width: 550px;
+      height: 550px;
+    }
+  }
+
+  .projects-list {
+    padding: 6rem 8rem;
+  }
+}

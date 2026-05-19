@@ -993,19 +993,104 @@ swiper-container::part(bullet-active) {
   .about-hero {
     padding: 3.5rem 8rem;
     height: 700px;
+
+    .about-hero-content {
+      max-width: 700px;
+    }
+
+    .about-name {
+      font-size: 4rem;
+    }
+
+    .about-job {
+      font-size: 3.5rem;
+    }
+
+    .about-desc {
+      font-size: 2rem;
+    }
+
+    .about-cta {
+      width: 430px;
+
+      .about-arrow {
+        width: 80px;
+        height: 80px;
+
+        img {
+          width: 2.5em;
+          height: 2.5em;
+        }
+      }
+
+      span:last-child {
+        font-size: 2.5rem;
+      }
+    }
+
+    .about-rectangles {
+      width: 470px;
+      height: 540px;
+
+      img {
+        right: -3.5%;
+      }
+    }
   }
 
   .about-journey {
     padding: 3.5rem 5rem;
+
+    .journey-text {
+      max-width: 700px;
+
+      .journey-title {
+        font-size: 3.5rem;
+      }
+      .journey-subtitle {
+        font-size: 2rem;
+        margin-bottom: 1.2em;
+      }
+      p {
+        font-size: 1.8rem;
+      }
+    }
+
+    .journey-svg {
+      width: 700px;
+      height: 700px;
+    }
   }
 
   .skills-section {
     .skills-header {
       padding: 2rem 5rem 0;
+
+      .skills-title {
+        font-size: 3.5rem;
+      }
+
+      .skills-subtitle {
+        font-size: 2.5rem;
+      }
     }
     .stacks-grid {
       padding: 3rem 12rem;
       gap: 6em;
+    }
+  }
+
+  .activity-section {
+    .activity-intro {
+      padding-left: 80px;
+
+      .activity-title {
+        font-size: 3rem;
+      }
+
+      .activity-desc {
+        font-size: 1.8rem;
+      }
     }
   }
 }

@@ -952,3 +952,62 @@ swiper-container::part(bullet-active) {
     }
   }
 }
+@media (min-width: 2000px) {
+  .project-hero {
+    height: 700px;
+
+    .project-hero-content {
+      max-width: 700px;
+
+      .project-title {
+        font-size: 4rem;
+      }
+      .project-context {
+        font-size: 2rem;
+      }
+      .project-link-btns {
+        width: 430px;
+
+        .project-btn-redirect {
+          .arrow {
+            width: 80px;
+            height: 80px;
+
+            img {
+              width: 2.5em;
+              height: 2.5em;
+            }
+          }
+          span:last-child {
+            font-size: 2rem;
+            height: 80px;
+          }
+        }
+      }
+    }
+    .project-hero-svg {
+      width: 580px;
+      height: 630px;
+    }
+  }
+
+  .project-main-layout {
+    grid-template-columns: 700px 1fr;
+    padding: 4rem 6rem;
+  }
+
+  .challenge-list {
+    li {
+      font-size: 1.8rem;
+    }
+  }
+
+  .solution-section {
+    .solution-title {
+      font-size: 3rem;
+    }
+    .solution-content {
+      font-size: 1.8rem;
+    }
+  }
+}
