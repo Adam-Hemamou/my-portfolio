@@ -1,4 +1,5 @@
 import { Injectable, inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { Title, Meta } from '@angular/platform-browser';
 import { SEOData } from '../types/seo.type';
 
@@ -8,6 +9,7 @@ import { SEOData } from '../types/seo.type';
 export class SEOService {
   private titleService = inject(Title);
   private metaService = inject(Meta);
+  private document = inject(DOCUMENT);
 
   updateSEO(data: SEOData) {
     // Title
@@ -21,10 +23,7 @@ export class SEOService {
 
     // Canonical URL
     if (data.url) {
-      this.metaService.updateTag({
-        rel: 'canonical',
-        href: data.url,
-      });
+      this.updateCanonical(data.url);
     }
 
     // Open Graph (pour partages)
@@ -55,5 +54,17 @@ export class SEOService {
       name: 'twitter:description',
       content: data.description,
     });
+  }
+
+  private updateCanonical(url: string) {
+    let link = this.document.head.querySelector<HTMLLinkElement>(
+      'link[rel="canonical"]'
+    );
+    if (!link) {
+      link = this.document.createElement('link');
+      link.setAttribute('rel', 'canonical');
+      this.document.head.appendChild(link);
+    }
+    link.setAttribute('href', url);
   }
 }
