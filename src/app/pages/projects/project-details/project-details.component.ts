@@ -49,7 +49,7 @@ export class ProjectDetailsComponent implements OnInit {
         keywords: `${this.project.title}, ${this.project.outils
           ?.map((o) => o.name)
           .join(', ')}, Adam Hemamou, projet`,
-        url: `https://adamh-dev.com/project/${this.project.id}`,
+        url: `https://www.adamh-dev.com/project/${this.project.id}`,
       });
     }
   }
