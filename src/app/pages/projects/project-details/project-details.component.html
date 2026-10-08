@@ -2,14 +2,7 @@
 <div *ngIf="project as project">
   <div class="project-hero">
     <div class="project-hero-content">
-      <h1
-        class="project-title"
-        data-aos="fade-right"
-        data-aos-delay="300"
-        data-aos-duration="800"
-      >
-        {{ project.title }}
-      </h1>
+      <h1 class="project-title" [appTypewriter]="project.title"></h1>
       <p
         class="project-context"
         data-aos="fade-right"

@@ -13,6 +13,7 @@ import { AnimateBandComponent } from '../../../shared/components/animate-band/an
 import { NgFor, NgIf } from '@angular/common';
 import { StacksCardComponent } from '../../../shared/dump-components/stacks-card/stacks-card.component';
 import { SEOService } from '../../../shared/services/seo.service';
+import { TypewriterDirective } from '../../../shared/directives/typewriter.directive';
 
 @Component({
   selector: 'app-project-details',
@@ -24,6 +25,7 @@ import { SEOService } from '../../../shared/services/seo.service';
     FooterComponent,
     NgIf,
     NgFor,
+    TypewriterDirective,
   ],
   templateUrl: './project-details.component.html',
   styleUrls: ['./project-details.component.scss'],

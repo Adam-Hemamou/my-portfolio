@@ -1,0 +1,437 @@
+// Bouton déclencheur
+// Mobile / tablette : masqué, l'entrée « DO NOT CLICK » est dans le menu
+.dnc-trigger {
+  display: none;
+  align-items: center;
+  gap: 0.5em;
+  min-height: 44px;
+  padding: 0.1em 1.1em 0;
+  border: 1.5px solid var(--color-dark);
+  background: #fff;
+  color: var(--color-dark);
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s;
+
+  &:hover {
+    background: var(--color-dark);
+    color: #fff;
+  }
+}
+
+.dnc-dot {
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 50%;
+  background: var(--color-primary, #c6ff1a);
+  border: 1px solid var(--color-dark);
+}
+
+.dnc-trigger:focus-visible,
+.dnc-btn:focus-visible,
+.dnc-tile:focus-visible,
+.dnc-cross:focus-visible,
+.dnc-quit:focus-visible {
+  outline: 2px solid var(--color-dark);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--color-primary, #c6ff1a);
+}
+
+.dnc-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+// Fenêtre
+.dnc-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 6000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.6);
+  overscroll-behavior: contain;
+}
+
+.dnc-panel {
+  width: min(100%, 400px);
+  max-height: 100%;
+  overflow-y: auto;
+  background: #fff;
+  color: var(--color-dark);
+  border: 1.5px solid var(--color-dark);
+  box-shadow: 6px 6px 0 var(--color-primary, #c6ff1a);
+  padding: 1.5rem 1.25rem 1.25rem;
+  font-family: "Montserrat", sans-serif;
+  cursor: default;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.dnc-title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.9rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.05;
+}
+
+.dnc-text {
+  font-size: 0.95rem;
+  line-height: 1.45;
+  margin-top: 0.7rem;
+}
+
+.dnc-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.4rem;
+}
+
+.dnc-btn {
+  flex: 1;
+  min-height: 44px;
+  padding: 0.5em 0.8em;
+  border: 1.5px solid var(--color-dark);
+  background: #fff;
+  color: var(--color-dark);
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s;
+
+  &:hover {
+    background: var(--color-dark);
+    color: #fff;
+  }
+}
+
+.dnc-btn--primary {
+  background: var(--color-primary, #c6ff1a);
+
+  &:hover {
+    background: var(--color-dark);
+    color: var(--color-primary, #c6ff1a);
+  }
+}
+
+// Faux bouton désactivé : grisé mais cliquable, il disparaît au clic
+.dnc-btn--greyed {
+  border-color: #bbb;
+  background: #f2f2f2;
+  color: #999;
+  opacity: 0.6;
+  cursor: not-allowed;
+  transition:
+    opacity 0.25s,
+    visibility 0s 0.25s;
+
+  &:hover {
+    background: #f2f2f2;
+    color: #999;
+  }
+
+  &.is-gone {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+// CAPTCHA photo : en-tête noir, grille 3 × 3, pied avec validation
+.dnc-panel--captcha {
+  // Largeur limitée aussi par la hauteur d'écran pour que tout reste visible
+  width: min(100%, 460px, max(260px, 100vh - 270px));
+  padding: 0;
+}
+
+.dnc-captcha-head {
+  position: relative;
+  background: var(--color-dark);
+  color: #fff;
+  padding: 0.9rem 3.6rem 0.9rem 1rem;
+}
+
+.dnc-progress {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+}
+
+.dnc-instruction {
+  font-weight: 400;
+}
+
+.dnc-prompt {
+  display: block;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+
+.dnc-target {
+  display: block;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.9rem;
+  letter-spacing: 0.02em;
+  line-height: 1.05;
+  color: var(--color-primary, #c6ff1a);
+  text-transform: uppercase;
+}
+
+// Croix : dans l'en-tête au départ, puis position fixe dans la fenêtre
+.dnc-cross {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid var(--color-dark);
+  background: #fff;
+  color: var(--color-dark);
+  box-shadow: 0 0 0 2px var(--color-primary, #c6ff1a);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.dnc-cross--loose {
+  position: fixed;
+  right: auto;
+  transition:
+    left 0.25s cubic-bezier(0.77, 0, 0.18, 1),
+    top 0.25s cubic-bezier(0.77, 0, 0.18, 1);
+}
+
+.dnc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 3px;
+  padding: 3px;
+  background: #fff;
+  border-bottom: 1.5px solid var(--color-dark);
+}
+
+.dnc-tile {
+  position: relative;
+  aspect-ratio: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: #f7f7f7;
+  overflow: hidden;
+  cursor: pointer;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  // État sélectionné : cadre lime + coche, sans changer la taille de la case
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 0 solid var(--color-primary, #c6ff1a);
+    pointer-events: none;
+  }
+
+  &.is-selected::after {
+    border-width: 6px;
+    background: rgba(198, 255, 26, 0.18);
+  }
+
+  &:disabled {
+    cursor: default;
+  }
+}
+
+.dnc-check {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  z-index: 1;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: var(--color-primary, #c6ff1a);
+  border: 1.5px solid var(--color-dark);
+  color: var(--color-dark);
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1;
+
+  .is-selected & {
+    display: flex;
+  }
+}
+
+.dnc-captcha-foot {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem 0;
+}
+
+.dnc-feedback {
+  flex: 1;
+  min-height: 2.6em;
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.dnc-validate {
+  flex: 0 0 auto;
+  min-width: 7.5rem;
+}
+
+.dnc-quit {
+  display: block;
+  margin: 0.3rem auto 0.5rem;
+  padding: 0.5em 0.8em;
+  border: 0;
+  background: none;
+  color: #555;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.5rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+// Message déclenché par la croix
+.dnc-popup-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.dnc-popup {
+  width: min(100%, 340px);
+  background: var(--color-dark);
+  color: #fff;
+  border: 1.5px solid var(--color-primary, #c6ff1a);
+  box-shadow: 6px 6px 0 var(--color-primary, #c6ff1a);
+  padding: 1.5rem 1.25rem 1.25rem;
+  font-family: "Montserrat", sans-serif;
+
+  &:focus {
+    outline: none;
+  }
+
+  .dnc-btn {
+    border-color: var(--color-primary, #c6ff1a);
+  }
+}
+
+.dnc-popup-line {
+  display: block;
+}
+
+// Conclusion du gag : photo en grand
+.dnc-panel--final {
+  width: min(100%, 640px);
+  padding: 0.75rem;
+
+  .dnc-actions {
+    margin-top: 0.75rem;
+  }
+}
+
+.dnc-final-photo {
+  display: block;
+  width: 100%;
+  max-height: calc(100vh - 11rem);
+  object-fit: contain;
+  background: var(--color-dark);
+}
+
+.dnc-final-missing {
+  padding: 3rem 1rem;
+  border: 1.5px dashed var(--color-dark);
+  background: #f7f7f7;
+  font-size: 0.85rem;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 768px) {
+  .dnc-panel {
+    padding: 2rem 1.75rem 1.5rem;
+  }
+  .dnc-panel--captcha {
+    padding: 0;
+  }
+  .dnc-panel--final {
+    padding: 1rem;
+  }
+  .dnc-title {
+    font-size: 2.3rem;
+  }
+  .dnc-captcha-head {
+    padding: 1.1rem 4rem 1.1rem 1.25rem;
+  }
+  .dnc-prompt {
+    font-size: 0.95rem;
+  }
+  .dnc-target {
+    font-size: 2.3rem;
+  }
+  .dnc-captcha-foot {
+    padding: 0.9rem 1.25rem 0;
+  }
+  .dnc-feedback {
+    font-size: 0.9rem;
+  }
+}
+
+// Desktop : en haut à droite du contenu, à gauche des bandes de navigation
+@media (min-width: 1024px) {
+  .dnc-trigger {
+    display: inline-flex;
+    position: absolute;
+    top: 22px;
+    right: 256px;
+    z-index: 900;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dnc-trigger,
+  .dnc-btn,
+  .dnc-btn--greyed,
+  .dnc-cross--loose {
+    transition: none;
+  }
+}

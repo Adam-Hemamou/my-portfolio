@@ -2,6 +2,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { BandNavigationService } from '../../services/band-navigation.service';
+import { DoNotClickService } from '../../services/do-not-click.service';
 
 @Component({
   selector: 'app-menu',
@@ -21,7 +22,10 @@ export class MenuComponent {
     { label: 'Contact', link: '/contact' },
   ];
 
-  constructor(private bandNav: BandNavigationService) {
+  constructor(
+    private bandNav: BandNavigationService,
+    private doNotClick: DoNotClickService
+  ) {
     window.addEventListener('resize', () => {
       this.isDesktopNav = window.innerWidth >= 1024;
     });
@@ -33,6 +37,11 @@ export class MenuComponent {
 
   closeMenu() {
     this.isOpen = false;
+  }
+
+  openDoNotClick() {
+    this.closeMenu();
+    this.doNotClick.open();
   }
 
   onMenuItemClick() {
