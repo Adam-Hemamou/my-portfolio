@@ -186,6 +186,48 @@
   pointer-events: auto;
 }
 
+// Entrée spéciale « DO NOT CLICK » : même gabarit que les liens, en noir et lime
+.menu-drawer li .menu-dnc {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 44px;
+  padding: 0.2rem 1.2rem;
+  border: 0;
+  background: var(--color-dark);
+  color: var(--color-primary);
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 2rem;
+  line-height: inherit;
+  text-align: left;
+  cursor: pointer;
+
+  .menu-dnc-dot {
+    width: 14px;
+    height: 14px;
+    margin-right: 7px;
+    border-radius: 50%;
+    background: var(--color-primary);
+  }
+
+  &:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: -3px;
+  }
+
+  @media (min-width: 375px) {
+    font-size: 2.1rem;
+  }
+  @media (min-width: 414px) {
+    font-size: 2.3rem;
+  }
+  @media (min-width: 768px) {
+    font-size: 2.6rem;
+    padding: 0.8rem 1.8rem;
+  }
+}
+
 .arrow-container {
   position: relative;
   overflow: hidden;

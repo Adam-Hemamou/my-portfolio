@@ -4,6 +4,7 @@ import { FooterComponent } from '../../shared/components/footer/footer.component
 import { AnimateBandComponent } from '../../shared/components/animate-band/animate-band.component';
 import { ContactFormComponent } from '../../shared/components/contact-form/contact-form.component';
 import { SEOService } from '../../shared/services/seo.service';
+import { TypewriterDirective } from '../../shared/directives/typewriter.directive';
 
 @Component({
   selector: 'app-contact',
@@ -13,6 +14,7 @@ import { SEOService } from '../../shared/services/seo.service';
     AnimateBandComponent,
     ContactFormComponent,
     FooterComponent,
+    TypewriterDirective,
   ],
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],

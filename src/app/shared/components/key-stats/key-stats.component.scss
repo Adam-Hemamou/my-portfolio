@@ -1,0 +1,110 @@
+:host {
+  display: block;
+}
+
+.key-stats {
+  background: var(--color-dark);
+  color: #fff;
+  padding: 2.2rem 1.2rem;
+  cursor: default;
+}
+
+.key-stats-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem 1rem;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.key-stats.is-visible .key-stats-list {
+  opacity: 1;
+}
+
+// Pas de fondu pendant le slide de page (voir styles.css, is-transitioning)
+:host-context(main.is-transitioning) .key-stats-list {
+  transition: none;
+}
+
+.key-stat {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.key-stat-value {
+  font-family: "Bebas Neue", "Montserrat", sans-serif;
+  font-size: clamp(3rem, 15vw, 4.5rem);
+  line-height: 1;
+  color: var(--color-primary, #c6ff1a);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+// Valeur finale, toujours présente pour les lecteurs d'écran
+.key-stat-final {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.key-stat-label {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+  margin-top: 0.4em;
+}
+
+@media (min-width: 768px) {
+  .key-stats {
+    padding: 3rem 2rem;
+  }
+  .key-stats-list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+  .key-stat-value {
+    font-size: clamp(3.5rem, 8vw, 6rem);
+  }
+  .key-stat-label {
+    font-size: 0.9rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .key-stats-list {
+    margin-right: 240px;
+  }
+  .key-stat-value {
+    font-size: clamp(3.5rem, 6.5vw, 7rem);
+  }
+}
+
+@media (min-width: 1280px) {
+  .key-stats {
+    padding: 4rem 3rem;
+  }
+  .key-stat-label {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .key-stats {
+    padding: 4rem 5.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .key-stats-list {
+    opacity: 1;
+    transition: none;
+  }
+}

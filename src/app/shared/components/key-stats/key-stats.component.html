@@ -1,0 +1,16 @@
+<section
+  class="key-stats"
+  [class.is-visible]="isVisible"
+  aria-label="Chiffres clés"
+>
+  <ul class="key-stats-list">
+    <li class="key-stat" *ngFor="let stat of stats">
+      <span class="key-stat-value" aria-hidden="true">{{ stat.display }}</span>
+      <span class="key-stat-final">{{ stat.final }}</span>
+      <span class="key-stat-label"
+        >{{ stat.label
+        }}<span *ngIf="stat.emoji" aria-hidden="true"> {{ stat.emoji }}</span>
+      </span>
+    </li>
+  </ul>
+</section>

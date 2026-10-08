@@ -10,36 +10,10 @@
   border-radius: 0;
   cursor: default;
 
-  @keyframes blinkCursor {
-    50% {
-      border-right-color: transparent;
-    }
-  }
-
-  @keyframes typewriter-contact {
-    from {
-      width: 0;
-    }
-    to {
-      width: 12.5ch;
-    }
-  }
-
-  @keyframes hideCursor {
-    to {
-      border-right-color: transparent;
-    }
-  }
-
   .contact-title {
     display: inline-block;
     white-space: nowrap;
     overflow: hidden;
-    border-right: 0.15em solid var(--color-primary, #c6ff1a);
-    animation:
-      typewriter-contact 2.4s steps(13) 1 both,
-      blinkCursor 0.5s step-end 4.2,
-      hideCursor 0.01s linear 2.11s forwards;
     color: var(--color-primary, #c6ff1a);
     font-size: 1.8rem;
     font-weight: 700;

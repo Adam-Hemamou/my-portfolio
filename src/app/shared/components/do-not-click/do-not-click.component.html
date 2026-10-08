@@ -1,0 +1,190 @@
+<button
+  #trigger
+  type="button"
+  class="dnc-trigger"
+  aria-haspopup="dialog"
+  (click)="open()"
+>
+  <span class="dnc-dot" aria-hidden="true"></span>DO NOT CLICK
+</button>
+
+<div
+  class="dnc-overlay"
+  *ngIf="step !== 'closed'"
+  (click)="onBackdropClick($event)"
+  (keydown)="onKeydown($event)"
+>
+  <div
+    #panel
+    class="dnc-panel"
+    [class.dnc-panel--captcha]="step === 'captcha'"
+    [class.dnc-panel--final]="step === 'final'"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="dnc-title"
+    tabindex="-1"
+  >
+    <!-- Confirmations -->
+    <ng-container *ngIf="step === 'confirm'">
+      <h2 id="dnc-title" class="dnc-title">{{ confirmation.title }}</h2>
+      <p class="dnc-text" *ngIf="confirmation.text">{{ confirmation.text }}</p>
+      <div class="dnc-actions">
+        <button
+          type="button"
+          class="dnc-btn"
+          [class.dnc-btn--greyed]="confirmation.noVanishes"
+          [class.is-gone]="confirmation.noVanishes && noGone"
+          [attr.tabindex]="confirmation.noVanishes && noGone ? -1 : null"
+          (click)="decline()"
+        >
+          {{ confirmation.no }}
+        </button>
+        <button
+          #yes
+          type="button"
+          class="dnc-btn dnc-btn--primary"
+          (click)="confirm()"
+        >
+          {{ confirmation.yes }}
+        </button>
+      </div>
+    </ng-container>
+
+    <!-- CAPTCHA photo -->
+    <ng-container *ngIf="step === 'captcha'">
+      <div class="dnc-captcha-head">
+        <p class="dnc-progress">
+          Épreuve {{ captchaStep + 1 }} / {{ captchaSteps.length }}
+        </p>
+        <h2 id="dnc-title" class="dnc-instruction">
+          <span class="dnc-prompt">{{ captcha.prompt }}&#32;</span>
+          <span class="dnc-target">{{ captcha.target }}.</span>
+        </h2>
+        <button
+          #cross
+          type="button"
+          class="dnc-cross"
+          aria-label="Fermer"
+          [class.dnc-cross--loose]="crossPosition"
+          [style.left.px]="crossPosition?.left"
+          [style.top.px]="crossPosition?.top"
+          (click)="onCrossClick()"
+        >
+          ×
+        </button>
+      </div>
+
+      <div class="dnc-grid" role="group" aria-labelledby="dnc-title">
+        <button
+          type="button"
+          class="dnc-tile"
+          *ngFor="let tile of tiles; let i = index"
+          [class.is-selected]="tile.selected"
+          [attr.aria-pressed]="tile.selected"
+          [attr.aria-label]="'Image ' + (i + 1) + ' sur ' + tiles.length"
+          [disabled]="result === 'correct'"
+          (click)="toggle(tile)"
+        >
+          <img [src]="tile.src" alt="" draggable="false" />
+          <span class="dnc-check" aria-hidden="true">✓</span>
+        </button>
+      </div>
+
+      <div class="dnc-captcha-foot">
+        <p
+          class="dnc-feedback"
+          [class.is-correct]="result === 'correct'"
+          aria-live="polite"
+        >
+          {{ feedback }}
+        </p>
+        <button
+          *ngIf="result !== 'correct'"
+          type="button"
+          class="dnc-btn dnc-btn--primary dnc-validate"
+          (click)="validate()"
+        >
+          VALIDER
+        </button>
+        <button
+          *ngIf="result === 'correct'"
+          type="button"
+          class="dnc-btn dnc-btn--primary dnc-validate"
+          (click)="next()"
+        >
+          CONTINUER
+        </button>
+      </div>
+      <button type="button" class="dnc-quit" (click)="close()">quitter</button>
+    </ng-container>
+
+    <!-- CAPTCHA réussi -->
+    <ng-container *ngIf="step === 'done'">
+      <h2 id="dnc-title" class="dnc-title">Vérification réussie.</h2>
+      <p class="dnc-text">
+        Vous êtes officiellement humain. Conséquences disproportionnées :
+        aucune. On vous avait pourtant dit de ne pas cliquer.
+      </p>
+      <div class="dnc-actions">
+        <button
+          type="button"
+          class="dnc-btn dnc-btn--primary"
+          (click)="close()"
+        >
+          FERMER
+        </button>
+      </div>
+    </ng-container>
+
+    <!-- Conclusion du gag de la croix -->
+    <ng-container *ngIf="step === 'final'">
+      <h2 id="dnc-title" class="dnc-sr-only">Fin</h2>
+      <img
+        *ngIf="!finalPhotoMissing"
+        class="dnc-final-photo"
+        [src]="finalPhoto"
+        alt="Photo de conclusion"
+        (error)="finalPhotoMissing = true"
+      />
+      <p class="dnc-final-missing" *ngIf="finalPhotoMissing">
+        Photo à ajouter : public{{ finalPhoto }}
+      </p>
+      <div class="dnc-actions">
+        <button
+          type="button"
+          class="dnc-btn dnc-btn--primary"
+          (click)="close()"
+        >
+          FERMER
+        </button>
+      </div>
+    </ng-container>
+  </div>
+
+  <!-- Message déclenché par la croix -->
+  <div class="dnc-popup-layer" *ngIf="crossMessage">
+    <div
+      #popup
+      class="dnc-popup"
+      role="alertdialog"
+      aria-modal="true"
+      aria-labelledby="dnc-popup-title"
+      tabindex="-1"
+    >
+      <p id="dnc-popup-title" class="dnc-title">
+        <span class="dnc-popup-line" *ngFor="let line of crossMessage">{{
+          line
+        }}</span>
+      </p>
+      <div class="dnc-actions">
+        <button
+          type="button"
+          class="dnc-btn dnc-btn--primary"
+          (click)="closeCrossMessage()"
+        >
+          OK
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

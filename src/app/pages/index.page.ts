@@ -4,6 +4,7 @@ import { MenuComponent } from '../shared/components/menu/menu.component';
 import { AnimateBandComponent } from '../shared/components/animate-band/animate-band.component';
 import { RecentProjectComponent } from '../shared/components/recent-project/recent-project.component';
 import { FooterComponent } from '../shared/components/footer/footer.component';
+import { KeyStatsComponent } from '../shared/components/key-stats/key-stats.component';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +12,7 @@ import { FooterComponent } from '../shared/components/footer/footer.component';
   imports: [
     MenuComponent,
     AnimateBandComponent,
+    KeyStatsComponent,
     RecentProjectComponent,
     FooterComponent,
   ],
@@ -64,6 +66,7 @@ import { FooterComponent } from '../shared/components/footer/footer.component';
     <div class="home-band">
       <app-animate-band></app-animate-band>
     </div>
+    <app-key-stats></app-key-stats>
     <app-recent-project></app-recent-project>
     <app-footer></app-footer>
   `,

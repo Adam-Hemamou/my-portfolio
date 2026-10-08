@@ -9,6 +9,7 @@ import { ProjectService } from '../../../shared/services/project.service';
 import { BandNavigationService } from '../../../shared/services/band-navigation.service';
 import { RouterLink } from '@angular/router';
 import { SEOService } from '../../../shared/services/seo.service';
+import { TypewriterDirective } from '../../../shared/directives/typewriter.directive';
 
 @Component({
   selector: 'app-project-list',
@@ -21,6 +22,7 @@ import { SEOService } from '../../../shared/services/seo.service';
     ProjectCardComponent,
     FooterComponent,
     RouterLink,
+    TypewriterDirective,
   ],
   templateUrl: './project-list.component.html',
   styleUrls: ['./project-list.component.scss'],

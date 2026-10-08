@@ -436,9 +436,12 @@ main.is-transitioning [data-aos].aos-animate {
   transition: none !important;
 }
 
-main.is-transitioning .band-track,
-main.is-transitioning .about-name,
-main.is-transitioning .contact-title,
-main.is-transitioning .projects-title {
+main.is-transitioning .band-track {
   animation-play-state: paused !important;
+}
+
+/* Machine à écrire (appTypewriter) : partie du titre pas encore tapée + curseur */
+.typewriter-rest {
+  color: transparent;
+  box-shadow: inset 0.08em 0 0 var(--color-primary, #c6ff1a);
 }

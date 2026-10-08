@@ -7,11 +7,18 @@ import { BandAniamtionComponent } from './shared/components/band-aniamtion/band-
 import { NgIf } from '@angular/common';
 import { WelcomeComponent } from './pages/welcome/welcome/welcome.component';
 import { mobileFade } from './shared/services/mobile-fade.service';
+import { DoNotClickComponent } from './shared/components/do-not-click/do-not-click.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, BandAniamtionComponent, NgIf, WelcomeComponent],
+  imports: [
+    RouterOutlet,
+    BandAniamtionComponent,
+    NgIf,
+    WelcomeComponent,
+    DoNotClickComponent,
+  ],
   template: `
     <app-welcome
       *ngIf="showWelcome"
@@ -26,6 +33,8 @@ import { mobileFade } from './shared/services/mobile-fade.service';
       ></div>
 
       <app-band-animation *ngIf="isDesktop"></app-band-animation>
+
+      <app-do-not-click></app-do-not-click>
 
       <main
         [class.is-transitioning]="isTransitioning"

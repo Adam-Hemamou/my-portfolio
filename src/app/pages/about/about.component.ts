@@ -15,6 +15,7 @@ import { Activity } from '../../shared/types/activity.type';
 import { Router, RouterLink } from '@angular/router';
 import { BandNavigationService } from '../../shared/services/band-navigation.service';
 import { SEOService } from '../../shared/services/seo.service';
+import { TypewriterDirective } from '../../shared/directives/typewriter.directive';
 
 @Component({
   selector: 'app-about',
@@ -28,6 +29,7 @@ import { SEOService } from '../../shared/services/seo.service';
     NgFor,
     NgIf,
     RouterLink,
+    TypewriterDirective,
   ],
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss'],
