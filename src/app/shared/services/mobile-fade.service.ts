@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import {
   trigger,
   animate,
@@ -59,10 +58,3 @@ export const mobileFade = trigger('mobileFade', [
     ]),
   ]),
 ]);
-
-@Injectable({
-  providedIn: 'root',
-})
-export class MobileFadeService {
-  constructor() {}
-}

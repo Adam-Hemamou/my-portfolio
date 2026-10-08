@@ -79,8 +79,6 @@ export class BandAniamtionComponent {
         delay = 0;
       }
 
-      console.log(`📊 Distance: ${scrollDistance}px → Délai: ${delay}ms`);
-
       setTimeout(() => {
         this.navigateToBand(index, targetRoute);
       }, delay);
