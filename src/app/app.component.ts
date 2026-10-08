@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AnimationEvent } from '@angular/animations';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { slider } from './shared/animations/slider.animation';
 import { fadeOverlay } from './shared/animations/fade-overlay.animation';
@@ -27,7 +28,10 @@ import { mobileFade } from './shared/services/mobile-fade.service';
       <app-band-animation *ngIf="isDesktop"></app-band-animation>
 
       <main
+        [class.is-transitioning]="isTransitioning"
         [@slider]="isDesktop ? prepareRoute(outlet) : null"
+        (@slider.start)="onSliderStart($event)"
+        (@slider.done)="onSliderDone($event)"
         [@mobileFade]="!isDesktop ? prepareRoute(outlet) : null"
       >
         <router-outlet #outlet="outlet"></router-outlet>
@@ -56,6 +60,11 @@ export class AppComponent {
   showWelcome = true;
   isBrowserNavigation = false;
   private firstNavigation = true;
+  private runningSlides = 0;
+
+  get isTransitioning() {
+    return this.runningSlides > 0;
+  }
 
   constructor(private router: Router) {
     window.addEventListener('popstate', () => {
@@ -93,6 +102,19 @@ export class AppComponent {
 
   onWelcomeCompleted() {
     this.showWelcome = false;
+  }
+
+  // Seules les vraies transitions de slide (durée > 0) activent l'état
+  onSliderStart(event: AnimationEvent) {
+    if (event.totalTime > 0) {
+      this.runningSlides++;
+    }
+  }
+
+  onSliderDone(event: AnimationEvent) {
+    if (event.totalTime > 0) {
+      this.runningSlides = Math.max(0, this.runningSlides - 1);
+    }
   }
 
   prepareRoute(outlet: RouterOutlet) {

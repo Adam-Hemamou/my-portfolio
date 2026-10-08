@@ -430,3 +430,15 @@
     margin-left: 6vw;
   }
 }
+
+/* Transition de page desktop (slider) : gel des animations internes pendant le slide */
+main.is-transitioning [data-aos].aos-animate {
+  transition: none !important;
+}
+
+main.is-transitioning .band-track,
+main.is-transitioning .about-name,
+main.is-transitioning .contact-title,
+main.is-transitioning .projects-title {
+  animation-play-state: paused !important;
+}
