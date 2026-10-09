@@ -10,7 +10,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DoNotClickService } from '../../services/do-not-click.service';
 
-type Step = 'closed' | 'confirm' | 'captcha' | 'done' | 'final';
+type Step = 'closed' | 'confirm' | 'captcha' | 'done';
 
 type Confirmation = {
   title: string;
@@ -32,6 +32,8 @@ type CaptchaStep = {
   successMessage?: string;
   // Images affichées dans l’ordre du tableau (1 2 3 / 4 5 6 / 7 8 9), sans mélange
   fixedOrder?: boolean;
+  // Une seule case sélectionnable : en choisir une autre remplace la précédente
+  singleChoice?: boolean;
 };
 
 type Tile = {
@@ -72,7 +74,6 @@ const SPLIT_IMAGES = Array.from(
   styleUrls: ['./do-not-click.component.scss'],
 })
 export class DoNotClickComponent implements AfterViewChecked {
-  @ViewChild('trigger') private trigger?: ElementRef<HTMLButtonElement>;
   @ViewChild('panel') private panel?: ElementRef<HTMLElement>;
   @ViewChild('popup') private popup?: ElementRef<HTMLElement>;
   @ViewChild('cross') private cross?: ElementRef<HTMLButtonElement>;
@@ -91,6 +92,8 @@ export class DoNotClickComponent implements AfterViewChecked {
   crossMessage: string[] | null = null;
   private crossClicks = 0;
 
+  // Photo finale : popup au-dessus du CAPTCHA, qui reste ouvert derrière
+  finalShown = false;
   finalPhoto = FINAL_PHOTO;
   finalPhotoMissing = false;
 
@@ -108,8 +111,7 @@ export class DoNotClickComponent implements AfterViewChecked {
     { title: 'Êtes-vous sûr ?', no: 'NON', yes: 'OUI' },
     { title: 'Vraiment sûr ?', no: 'NON', yes: 'OUI' },
     {
-      title: 'Dernière chance.',
-      text: 'Cette décision pourrait avoir des conséquences absolument disproportionnées.',
+      title: 'ET VOILÀ, TU PEUX PLUS ANNULER',
       no: 'ANNULER',
       yes: "J'ASSUME",
       noVanishes: true,
@@ -119,7 +121,7 @@ export class DoNotClickComponent implements AfterViewChecked {
   readonly captchaSteps: CaptchaStep[] = [
     {
       prompt: 'Sélectionnez toutes les images contenant',
-      target: 'une orange',
+      target: 'orange',
       folder: 'orange',
       images: [
         'couleur.webp',
@@ -140,6 +142,25 @@ export class DoNotClickComponent implements AfterViewChecked {
       folder: 'incendie',
       images: INCENDIE_IMAGES,
       correctImages: INCENDIE_IMAGES,
+    },
+    {
+      prompt: 'Trouvez',
+      target: 'la bouche à Sandy',
+      folder: 'sandy',
+      images: [
+        'bush.png',
+        'images (1).jpg',
+        'images (2).jpg',
+        'images.jpg',
+        'poteau-incendie.jpg',
+        'sandy.png',
+        'sendrine.png',
+        'téléchargement (1).jpg',
+        'téléchargement.jpg',
+      ],
+      correctImages: ['sandy.png'],
+      singleChoice: true,
+      successMessage: 'BIEN JOUÉ, TU AS TROUVÉ LA BOUCHE À SANDY.',
     },
     {
       prompt: 'Trouvez',
@@ -231,11 +252,11 @@ export class DoNotClickComponent implements AfterViewChecked {
   close() {
     this.step = 'closed';
     this.crossMessage = null;
-    const opener =
-      this.opener && this.opener !== document.body
-        ? this.opener
-        : this.trigger?.nativeElement;
-    opener?.focus();
+    this.finalShown = false;
+    // Le déclencheur peut avoir disparu avec sa page (navigation arrière)
+    if (this.opener?.isConnected && this.opener !== document.body) {
+      this.opener.focus();
+    }
   }
 
   // Bouton « non » des confirmations
@@ -259,6 +280,9 @@ export class DoNotClickComponent implements AfterViewChecked {
 
   toggle(tile: Tile) {
     if (this.result === 'correct') return;
+    if (this.captcha.singleChoice && !tile.selected) {
+      this.tiles.forEach((other) => (other.selected = false));
+    }
     tile.selected = !tile.selected;
     if (this.result === 'wrong') {
       this.result = 'idle';
@@ -295,26 +319,22 @@ export class DoNotClickComponent implements AfterViewChecked {
     this.focusTarget = 'panel';
   }
 
-  // La croix ne réagit qu'au clic (souris, tactile, Entrée ou Espace)
+  // La croix ne réagit qu'au clic (souris, tactile, Entrée ou Espace) :
+  // esquive ×2, message, esquive ×3, message, esquive, puis photo finale
   onCrossClick() {
     this.crossClicks++;
+    if (this.crossClicks >= 9) {
+      this.finalPhotoMissing = false;
+      this.finalShown = true;
+      this.focusTarget = 'popup';
+      return;
+    }
     switch (this.crossClicks) {
-      case 5:
-        this.dodge();
-        this.showCrossMessage(['BIEN ESSAYÉ.']);
+      case 3:
+        this.showCrossMessage(['BIEN ESSAYÉ']);
         break;
-      case 8:
-        this.showCrossMessage(['LAISSE-MOI TRANQUILLE.', 'VA VOIR AILLEURS.']);
-        break;
-      case 10:
-        this.showCrossMessage([
-          'JE T’AI DIT AILLEURS.',
-          'C’EST PAS MOI QUI GÈRE ÇA.',
-        ]);
-        break;
-      case 11:
-        this.finalPhotoMissing = false;
-        this.goTo('final');
+      case 7:
+        this.showCrossMessage(['LAISSE-MOI TRANQUILLE, VA VOIR AILLEURS']);
         break;
       default:
         this.dodge();
@@ -323,6 +343,12 @@ export class DoNotClickComponent implements AfterViewChecked {
 
   closeCrossMessage() {
     this.crossMessage = null;
+    this.focusTarget = 'cross';
+  }
+
+  // Ferme seulement la photo : le CAPTCHA en cours reste tel quel
+  closeFinal() {
+    this.finalShown = false;
     this.focusTarget = 'cross';
   }
 
@@ -339,6 +365,8 @@ export class DoNotClickComponent implements AfterViewChecked {
     if (event.key === 'Escape') {
       if (this.crossMessage) {
         this.closeCrossMessage();
+      } else if (this.finalShown) {
+        this.closeFinal();
       } else {
         this.close();
       }
@@ -346,8 +374,9 @@ export class DoNotClickComponent implements AfterViewChecked {
     }
     if (event.key !== 'Tab') return;
 
-    // Garde le focus dans la fenêtre (ou dans le message de la croix)
-    const root = (this.crossMessage ? this.popup : this.panel)?.nativeElement;
+    // Garde le focus dans la fenêtre (ou dans la popup de la croix)
+    const root = (this.crossMessage || this.finalShown ? this.popup : this.panel)
+      ?.nativeElement;
     if (!root) return;
     const focusable = Array.from(
       root.querySelectorAll<HTMLElement>('button:not([disabled])'),
@@ -381,6 +410,7 @@ export class DoNotClickComponent implements AfterViewChecked {
     this.crossClicks = 0;
     this.crossPosition = null;
     this.crossMessage = null;
+    this.finalShown = false;
     this.shuffled = this.captchaSteps.map((step) =>
       (step.fixedOrder ? step.images : this.shuffle(step.images)).map(
         (file) => ({

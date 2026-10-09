@@ -56,7 +56,9 @@
       z-index: 0;
     }
 
-    &:hover::after {
+    // Même source que le glissement (souris / trackpad uniquement), pas :hover
+    // qui reste collé après un tap sur écran tactile
+    &.is-hovered::after {
       opacity: 1;
     }
     > * {

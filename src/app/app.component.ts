@@ -34,6 +34,8 @@ import { DoNotClickComponent } from './shared/components/do-not-click/do-not-cli
 
       <app-band-animation *ngIf="isDesktop"></app-band-animation>
 
+      <!-- Fenêtres DO NOT CLICK hors de <main> : jamais prises dans les transitions.
+           Le bouton, lui, est dans les pages (app-do-not-click-trigger). -->
       <app-do-not-click></app-do-not-click>
 
       <main

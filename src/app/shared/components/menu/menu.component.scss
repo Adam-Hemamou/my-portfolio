@@ -176,7 +176,19 @@
     z-index: 1;
   }
 
-  &:hover::before {
+  // Survol seulement avec un vrai pointeur (sinon reste collé après un tap)
+  @media (hover: hover) and (pointer: fine) {
+    &:hover::before {
+      width: 100%;
+    }
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--color-dark);
+    outline-offset: -3px;
+  }
+
+  &:focus-visible::before {
     width: 100%;
   }
 }
@@ -457,13 +469,15 @@
     display: none !important;
   }
 
-  .logo:hover {
-    .under-name .arrow-container {
-      .arrow {
-        transform: translateX(100%);
-      }
-      .arrow-hover {
-        transform: translateX(0);
+  @media (hover: hover) and (pointer: fine) {
+    .logo:hover {
+      .under-name .arrow-container {
+        .arrow {
+          transform: translateX(100%);
+        }
+        .arrow-hover {
+          transform: translateX(0);
+        }
       }
     }
   }

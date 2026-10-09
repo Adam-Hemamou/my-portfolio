@@ -5,7 +5,19 @@
 >
   <ul class="key-stats-list">
     <li class="key-stat" *ngFor="let stat of stats">
-      <span class="key-stat-value" aria-hidden="true">{{ stat.display }}</span>
+      <span class="key-stat-value" aria-hidden="true">
+        <svg
+          *ngIf="stat.infinity; else digits"
+          class="key-stat-infinity"
+          viewBox="0 0 140 70"
+          focusable="false"
+        >
+          <path
+            d="M70 35C55 15 40 5 25 5 12 5 5 20 5 35s7 30 20 30c15 0 30-10 45-30s30-30 45-30c13 0 20 15 20 30s-7 30-20 30c-15 0-30-10-45-30Z"
+          />
+        </svg>
+        <ng-template #digits>{{ stat.display }}</ng-template>
+      </span>
       <span class="key-stat-final">{{ stat.final }}</span>
       <span class="key-stat-label"
         >{{ stat.label

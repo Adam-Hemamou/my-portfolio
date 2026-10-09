@@ -192,6 +192,25 @@
   cursor: default;
 }
 
+// Mail et téléphone : même apparence que le texte autour
+.footer-section.footer-contact a {
+  display: inline;
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+
+// Écran tactile : zone de tap agrandie sans décaler la mise en page
+@media (pointer: coarse) {
+  .footer-section.footer-contact a {
+    display: inline-block;
+    padding: 0.5em 0;
+    margin: -0.5em 0;
+  }
+}
+
 @media (min-width: 375px) {
   .footer {
     padding: 2rem 1.3rem;
@@ -370,16 +389,18 @@
   .footer-nav ul li a::after {
     transition: transform 0.35s cubic-bezier(0.77, 0, 0.18, 1);
   }
-  .footer-nav ul li a:hover::after,
+  .footer-nav ul li a:focus-visible::after,
   .footer-nav ul li a.active::after {
     transform: scaleX(1);
   }
-  .footer-nav ul li a:not(:hover):not(.active)::after {
+  .footer-nav ul li a:not(:hover):not(:focus-visible):not(.active)::after {
     transform-origin: right;
     transition: transform 0.35s cubic-bezier(0.77, 0, 0.18, 1);
   }
 
-  .footer-section.footer-links a {
+  // Soulignement commun : réseaux, mail et téléphone
+  .footer-section.footer-links a,
+  .footer-section.footer-contact a {
     display: inline-block;
     width: auto;
     min-width: 0;
@@ -389,7 +410,8 @@
     overflow: hidden;
     transition: color 0.2s;
   }
-  .footer-section.footer-links a::after {
+  .footer-section.footer-links a::after,
+  .footer-section.footer-contact a::after {
     content: "";
     position: absolute;
     left: 0;
@@ -401,10 +423,12 @@
     transform-origin: left;
     transition: transform 0.35s cubic-bezier(0.77, 0, 0.18, 1);
   }
-  .footer-section.footer-links a:hover::after {
+  .footer-section.footer-links a:focus-visible::after,
+  .footer-section.footer-contact a:focus-visible::after {
     transform: scaleX(1);
   }
-  .footer-section.footer-links a:not(:hover)::after {
+  .footer-section.footer-links a:not(:hover):not(:focus-visible)::after,
+  .footer-section.footer-contact a:not(:hover):not(:focus-visible)::after {
     transform-origin: right;
     transition: transform 0.35s cubic-bezier(0.77, 0, 0.18, 1);
   }
@@ -424,15 +448,25 @@
         }
       }
     }
+  }
+}
 
-    &:hover {
-      .footer-arrow-container {
-        .footer-arrow {
-          transform: translateX(100%);
-        }
-        .footer-arrow-hover {
-          transform: translateX(0);
-        }
+// Survol : uniquement avec un pointeur capable de survoler (souris, trackpad),
+// sinon l'état reste collé après un tap sur tablette tactile
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  .footer-nav ul li a:hover::after,
+  .footer-section.footer-links a:hover::after,
+  .footer-section.footer-contact a:hover::after {
+    transform: scaleX(1);
+  }
+
+  .footer-cta-desk:hover {
+    .footer-arrow-container {
+      .footer-arrow {
+        transform: translateX(100%);
+      }
+      .footer-arrow-hover {
+        transform: translateX(0);
       }
     }
   }

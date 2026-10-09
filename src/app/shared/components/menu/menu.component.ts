@@ -3,11 +3,12 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { BandNavigationService } from '../../services/band-navigation.service';
 import { DoNotClickService } from '../../services/do-not-click.service';
+import { DoNotClickTriggerComponent } from '../do-not-click/do-not-click-trigger.component';
 
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [NgIf, NgFor, RouterLink],
+  imports: [NgIf, NgFor, RouterLink, DoNotClickTriggerComponent],
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
 })

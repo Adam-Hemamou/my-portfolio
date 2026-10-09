@@ -1,6 +1,13 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component, ElementRef, OnDestroy, OnInit, inject } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { ProjectService } from '../../services/project.service';
+import { StackService } from '../../services/stack.service';
 
 type KeyStat = {
   label: string;
@@ -11,6 +18,8 @@ type KeyStat = {
   target?: number;
   minDigits?: number;
   emoji?: string;
+  // ∞ dessiné en SVG : Bebas Neue n'a pas ce glyphe (rendu de secours variable selon le navigateur)
+  infinity?: boolean;
 };
 
 const COUNT_DURATION_MS = 1200;
@@ -26,18 +35,19 @@ const COUNT_VISIBLE_RATIO = 0.5;
 export class KeyStatsComponent implements OnInit, OnDestroy {
   private host: HTMLElement = inject(ElementRef).nativeElement;
   private projects = inject(ProjectService).getProjects();
+  private stacks = inject(StackService).getStacks();
   private observer?: IntersectionObserver;
   private frame?: number;
   private destroyed = false;
 
   isVisible = false;
 
-  // Les deux premiers chiffres sont calculés à partir des projets réels
+  // Les deux premiers chiffres sont calculés à partir des projets et de la stack réels
   stats: KeyStat[] = [
-    this.counter(this.projects.length, 'PROJETS PRÉSENTÉS', 2),
+    this.counter(this.projects.length, 'PROJETS EN PRODUCTION', 2),
     this.counter(this.countTools(), 'TECHNOLOGIES UTILISÉES', 2),
-    { display: '∞', final: '∞', label: 'BUGS COMBATTUS' },
-    { ...this.counter(1000, 'CAFÉS SACRIFIÉS'), emoji: '☕' },
+    { display: '∞', final: 'Infini', label: 'BUGS RÉSOLUS', infinity: true },
+    { ...this.counter(1000, 'CAFÉS CONSOMMÉS'), emoji: '☕' },
   ];
 
   ngOnInit() {
@@ -66,7 +76,7 @@ export class KeyStatsComponent implements OnInit, OnDestroy {
           }
         }
       },
-      { threshold: [0, COUNT_VISIBLE_RATIO] }
+      { threshold: [0, COUNT_VISIBLE_RATIO] },
     );
     this.observer.observe(this.host);
   }
@@ -88,7 +98,7 @@ export class KeyStatsComponent implements OnInit, OnDestroy {
         if (stat.target !== undefined) {
           stat.display = this.format(
             Math.round(stat.target * eased),
-            stat.minDigits
+            stat.minDigits,
           );
         }
       }
@@ -133,11 +143,13 @@ export class KeyStatsComponent implements OnInit, OnDestroy {
     };
   }
 
+  // Stack de la page À propos + outils des projets, sans doublon
   private countTools(): number {
-    const names = this.projects.flatMap(
-      (p) => p.outils?.map((o) => o.name) ?? []
-    );
-    return new Set(names).size;
+    const names = [
+      ...this.stacks.map((s) => s.name),
+      ...this.projects.flatMap((p) => p.outils?.map((o) => o.name) ?? []),
+    ];
+    return new Set(names.map((name) => name.trim().toLowerCase())).size;
   }
 
   // +06, +14, +1 000 (espace insécable pour les milliers)
