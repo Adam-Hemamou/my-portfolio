@@ -39,7 +39,10 @@ export class BandAniamtionComponent {
     });
   }
 
-  onHover(index: number) {
+  // Survol réservé à la souris / au trackpad : un tap ne doit pas laisser
+  // les bandes dans leur état survolé (pas de pointerleave au doigt)
+  onHover(index: number, event: PointerEvent) {
+    if (event.pointerType === 'touch') return;
     this.hoveredBandIndex = index;
   }
 

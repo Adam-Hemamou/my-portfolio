@@ -93,8 +93,12 @@
     </ng-template>
   </nav>
   <div class="footer-section footer-contact">
-    <span>Adam: 0678252910</span>
-    <span>adam.hemamou.pro&#64;gmail.com</span>
+    <span>Adam: <a href="tel:+33678252910">0678252910</a></span>
+    <span
+      ><a href="mailto:adam.hemamou.pro&#64;gmail.com"
+        >adam.hemamou.pro&#64;gmail.com</a
+      ></span
+    >
   </div>
   <div class="footer-section footer-links">
     <a
@@ -107,5 +111,5 @@
       >Github</a
     >
   </div>
-  <div class="footer-section footer-thanks">Adam.H - © 2025</div>
+  <div class="footer-section footer-thanks">Adam.H - © {{ currentYear }}</div>
 </footer>

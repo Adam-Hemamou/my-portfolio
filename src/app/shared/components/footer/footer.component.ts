@@ -13,6 +13,7 @@ import { NgIf } from '@angular/common';
 export class FooterComponent {
   isDesktopNav = false;
   currentRoute = '';
+  currentYear = new Date().getFullYear();
 
   constructor(private bandNav: BandNavigationService, private router: Router) {}
 

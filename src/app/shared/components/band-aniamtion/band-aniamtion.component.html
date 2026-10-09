@@ -2,10 +2,11 @@
   <div
     class="band"
     *ngFor="let band of bands; let i = index"
-    (mouseenter)="onHover(i)"
-    (mouseleave)="onLeave()"
+    (pointerenter)="onHover(i, $event)"
+    (pointerleave)="onLeave()"
     (click)="onClick(i)"
     [class.hovered]="shouldSlide(i)"
+    [class.is-hovered]="hoveredBandIndex === i"
     [ngStyle]="{ transform: getTranslation(i), zIndex: getZIndex(i) }"
   >
     <img class="band-icon" src="/svg/arrow.svg" alt="" />

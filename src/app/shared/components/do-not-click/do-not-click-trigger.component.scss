@@ -1,0 +1,57 @@
+// Bouton déclencheur
+// Mobile / tablette : masqué, l'entrée « DO NOT CLICK » est dans le menu
+.dnc-trigger {
+  display: none;
+  align-items: center;
+  gap: 0.5em;
+  min-height: 44px;
+  padding: 0.1em 1.1em 0;
+  border: 1.5px solid var(--color-dark);
+  background: #fff;
+  color: var(--color-dark);
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s;
+
+  &:hover {
+    background: var(--color-dark);
+    color: #fff;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-dark);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px var(--color-primary, #c6ff1a);
+  }
+}
+
+.dnc-dot {
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 50%;
+  background: var(--color-primary, #c6ff1a);
+  border: 1px solid var(--color-dark);
+}
+
+// Desktop : en haut à droite du contenu, à gauche des bandes de navigation
+@media (min-width: 1024px) {
+  .dnc-trigger {
+    display: inline-flex;
+    position: absolute;
+    top: 22px;
+    right: 256px;
+    z-index: 900;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dnc-trigger {
+    transition: none;
+  }
+}

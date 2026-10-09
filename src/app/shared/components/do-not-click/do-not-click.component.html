@@ -1,13 +1,4 @@
-<button
-  #trigger
-  type="button"
-  class="dnc-trigger"
-  aria-haspopup="dialog"
-  (click)="open()"
->
-  <span class="dnc-dot" aria-hidden="true"></span>DO NOT CLICK
-</button>
-
+<!-- Déclencheurs : DoNotClickTriggerComponent (pages) et menu mobile -->
 <div
   class="dnc-overlay"
   *ngIf="step !== 'closed'"
@@ -18,7 +9,6 @@
     #panel
     class="dnc-panel"
     [class.dnc-panel--captcha]="step === 'captcha'"
-    [class.dnc-panel--final]="step === 'final'"
     role="dialog"
     aria-modal="true"
     aria-labelledby="dnc-title"
@@ -136,55 +126,58 @@
       </div>
     </ng-container>
 
-    <!-- Conclusion du gag de la croix -->
-    <ng-container *ngIf="step === 'final'">
-      <h2 id="dnc-title" class="dnc-sr-only">Fin</h2>
-      <img
-        *ngIf="!finalPhotoMissing"
-        class="dnc-final-photo"
-        [src]="finalPhoto"
-        alt="Photo de conclusion"
-        (error)="finalPhotoMissing = true"
-      />
-      <p class="dnc-final-missing" *ngIf="finalPhotoMissing">
-        Photo à ajouter : public{{ finalPhoto }}
-      </p>
-      <div class="dnc-actions">
-        <button
-          type="button"
-          class="dnc-btn dnc-btn--primary"
-          (click)="close()"
-        >
-          FERMER
-        </button>
-      </div>
-    </ng-container>
   </div>
 
-  <!-- Message déclenché par la croix -->
-  <div class="dnc-popup-layer" *ngIf="crossMessage">
+  <!-- Popups de la croix (messages, puis photo finale) au-dessus du CAPTCHA -->
+  <div class="dnc-popup-layer" *ngIf="crossMessage || finalShown">
     <div
       #popup
       class="dnc-popup"
+      [class.dnc-popup--final]="finalShown && !crossMessage"
       role="alertdialog"
       aria-modal="true"
       aria-labelledby="dnc-popup-title"
       tabindex="-1"
     >
-      <p id="dnc-popup-title" class="dnc-title">
-        <span class="dnc-popup-line" *ngFor="let line of crossMessage">{{
-          line
-        }}</span>
-      </p>
-      <div class="dnc-actions">
-        <button
-          type="button"
-          class="dnc-btn dnc-btn--primary"
-          (click)="closeCrossMessage()"
-        >
-          OK
-        </button>
-      </div>
+      <ng-container *ngIf="crossMessage; else finalPopup">
+        <p id="dnc-popup-title" class="dnc-title">
+          <span class="dnc-popup-line" *ngFor="let line of crossMessage">{{
+            line
+          }}</span>
+        </p>
+        <div class="dnc-actions">
+          <button
+            type="button"
+            class="dnc-btn dnc-btn--primary"
+            (click)="closeCrossMessage()"
+          >
+            OK
+          </button>
+        </div>
+      </ng-container>
+
+      <ng-template #finalPopup>
+        <p id="dnc-popup-title" class="dnc-title">C'EST LÀ</p>
+        <img
+          *ngIf="!finalPhotoMissing"
+          class="dnc-final-photo"
+          [src]="finalPhoto"
+          alt="Photo de conclusion"
+          (error)="finalPhotoMissing = true"
+        />
+        <p class="dnc-final-missing" *ngIf="finalPhotoMissing">
+          Photo à ajouter : public{{ finalPhoto }}
+        </p>
+        <div class="dnc-actions">
+          <button
+            type="button"
+            class="dnc-btn dnc-btn--primary"
+            (click)="closeFinal()"
+          >
+            FERMER
+          </button>
+        </div>
+      </ng-template>
     </div>
   </div>
 </div>
