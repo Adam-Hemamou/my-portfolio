@@ -1,4 +1,14 @@
-<div class="stack-card">
-  <img [src]="stack.icon" [alt]="stack.name" class="stack-icon" />
-  <span class="stack-name">{{ stack.name }}</span>
-</div>
+@if (layout === 'split') {
+  <div class="stack-card stack-card--split">
+    <img [src]="stack.icon" alt="" class="stack-icon--split" />
+    @if (stack.category) {
+      <span class="stack-category">{{ stack.category }}</span>
+    }
+    <span class="stack-title">{{ stack.name }}</span>
+  </div>
+} @else {
+  <div class="stack-card">
+    <img [src]="stack.icon" [alt]="stack.name" class="stack-icon" />
+    <span class="stack-name">{{ stack.name }}</span>
+  </div>
+}

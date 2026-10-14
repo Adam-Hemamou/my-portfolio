@@ -1,3 +1,5 @@
+@use "../../../shared/styles/grid-backdrop" as *;
+
 .project-hero {
   background: var(--color-dark);
   color: #fff;
@@ -179,8 +181,11 @@
 }
 
 .tools-section {
+  position: relative;
   background: var(--color-dark);
   padding: 2.5rem 1rem;
+
+  @include grid-backdrop;
 
   .tools-title {
     font-size: 1.8rem;
@@ -198,14 +203,13 @@
     font-family: "Montserrat", sans-serif;
   }
 
+  // Mêmes cartes que « Mes Compétences » : 2 colonnes sur mobile
   .tools-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    column-gap: 0;
-    row-gap: 1.2em;
-    justify-items: center;
-    align-items: center;
-    background: var(--color-dark);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1em;
+    justify-items: stretch;
+    align-items: stretch;
   }
 }
 
@@ -548,16 +552,13 @@ swiper-container::part(bullet-active) {
       font-size: 1.4rem;
     }
   }
-  .tools-grid {
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 1.8em;
-  }
-  .tools-grid:has(app-stacks-card:nth-child(5)) {
-    app-stacks-card:nth-child(5) {
-      grid-column: 1 / span 2;
-    }
-    app-stacks-card:nth-child(6) {
-      grid-column: 3 / span 2;
+  // 2 colonnes (4 outils en 2 × 2), ou 3 colonnes à partir de 5 outils
+  .tools-section .tools-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25em;
+
+    &:has(app-stacks-card:nth-child(5)) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 
@@ -719,6 +720,11 @@ swiper-container::part(bullet-active) {
 }
 
 @media (min-width: 1280px) {
+  // Jusqu'4 outils : une seule rangée de 4 cartes
+  .tools-section .tools-grid:not(:has(app-stacks-card:nth-child(5))) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
   .project-hero {
     padding: 3.5em 3em 3.5em 2.5em;
     height: 532px;

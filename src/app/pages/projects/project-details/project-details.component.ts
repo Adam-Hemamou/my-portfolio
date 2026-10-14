@@ -7,6 +7,8 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { ProjectService } from '../../../shared/services/project.service';
 import { Project } from '../../../shared/types/project.type';
+import { Stack } from '../../../shared/types/stack.type';
+import { StackService } from '../../../shared/services/stack.service';
 import { MenuComponent } from '../../../shared/components/menu/menu.component';
 import { FooterComponent } from '../../../shared/components/footer/footer.component';
 import { AnimateBandComponent } from '../../../shared/components/animate-band/animate-band.component';
@@ -33,7 +35,10 @@ import { TypewriterDirective } from '../../../shared/directives/typewriter.direc
 })
 export class ProjectDetailsComponent implements OnInit {
   project!: Project | undefined;
+  // Outils du projet, avec la catégorie définie dans la stack (À propos)
+  tools: Stack[] = [];
   private seoService = inject(SEOService);
+  private stackService = inject(StackService);
 
   constructor(
     private route: ActivatedRoute,
@@ -41,6 +46,10 @@ export class ProjectDetailsComponent implements OnInit {
   ) {
     const id = this.route.snapshot.paramMap.get('id');
     this.project = id ? this.projectService.getProjectById(id) : undefined;
+    this.tools = (this.project?.outils ?? []).map((tool) => ({
+      ...tool,
+      category: tool.category ?? this.stackService.getCategory(tool.name),
+    }));
   }
 
   ngOnInit() {

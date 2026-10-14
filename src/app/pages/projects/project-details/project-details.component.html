@@ -98,8 +98,9 @@
   </div>
   <div class="tools-grid">
     <app-stacks-card
-      *ngFor="let outil of project.outils"
+      *ngFor="let outil of tools"
       [stack]="outil"
+      layout="split"
     ></app-stacks-card>
   </div>
 </div>

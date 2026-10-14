@@ -5,6 +5,7 @@ import { AnimateBandComponent } from '../shared/components/animate-band/animate-
 import { RecentProjectComponent } from '../shared/components/recent-project/recent-project.component';
 import { FooterComponent } from '../shared/components/footer/footer.component';
 import { KeyStatsComponent } from '../shared/components/key-stats/key-stats.component';
+import { HeroSculptureComponent } from '../shared/components/hero-sculpture/hero-sculpture.component';
 
 @Component({
   selector: 'app-home',
@@ -15,6 +16,7 @@ import { KeyStatsComponent } from '../shared/components/key-stats/key-stats.comp
     KeyStatsComponent,
     RecentProjectComponent,
     FooterComponent,
+    HeroSculptureComponent,
   ],
   template: `
     <app-menu></app-menu>
@@ -32,7 +34,7 @@ import { KeyStatsComponent } from '../shared/components/key-stats/key-stats.comp
           data-aos="fade-up"
           data-aos-delay="600"
           data-aos-duration="800"
-          >WEB</span
+          >WEB<app-hero-sculpture></app-hero-sculpture></span
         >
       </h1>
       <div class="hero-info">
