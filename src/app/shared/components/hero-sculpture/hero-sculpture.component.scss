@@ -1,0 +1,76 @@
+// Sculpture 3D décorative, placée dans « WEB » et dimensionnée en em : elle
+// suit la taille et la position du mot à chaque point de rupture du hero.
+// z-index -1 dans le contexte d'empilement de « WEB » (z-index 1) : elle est
+// peinte sous les lettres de WEB, donc aussi sous « DÉVELOPPEUR » (z-index 2).
+// Décalée à gauche du W pour rester visible autour de la lettre et entre ses
+// jambages. Ne capte jamais les clics.
+:host {
+  position: absolute;
+  top: 58%;
+  left: -0.74em;
+  width: 1.12em;
+  aspect-ratio: 1;
+  translate: 0 -50%;
+  z-index: -1;
+  display: block;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+:host(.is-ready) {
+  opacity: 1;
+}
+
+// WebGL indisponible ou contexte perdu : le hero reste tel quel
+:host(.is-unavailable) {
+  display: none;
+}
+
+:host ::ng-deep canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+// Portables et tablettes : le titre est plus à gauche (styles.css), un
+// décalage moindre évite que la sculpture touche le bouton « Open to work »
+@media (min-width: 768px) and (max-width: 1439px) {
+  :host {
+    left: -0.58em;
+  }
+}
+
+// Dès 768 px : léger décalage fixe vers la gauche, indépendant de la taille
+// du mot (équilibre avec WEB)
+@media (min-width: 768px) {
+  :host {
+    translate: -12px -50%;
+  }
+}
+
+// 768 à 1399 px : cadre réduit de ~6 % (1,12 → 1,05 em), centre conservé
+// (left compensé de la moitié de la réduction) avant le décalage ci-dessus
+@media (min-width: 768px) and (max-width: 1399px) {
+  :host {
+    left: -0.545em;
+    width: 1.05em;
+  }
+}
+
+// Mobile : le bloc « Portfolio » est juste à gauche du W, la sculpture
+// se resserre sur le mot. Cadre réduit d'environ 11 % (0,92 → 0,82 em), centre
+// inchangé (left compensé de la moitié de la réduction)
+@media (max-width: 767px) {
+  :host {
+    top: 58%;
+    left: -0.31em;
+    width: 0.82em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :host {
+    transition: none;
+  }
+}
