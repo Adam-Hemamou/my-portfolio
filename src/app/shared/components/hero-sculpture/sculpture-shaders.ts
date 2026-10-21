@@ -91,12 +91,25 @@ float sculptNoise(vec3 v) {
 //   l'autre au lieu d'animer chaque doigt séparément.
 // - Le coude reprend la flexion de la base avec retard : inertie, la matière
 //   suit le mouvement au lieu de pivoter d'un bloc.
-// - Un doigt qui s'allonge s'affine (et inversement) : le volume semble se
-//   déplacer plutôt que gonfler.
+// - Chaque goutte grossit et se rétracte : son rayon varie (fort au bout,
+//   faible à la base). Amplitude selon sa taille : les trois plus grosses
+//   gouttes gonflent le plus et se relaient (décalées d'un tiers de cycle),
+//   les autres suivent leur propre rythme lent. Une « activité » lente laisse
+//   certaines gouttes calmes pendant que d'autres se déforment davantage.
+// - L'allongement est en partie indépendant du volume : une goutte peut
+//   s'allonger pendant qu'une autre s'épaissit.
 // - Tout s'installe progressivement pendant les premières secondes.
 const BEND_BASE = 0.22;
 const BEND_KNEE = 0.3;
-const THICKNESS = 0.07;
+// Gonflement maximal (part du rayon) : trois plus grosses gouttes,
+// moyennes, petites (classées par rayon du bout)
+const SWELL_DOMINANT = 0.28;
+const SWELL_MEDIUM = 0.22;
+const SWELL_SMALL = 0.16;
+// Cycle des gouttes dominantes (s) et ralentissement des variations propres
+// de volume (périodes d'environ 11 à 40 s) : la matière gonfle lentement
+const DOMINANT_CYCLE = 22;
+const VOLUME_TIME_SCALE = 0.7;
 const FLOW_BULGE = 0.06;
 const KNEE_LAG = 2.5;
 const WAVE_DELAY = 3.5;
@@ -148,6 +161,16 @@ const WAVE_DIRECTION = normalize([0.6, 0.5, -0.3]);
 
 // Repère de chaque doigt : deux directions perpendiculaires au premier
 // segment pour orienter la flexion, axe du second segment pour la reprise
+// Classement des gouttes par rayon du bout : trois dominantes, trois petites
+const BY_SIZE = SCULPTURE_FINGERS.map(({ radii }, index) => ({ index, size: radii[2] }))
+  .sort((a, b) => b.size - a.size)
+  .map(({ index }) => index);
+const swellAmplitude = (index: number) => {
+  const rank = BY_SIZE.indexOf(index);
+  if (rank < 3) return SWELL_DOMINANT;
+  return rank >= BY_SIZE.length - 3 ? SWELL_SMALL : SWELL_MEDIUM;
+};
+
 const FINGER_RIGS = SCULPTURE_FINGERS.map(({ base, knee, tip }, index) => {
   const axis1 = normalize(sub(knee, base));
   const axis2 = normalize(sub(tip, knee));
@@ -164,7 +187,11 @@ const FINGER_RIGS = SCULPTURE_FINGERS.map(({ base, knee, tip }, index) => {
     stretch: createSignal(seed + 1),
     bendX: createSignal(seed + 2),
     bendY: createSignal(seed + 3),
-    thickness: createSignal(seed + 4),
+    volume: createSignal(seed + 4),
+    activity: createSignal(seed + 6),
+    swell: swellAmplitude(index),
+    // Rang parmi les trois dominantes (−1 pour les autres)
+    turn: BY_SIZE.indexOf(index) < 3 ? BY_SIZE.indexOf(index) : -1,
     flowSpeed: 0.45 + 0.25 * hash(seed + 5),
   };
 });
@@ -172,7 +199,7 @@ const FINGER_RIGS = SCULPTURE_FINGERS.map(({ base, knee, tip }, index) => {
 const FINGER_COUNT = SCULPTURE_FINGERS.length;
 // Par doigt : axe et angle de flexion de la base, idem au coude (exprimé
 // avant la flexion de la base), cosinus et sinus de ces deux angles, puis
-// allongement, épaisseur, phase et amplitude du renflement qui s'écoule
+// allongement, gonflement, phase et amplitude du renflement qui s'écoule
 const fingerBendBase = new Float32Array(FINGER_COUNT * 4);
 const fingerBendKnee = new Float32Array(FINGER_COUNT * 4);
 const fingerTrig = new Float32Array(FINGER_COUNT * 4);
@@ -190,8 +217,24 @@ function updateFingers(t: number) {
   const ease = ramp * ramp * (3 - 2 * ramp);
   FINGER_RIGS.forEach((rig, i) => {
     const wave = sample(WAVE, t - rig.delay);
+    // Volume dans [-1, 1] : les dominantes se relaient, les autres suivent
+    // leur propre rythme lent
+    const own = sample(rig.volume, t * VOLUME_TIME_SCALE);
+    const volume =
+      rig.turn >= 0
+        ? 0.65 *
+            Math.sin(
+              (2 * Math.PI * t) / DOMINANT_CYCLE + (2 * Math.PI * rig.turn) / 3,
+            ) +
+          0.35 * own
+        : own;
+    // Activité lente entre 0,45 et 1 : par moments une goutte reste calme
+    const activity = 0.725 + 0.275 * sample(rig.activity, t * 0.4);
+    // Allongement en partie indépendant du volume
     const stretch =
-      FINGER_STRETCH * ease * (0.55 * wave + 0.45 * sample(rig.stretch, t));
+      FINGER_STRETCH *
+      ease *
+      (0.3 * volume + 0.35 * wave + 0.35 * sample(rig.stretch, t));
     // Flexion de la base, en partie entraînée par l'onde qui traverse la masse
     const bend = (time: number) =>
       combine(
@@ -218,12 +261,13 @@ function updateFingers(t: number) {
       ],
       i * 4,
     );
-    const thickness = Math.min(
-      Math.max(ease * THICKNESS * sample(rig.thickness, t) - 0.35 * stretch, -0.1),
-      0.1,
-    );
     fingerState.set(
-      [stretch, thickness, t * rig.flowSpeed, ease * FLOW_BULGE],
+      [
+        stretch,
+        ease * rig.swell * activity * volume,
+        t * rig.flowSpeed,
+        ease * FLOW_BULGE,
+      ],
       i * 4,
     );
   });
@@ -257,7 +301,10 @@ const FINGER_ARRAYS = (() => {
 //    de la base, le second pivote en plus autour du coude, puis le doigt
 //    s'étire le long de ses segments. La flexion s'installe progressivement
 //    au départ de chaque segment : la base et le coude plient en douceur.
-// B. Épaisseur : variation d'ensemble et renflement qui glisse vers le bout.
+// B. Gonflement : chaque goutte se dilate ou se contracte autour de son axe
+//    (faible à la base, fort sur le corps et le bout), avec des poids plus
+//    doux que ceux de la flexion : les raccords suivent sans pli. Renflement
+//    léger qui glisse vers le bout.
 // C. Un champ de déplacement 3D très lent (bruit vectoriel à grande échelle)
 //    déplace toute la masse : les volumes se réorganisent les uns par rapport
 //    aux autres en restant fusionnés, les creux se déplacent.
@@ -282,6 +329,7 @@ ${SIMPLEX_GLSL}
 
 ${FINGER_ARRAYS}
 const float SCULPT_SHARPNESS = 26.0;
+const float SCULPT_SWELL_SHARPNESS = 14.0;
 
 // Rotation de v autour de l'axe unitaire k (cosinus et sinus de l'angle)
 vec3 sculptRotate(vec3 v, vec3 k, float c, float s) {
@@ -295,6 +343,10 @@ vec3 sculptFingers(vec3 p, vec3 n) {
   // Le noyau participe aux poids sans bouger
   float weights = exp(-SCULPT_SHARPNESS * core);
   vec3 total = vec3(0.0);
+  // Gonflement : poids plus doux, pour que deux gouttes voisines qui
+  // gonflent ensemble se rejoignent sans créer de pli
+  float swellWeights = exp(-SCULPT_SWELL_SHARPNESS * core);
+  vec3 swellTotal = vec3(0.0);
   for (int i = 0; i < ${FINGER_COUNT}; i++) {
     vec4 base = SCULPT_FINGER_BASE[i];
     vec4 knee = SCULPT_FINGER_KNEE[i];
@@ -346,16 +398,36 @@ vec3 sculptFingers(vec3 p, vec3 n) {
 
     vec3 moved = mix(image1, image2, side) - p;
 
-    // Épaisseur : variation d'ensemble et renflement qui s'écoule vers le bout
     float run = mix(clamp(along1, 0.0, length1), length1 + max(along2, 0.0), side);
     float u = run / (length1 + length2);
+
+    // Gonflement de la goutte : chaque point s'éloigne (ou se rapproche) du
+    // point le plus proche de l'axe, comme si les rayons de la goutte
+    // changeaient. Faible à la base, fort sur le corps et le bout.
+    vec3 axisPoint1 = base.xyz + axis1 * clamp(along1, 0.0, length1);
+    vec3 axisPoint2 = knee.xyz + axis2 * clamp(along2, 0.0, length2);
+    vec3 fromAxis = p - mix(axisPoint1, axisPoint2, side);
+    // Sur l'extrémité, le bulbe s'élargit surtout : vers l'avant, seulement
+    // 35 % (l'allongement s'en charge), ce qui garde le cadrage
+    float forward = max(along2 - length2, 0.0) * side;
+    fromAxis -= axis2 * forward * 0.65;
+    float profile = mix(0.15, 1.0, smoothstep(0.1, 0.8, u));
+    vec3 inflate = fromAxis * state.y * profile;
+    // Le gonflement suit l'orientation fléchie de la goutte
+    inflate = sculptRotate(inflate, bendBase.xyz, trig.x, trig.y);
+    inflate = mix(inflate, sculptRotate(inflate, kneeAxis, trig.z, trig.w), side);
+    float swellWeight = exp(-SCULPT_SWELL_SHARPNESS * min(distance1, distance2));
+    swellTotal += swellWeight * inflate;
+    swellWeights += swellWeight;
+
+    // Renflement léger qui s'écoule de la base vers le bout
     float bulge = state.w * sin(7.0 * u - state.z) * smoothstep(0.05, 0.3, u);
-    moved += n * (state.y + bulge) * mix(radius1, radius2, side);
+    moved += n * bulge * mix(radius1, radius2, side);
 
     total += weight * moved;
     weights += weight;
   }
-  return total / weights;
+  return total / weights + swellTotal / swellWeights;
 }
 
 // Champ de déplacement lent et cohérent : réorganise toute la masse

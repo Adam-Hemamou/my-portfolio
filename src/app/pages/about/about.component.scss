@@ -464,26 +464,12 @@ swiper-container::part(bullet-active) {
       border-radius: 0;
       z-index: 1;
     }
-    .about-rectangles::before,
-    .about-rectangles::after {
-      content: "";
+    // Les deux cadres (anciens ::before et ::after) sont dessinés et animés
+    // par app-neon-rectangles, sur toute la surface, sous la photo (z-index 1)
+    .about-rectangles app-neon-rectangles {
       position: absolute;
-      border: 1.5px solid #c6ff1a;
+      inset: 0;
       pointer-events: none;
-      filter: drop-shadow(0 0 1px #fff) drop-shadow(0 0 1px #bff000)
-        drop-shadow(-10px 10px 1px #bff000);
-    }
-    .about-rectangles::before {
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-    }
-    .about-rectangles::after {
-      top: 16px;
-      left: 16px;
-      right: -16px;
-      bottom: -16px;
     }
   }
   .about-hero-content {

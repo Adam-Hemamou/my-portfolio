@@ -10,6 +10,7 @@ import { BandNavigationService } from '../../../shared/services/band-navigation.
 import { RouterLink } from '@angular/router';
 import { SEOService } from '../../../shared/services/seo.service';
 import { TypewriterDirective } from '../../../shared/directives/typewriter.directive';
+import { NeonRectanglesComponent } from '../../../shared/components/neon-rectangles/neon-rectangles.component';
 
 @Component({
   selector: 'app-project-list',
@@ -23,6 +24,7 @@ import { TypewriterDirective } from '../../../shared/directives/typewriter.direc
     FooterComponent,
     RouterLink,
     TypewriterDirective,
+    NeonRectanglesComponent,
   ],
   templateUrl: './project-list.component.html',
   styleUrls: ['./project-list.component.scss'],

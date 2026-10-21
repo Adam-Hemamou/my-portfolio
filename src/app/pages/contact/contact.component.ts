@@ -5,6 +5,7 @@ import { AnimateBandComponent } from '../../shared/components/animate-band/anima
 import { ContactFormComponent } from '../../shared/components/contact-form/contact-form.component';
 import { SEOService } from '../../shared/services/seo.service';
 import { TypewriterDirective } from '../../shared/directives/typewriter.directive';
+import { NeonRectanglesComponent } from '../../shared/components/neon-rectangles/neon-rectangles.component';
 
 @Component({
   selector: 'app-contact',
@@ -15,6 +16,7 @@ import { TypewriterDirective } from '../../shared/directives/typewriter.directiv
     ContactFormComponent,
     FooterComponent,
     TypewriterDirective,
+    NeonRectanglesComponent,
   ],
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],

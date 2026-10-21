@@ -17,6 +17,7 @@ import { BandNavigationService } from '../../shared/services/band-navigation.ser
 import { SEOService } from '../../shared/services/seo.service';
 import { StackService } from '../../shared/services/stack.service';
 import { TypewriterDirective } from '../../shared/directives/typewriter.directive';
+import { NeonRectanglesComponent } from '../../shared/components/neon-rectangles/neon-rectangles.component';
 
 @Component({
   selector: 'app-about',
@@ -31,6 +32,7 @@ import { TypewriterDirective } from '../../shared/directives/typewriter.directiv
     NgIf,
     RouterLink,
     TypewriterDirective,
+    NeonRectanglesComponent,
   ],
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss'],
