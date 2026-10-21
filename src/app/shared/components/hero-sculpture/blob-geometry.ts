@@ -54,6 +54,7 @@ const SCALE = 0.84;
 // Allongement maximal des doigts animés par le vertex shader (part de leur
 // longueur) : sert ici à agrandir la sphère englobante, donc le cadrage
 export const FINGER_STRETCH = 0.18;
+const ANIMATION_MARGIN = 0.02;
 const AO_STEP = 0.045;
 const AO_SAMPLES = 5;
 const COARSE_STEP = 4;
@@ -322,5 +323,8 @@ export function createBlobGeometry(resolution: number): BufferGeometry {
       ) + radii[2],
     );
   }
+  // Champ de déplacement global et ondes de surface du vertex shader : au-delà
+  // de la marge de cadrage de la scène, la surface peut s'écarter un peu plus
+  sphere.radius += ANIMATION_MARGIN;
   return geometry;
 }
