@@ -30,6 +30,8 @@ type CaptchaStep = {
   correctImages: string[];
   // Message de réussite imposé (sinon tiré au hasard)
   successMessage?: string;
+  // Message d'erreur imposé à partir de la N-ième erreur (sinon tiré au hasard)
+  wrongHint?: { message: string; fromError: number };
   // Images affichées dans l’ordre du tableau (1 2 3 / 4 5 6 / 7 8 9), sans mélange
   fixedOrder?: boolean;
   // Une seule case sélectionnable : en choisir une autre remplace la précédente
@@ -61,6 +63,8 @@ const INCENDIE_IMAGES = [
   'shutterstock_26484661-1.jpg',
 ];
 
+const CHECK_ALL_HINT = 'Faut tout cocher, tu fais pas d’effort.';
+
 const SPLIT_IMAGES = Array.from(
   { length: 9 },
   (_, i) => `split_image_${i + 1}.jpg`,
@@ -86,6 +90,8 @@ export class DoNotClickComponent implements AfterViewChecked {
   tiles: Tile[] = [];
   result: 'idle' | 'wrong' | 'correct' = 'idle';
   feedback = '';
+  // Erreurs sur l'épreuve en cours (remis à zéro à chaque épreuve)
+  private wrongCount = 0;
 
   // Croix : position fixe dans la fenêtre après la première esquive
   crossPosition: { left: number; top: number } | null = null;
@@ -135,6 +141,11 @@ export class DoNotClickComponent implements AfterViewChecked {
         'serie.jpg',
       ],
       correctImages: ['couleur.webp', 'orange.jpg', 'Orange2.png'],
+      wrongHint: {
+        message:
+          'La couleur orange, le logo Orange et l’orange, le fruit… trimard(e).',
+        fromError: 2,
+      },
     },
     {
       prompt: 'Sélectionnez toutes',
@@ -142,6 +153,7 @@ export class DoNotClickComponent implements AfterViewChecked {
       folder: 'incendie',
       images: INCENDIE_IMAGES,
       correctImages: INCENDIE_IMAGES,
+      wrongHint: { message: CHECK_ALL_HINT, fromError: 1 },
     },
     {
       prompt: 'Trouvez',
@@ -161,6 +173,7 @@ export class DoNotClickComponent implements AfterViewChecked {
       correctImages: ['sandy.png'],
       singleChoice: true,
       successMessage: 'BIEN JOUÉ, TU AS TROUVÉ LA BOUCHE À SANDY.',
+      wrongHint: { message: 'C’est Sandy dans Bob l’éponge.', fromError: 2 },
     },
     {
       prompt: 'Trouvez',
@@ -201,6 +214,7 @@ export class DoNotClickComponent implements AfterViewChecked {
       images: SPLIT_IMAGES,
       correctImages: SPLIT_IMAGES,
       fixedOrder: true,
+      wrongHint: { message: CHECK_ALL_HINT, fromError: 1 },
     },
   ];
 
@@ -305,7 +319,12 @@ export class DoNotClickComponent implements AfterViewChecked {
     }
     // Mauvaise réponse : on efface la sélection pour recommencer l'épreuve
     this.result = 'wrong';
-    this.feedback = this.pick(this.wrongMessages);
+    this.wrongCount++;
+    const hint = this.captcha.wrongHint;
+    this.feedback =
+      hint && this.wrongCount >= hint.fromError
+        ? hint.message
+        : this.pick(this.wrongMessages);
     this.tiles.forEach((tile) => (tile.selected = false));
   }
 
@@ -429,6 +448,7 @@ export class DoNotClickComponent implements AfterViewChecked {
     this.tiles = this.shuffled[this.captchaStep];
     this.result = 'idle';
     this.feedback = '';
+    this.wrongCount = 0;
   }
 
   private showCrossMessage(lines: string[]) {
