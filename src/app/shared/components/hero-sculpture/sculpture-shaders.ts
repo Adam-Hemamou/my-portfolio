@@ -77,68 +77,203 @@ float sculptNoise(vec3 v) {
 }
 `;
 
-// Doigts animés : chacun s'allonge et se raccourcit (jusqu'à ±18 % de sa
-// longueur) et son épaisseur varie légèrement (±5 %). Deux sinus lents de
-// périodes différentes par doigt (environ 11 à 17 s et 25 à 40 s) et une
-// troisième pour l'épaisseur, avec des phases propres : les doigts bougent
-// indépendamment, jamais tous ensemble.
-const STRETCH_PERIOD_MAIN = [11, 17];
-const STRETCH_PERIOD_SLOW = [25, 40];
-const THICKNESS_PERIOD = [15, 24];
-const glsl = (value: number) => value.toFixed(4);
-const glslVec4 = (values: number[]) => `vec4(${values.map(glsl).join(', ')})`;
+// ─── Animation des doigts, calculée sur le processeur une fois par image ───
+// Pour chaque doigt : une flexion à la base, une flexion au coude, un
+// allongement, une épaisseur et la phase d'un renflement qui s'écoule de la
+// base vers le bout. Le vertex shader n'a plus qu'à appliquer ces valeurs.
+//
+// Pour un mouvement liquide plutôt que mécanique :
+// - Chaque signal est une somme de trois sinus de fréquences
+//   incommensurables (périodes d'environ 8 à 28 s) : lisse, sans pulsation
+//   régulière ni répétition visible.
+// - Une onde lente traverse la sculpture : chaque doigt la reçoit avec un
+//   retard qui dépend de sa position, le mouvement se propage d'une zone à
+//   l'autre au lieu d'animer chaque doigt séparément.
+// - Le coude reprend la flexion de la base avec retard : inertie, la matière
+//   suit le mouvement au lieu de pivoter d'un bloc.
+// - Un doigt qui s'allonge s'affine (et inversement) : le volume semble se
+//   déplacer plutôt que gonfler.
+// - Tout s'installe progressivement pendant les premières secondes.
+const BEND_BASE = 0.22;
+const BEND_KNEE = 0.3;
+const THICKNESS = 0.07;
+const FLOW_BULGE = 0.06;
+const KNEE_LAG = 2.5;
+const WAVE_DELAY = 3.5;
+const RAMP_SECONDS = 6;
+const FREQUENCY_BANDS = [
+  [0.22, 0.32],
+  [0.37, 0.5],
+  [0.6, 0.8],
+];
+
+type Vec3 = [number, number, number];
+const sub = (a: Vec3, b: Vec3): Vec3 => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
+const dot = (a: Vec3, b: Vec3) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+const cross = (a: Vec3, b: Vec3): Vec3 => [
+  a[1] * b[2] - a[2] * b[1],
+  a[2] * b[0] - a[0] * b[2],
+  a[0] * b[1] - a[1] * b[0],
+];
+const normalize = (a: Vec3): Vec3 => {
+  const length = Math.hypot(...a) || 1;
+  return [a[0] / length, a[1] / length, a[2] / length];
+};
+const combine = (a: Vec3, x: number, b: Vec3, y: number): Vec3 => [
+  a[0] * x + b[0] * y,
+  a[1] * x + b[1] * y,
+  a[2] * x + b[2] * y,
+];
+// Pseudo-aléatoire déterministe : même animation à chaque chargement
+const hash = (n: number) => {
+  const x = Math.sin(n * 12.9898 + 78.233) * 43758.5453;
+  return x - Math.floor(x);
+};
+
+// Signal lisse dans [-1, 1] : trois sinus de poids décroissants
+type Signal = { frequencies: number[]; phases: number[] };
+const createSignal = (seed: number): Signal => ({
+  frequencies: FREQUENCY_BANDS.map(
+    ([min, max], band) => min + (max - min) * hash(seed + band * 7.1),
+  ),
+  phases: FREQUENCY_BANDS.map((_, band) => hash(seed + band * 3.3 + 1) * 6.283),
+});
+const sample = ({ frequencies, phases }: Signal, t: number) =>
+  0.5 * Math.sin(t * frequencies[0] + phases[0]) +
+  0.3 * Math.sin(t * frequencies[1] + phases[1]) +
+  0.2 * Math.sin(t * frequencies[2] + phases[2]);
+
+const WAVE = createSignal(101);
+const WAVE_DIRECTION = normalize([0.6, 0.5, -0.3]);
+
+// Repère de chaque doigt : deux directions perpendiculaires au premier
+// segment pour orienter la flexion, axe du second segment pour la reprise
+const FINGER_RIGS = SCULPTURE_FINGERS.map(({ base, knee, tip }, index) => {
+  const axis1 = normalize(sub(knee, base));
+  const axis2 = normalize(sub(tip, knee));
+  const helper: Vec3 = Math.abs(axis1[1]) < 0.9 ? [0, 1, 0] : [1, 0, 0];
+  const side1 = normalize(cross(axis1, helper));
+  const side2 = cross(axis1, side1);
+  const seed = index * 17.3;
+  return {
+    axis2,
+    side1,
+    side2,
+    // Les doigts orientés dans le sens de l'onde la reçoivent plus tard
+    delay: WAVE_DELAY * (1 + dot(normalize(tip), WAVE_DIRECTION)),
+    stretch: createSignal(seed + 1),
+    bendX: createSignal(seed + 2),
+    bendY: createSignal(seed + 3),
+    thickness: createSignal(seed + 4),
+    flowSpeed: 0.45 + 0.25 * hash(seed + 5),
+  };
+});
+
 const FINGER_COUNT = SCULPTURE_FINGERS.length;
-const FINGER_ARRAYS = (() => {
-  const bases: string[] = [];
-  const knees: string[] = [];
-  const tips: string[] = [];
-  const motions: string[] = [];
-  const thicknesses: string[] = [];
-  // Périodes et phases réparties par le nombre d'or : jamais alignées
-  const spread = ([min, max]: number[], value: number) =>
-    (2 * Math.PI) / (min + (max - min) * (value % 1));
-  SCULPTURE_FINGERS.forEach(({ base, knee, tip, radii }, index) => {
-    const golden = index * 0.618034;
-    bases.push(glslVec4([...base, radii[0]]));
-    knees.push(glslVec4([...knee, radii[1]]));
-    tips.push(glslVec4([...tip, radii[2]]));
-    motions.push(
-      glslVec4([
-        spread(STRETCH_PERIOD_MAIN, golden),
-        index * 2.39996,
-        spread(STRETCH_PERIOD_SLOW, golden + 0.37),
-        index * 1.71 + 0.8,
-      ]),
+// Par doigt : axe et angle de flexion de la base, idem au coude (exprimé
+// avant la flexion de la base), cosinus et sinus de ces deux angles, puis
+// allongement, épaisseur, phase et amplitude du renflement qui s'écoule
+const fingerBendBase = new Float32Array(FINGER_COUNT * 4);
+const fingerBendKnee = new Float32Array(FINGER_COUNT * 4);
+const fingerTrig = new Float32Array(FINGER_COUNT * 4);
+const fingerState = new Float32Array(FINGER_COUNT * 4);
+
+function writeRotation(target: Float32Array, index: number, rotation: Vec3) {
+  const angle = Math.hypot(...rotation);
+  const axis: Vec3 = angle > 1e-6 ? normalize(rotation) : [1, 0, 0];
+  target.set([...axis, angle], index * 4);
+  return angle;
+}
+
+function updateFingers(t: number) {
+  const ramp = Math.min(Math.max(t / RAMP_SECONDS, 0), 1);
+  const ease = ramp * ramp * (3 - 2 * ramp);
+  FINGER_RIGS.forEach((rig, i) => {
+    const wave = sample(WAVE, t - rig.delay);
+    const stretch =
+      FINGER_STRETCH * ease * (0.55 * wave + 0.45 * sample(rig.stretch, t));
+    // Flexion de la base, en partie entraînée par l'onde qui traverse la masse
+    const bend = (time: number) =>
+      combine(
+        rig.side1,
+        0.6 * sample(rig.bendX, time) +
+          0.4 * sample(WAVE, time - rig.delay - 1.3),
+        rig.side2,
+        sample(rig.bendY, time),
+      );
+    const base = bend(t).map((v) => v * BEND_BASE * ease) as Vec3;
+    // Le coude reprend la flexion de la base avec du retard (inertie), autour
+    // d'un axe perpendiculaire au second segment
+    const lagged = bend(t - KNEE_LAG).map((v) => v * BEND_KNEE * ease) as Vec3;
+    const knee = combine(lagged, 1, rig.axis2, -dot(lagged, rig.axis2));
+
+    const angleBase = writeRotation(fingerBendBase, i, base);
+    const angleKnee = writeRotation(fingerBendKnee, i, knee);
+    fingerTrig.set(
+      [
+        Math.cos(angleBase),
+        Math.sin(angleBase),
+        Math.cos(angleKnee),
+        Math.sin(angleKnee),
+      ],
+      i * 4,
     );
-    thicknesses.push(
-      glslVec4([spread(THICKNESS_PERIOD, golden + 0.71), index * 3.1 + 1.9, 0, 0]),
+    const thickness = Math.min(
+      Math.max(ease * THICKNESS * sample(rig.thickness, t) - 0.35 * stretch, -0.1),
+      0.1,
+    );
+    fingerState.set(
+      [stretch, thickness, t * rig.flowSpeed, ease * FLOW_BULGE],
+      i * 4,
     );
   });
+}
+updateFingers(0);
+
+const glsl = (value: number) => value.toFixed(4);
+const glslVec4 = (values: number[]) => `vec4(${values.map(glsl).join(', ')})`;
+const FINGER_ARRAYS = (() => {
   const array = (name: string, items: string[]) =>
     `const vec4 ${name}[${items.length}] = vec4[${items.length}](\n  ${items.join(',\n  ')}\n);`;
   return [
-    array('SCULPT_FINGER_BASE', bases),
-    array('SCULPT_FINGER_KNEE', knees),
-    array('SCULPT_FINGER_TIP', tips),
-    array('SCULPT_FINGER_MOTION', motions),
-    array('SCULPT_FINGER_THICKNESS', thicknesses),
+    array(
+      'SCULPT_FINGER_BASE',
+      SCULPTURE_FINGERS.map(({ base, radii }) => glslVec4([...base, radii[0]])),
+    ),
+    array(
+      'SCULPT_FINGER_KNEE',
+      SCULPTURE_FINGERS.map(({ knee, radii }) => glslVec4([...knee, radii[1]])),
+    ),
+    array(
+      'SCULPT_FINGER_TIP',
+      SCULPTURE_FINGERS.map(({ tip, radii }) => glslVec4([...tip, radii[2]])),
+    ),
     array('SCULPT_CORE', SCULPTURE_CORE.map(glslVec4)),
   ].join('\n');
 })();
 
-// Matière visqueuse :
-// - Chaque doigt s'étire le long de son axe : un point est déplacé en
-//   proportion de sa distance à la base, le long du segment où il se trouve.
-//   La base reste soudée à la masse et le bout se déplace sans changer de
-//   forme (il reste bombé). L'épaisseur varie le long de la normale.
-// - Les points appartiennent en douceur à chaque doigt et au noyau (poids
-//   décroissant avec la distance, normalisés) : raccords continus.
-// - Un bruit lent dont le domaine dérive : de larges ondulations douces.
-// Le mouvement s'installe progressivement pendant les premières secondes.
-// Le déplacement ne dépend que de la position : les normales reconstruites
-// et les lignes topographiques (tranches de la surface déformée) suivent.
+// ─── Déformation dans le vertex shader (le maillage n'est jamais recalculé) ───
+// A. Chaque doigt est un squelette souple : le premier segment pivote autour
+//    de la base, le second pivote en plus autour du coude, puis le doigt
+//    s'étire le long de ses segments. La flexion s'installe progressivement
+//    au départ de chaque segment : la base et le coude plient en douceur.
+// B. Épaisseur : variation d'ensemble et renflement qui glisse vers le bout.
+// C. Un champ de déplacement 3D très lent (bruit vectoriel à grande échelle)
+//    déplace toute la masse : les volumes se réorganisent les uns par rapport
+//    aux autres en restant fusionnés, les creux se déplacent.
+// D. Les points appartiennent en douceur à chaque doigt et au noyau (poids
+//    normalisés) : les déformations se transmettent sans couture, en
+//    particulier à la base des doigts.
+// E. Deux ondes de surface, dont une qui se déplace à travers la matière,
+//    modifient réellement le contour.
+// Le déplacement ne dépend que de la position au repos : les normales
+// reconstruites restent justes.
 const VERTEX_HEADER = /* glsl */ `
 uniform float uTime;
+uniform vec4 uFingerBendBase[${FINGER_COUNT}];
+uniform vec4 uFingerBendKnee[${FINGER_COUNT}];
+uniform vec4 uFingerTrig[${FINGER_COUNT}];
+uniform vec4 uFingerState[${FINGER_COUNT}];
 attribute float aOcclusion;
 varying vec3 vSculptPosition;
 varying float vSculptWarp;
@@ -146,12 +281,14 @@ varying float vSculptOcclusion;
 ${SIMPLEX_GLSL}
 
 ${FINGER_ARRAYS}
-const float SCULPT_STRETCH = ${glsl(FINGER_STRETCH)};
-const float SCULPT_THICKNESS = 0.05;
 const float SCULPT_SHARPNESS = 26.0;
 
+// Rotation de v autour de l'axe unitaire k (cosinus et sinus de l'angle)
+vec3 sculptRotate(vec3 v, vec3 k, float c, float s) {
+  return v * c + cross(k, v) * s + k * dot(k, v) * (1.0 - c);
+}
+
 vec3 sculptFingers(vec3 p, vec3 n) {
-  float ramp = smoothstep(0.0, 6.0, uTime);
   float core = min(
     length(p - SCULPT_CORE[0].xyz) - SCULPT_CORE[0].w,
     length(p - SCULPT_CORE[1].xyz) - SCULPT_CORE[1].w);
@@ -162,8 +299,10 @@ vec3 sculptFingers(vec3 p, vec3 n) {
     vec4 base = SCULPT_FINGER_BASE[i];
     vec4 knee = SCULPT_FINGER_KNEE[i];
     vec4 tip = SCULPT_FINGER_TIP[i];
-    vec4 motion = SCULPT_FINGER_MOTION[i];
-    vec4 thickness = SCULPT_FINGER_THICKNESS[i];
+    vec4 bendBase = uFingerBendBase[i];
+    vec4 bendKnee = uFingerBendKnee[i];
+    vec4 trig = uFingerTrig[i];
+    vec4 state = uFingerState[i];
 
     vec3 axis1 = knee.xyz - base.xyz;
     float length1 = length(axis1);
@@ -182,23 +321,62 @@ vec3 sculptFingers(vec3 p, vec3 n) {
     float weight = exp(-SCULPT_SHARPNESS * min(distance1, distance2));
     // 0 sur le premier segment, 1 sur le second, en douceur au coude
     float side = 1.0 / (1.0 + exp(-30.0 * (distance1 - distance2)));
-    float run1 = mix(clamp(along1, 0.0, length1), length1, side);
-    float run2 = side * max(along2, 0.0);
+    float stretch = state.x;
 
-    float stretch = SCULPT_STRETCH * ramp * (
-      0.7 * sin(uTime * motion.x + motion.y)
-      + 0.3 * sin(uTime * motion.z + motion.w));
-    float swell = SCULPT_THICKNESS * ramp
-      * sin(uTime * thickness.x + thickness.y) * mix(radius1, radius2, side);
-    total += weight * (stretch * (run1 * axis1 + run2 * axis2) + n * swell);
+    // Premier segment : pivote autour de la base et s'étire
+    vec3 axis1Bent = sculptRotate(axis1, bendBase.xyz, trig.x, trig.y);
+    float flex1 = bendBase.w * smoothstep(-0.03, 0.12, along1);
+    vec3 image1 = base.xyz
+      + sculptRotate(p - base.xyz, bendBase.xyz, cos(flex1), sin(flex1))
+      + stretch * clamp(along1, 0.0, length1) * axis1Bent;
+
+    // Second segment : suit le coude déplacé, puis pivote autour de lui
+    vec3 kneeMoved = base.xyz
+      + sculptRotate(knee.xyz - base.xyz, bendBase.xyz, trig.x, trig.y)
+      + stretch * length1 * axis1Bent;
+    vec3 kneeAxis = sculptRotate(bendKnee.xyz, bendBase.xyz, trig.x, trig.y);
+    float flex2 = bendKnee.w * smoothstep(-0.05, 0.08, along2);
+    vec3 local2 = sculptRotate(
+      sculptRotate(p - knee.xyz, bendBase.xyz, trig.x, trig.y),
+      kneeAxis, cos(flex2), sin(flex2));
+    vec3 axis2Bent = sculptRotate(
+      sculptRotate(axis2, bendBase.xyz, trig.x, trig.y),
+      kneeAxis, trig.z, trig.w);
+    vec3 image2 = kneeMoved + local2 + stretch * max(along2, 0.0) * axis2Bent;
+
+    vec3 moved = mix(image1, image2, side) - p;
+
+    // Épaisseur : variation d'ensemble et renflement qui s'écoule vers le bout
+    float run = mix(clamp(along1, 0.0, length1), length1 + max(along2, 0.0), side);
+    float u = run / (length1 + length2);
+    float bulge = state.w * sin(7.0 * u - state.z) * smoothstep(0.05, 0.3, u);
+    moved += n * (state.y + bulge) * mix(radius1, radius2, side);
+
+    total += weight * moved;
     weights += weight;
   }
   return total / weights;
 }
 
+// Champ de déplacement lent et cohérent : réorganise toute la masse
+vec3 sculptFlow(vec3 p) {
+  vec3 q = p * 0.85;
+  float t = uTime * 0.05;
+  return vec3(
+    sculptNoise(q + vec3(0.0, t, 3.1)),
+    sculptNoise(q + vec3(5.2, 1.3, t)),
+    sculptNoise(q + vec3(t, 7.7, 2.4)));
+}
+
 vec3 sculptDisplace(vec3 p, vec3 n) {
-  float slow = sculptNoise(p * 1.1 + vec3(0.0, uTime * 0.07, uTime * 0.05));
-  return p + n * (0.024 * slow) + sculptFingers(p, n);
+  float ramp = smoothstep(0.0, ${glsl(RAMP_SECONDS)}, uTime);
+  // Ondulation lente sur place et onde qui traverse la surface
+  float swell = sculptNoise(p * 1.1 + vec3(0.0, uTime * 0.07, uTime * 0.05));
+  float wave = sculptNoise(p * 1.9 - vec3(0.6, 0.3, -0.4) * uTime * 0.12);
+  return p
+    + n * (0.026 * swell + 0.016 * ramp * wave)
+    + 0.04 * ramp * sculptFlow(p)
+    + sculptFingers(p, n);
 }
 `;
 
@@ -220,8 +398,10 @@ objectNormal = normalize(cross(sculptAlongT - sculptPosition, sculptAlongB - scu
 const VERTEX_POSITION = /* glsl */ `
 #include <begin_vertex>
 transformed = sculptPosition;
-vSculptPosition = sculptPosition;
-vSculptWarp = sculptNoise(sculptPosition * 1.1 + vec3(uTime * 0.025));
+// Les lignes sont calculées sur la matière au repos puis déformées avec
+// elle : imprimées sur la surface, elles ne glissent pas quand elle bouge
+vSculptPosition = position;
+vSculptWarp = sculptNoise(position * 1.1 + vec3(1.7));
 vSculptOcclusion = aOcclusion;
 `;
 
@@ -231,8 +411,8 @@ varying vec3 vSculptPosition;
 varying float vSculptWarp;
 varying float vSculptOcclusion;
 
-// Les courbes de niveau sont des tranches parallèles de la sculpture le long
-// d'un axe incliné, légèrement ondulées par un bruit lent.
+// Les courbes de niveau sont des tranches parallèles de la sculpture au
+// repos le long d'un axe incliné, légèrement ondulées par un bruit fixe.
 const vec3 SCULPT_LINE_AXIS = vec3(0.28, 0.94, 0.19);
 const float SCULPT_LINE_WIDTH = 0.34;
 const float SCULPT_LINE_WARP = 0.9;
@@ -279,8 +459,16 @@ export function applySculptureShaders(
   material: Material,
   uniforms: SculptureUniforms,
 ) {
+  // État des doigts recalculé juste avant chaque rendu, à partir du temps de
+  // la scène (aucune modification de la boucle d'animation nécessaire)
+  material.onBeforeRender = () => updateFingers(uniforms.uTime.value);
   material.onBeforeCompile = (shader) => {
-    Object.assign(shader.uniforms, uniforms);
+    Object.assign(shader.uniforms, uniforms, {
+      uFingerBendBase: { value: fingerBendBase },
+      uFingerBendKnee: { value: fingerBendKnee },
+      uFingerTrig: { value: fingerTrig },
+      uFingerState: { value: fingerState },
+    });
     shader.vertexShader = shader.vertexShader
       .replace('#include <common>', `#include <common>\n${VERTEX_HEADER}`)
       .replace('#include <beginnormal_vertex>', VERTEX_NORMAL)
