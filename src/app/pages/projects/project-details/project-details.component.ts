@@ -16,6 +16,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { StacksCardComponent } from '../../../shared/dump-components/stacks-card/stacks-card.component';
 import { SEOService } from '../../../shared/services/seo.service';
 import { TypewriterDirective } from '../../../shared/directives/typewriter.directive';
+import { NeonRectanglesComponent } from '../../../shared/components/neon-rectangles/neon-rectangles.component';
 
 @Component({
   selector: 'app-project-details',
@@ -28,6 +29,7 @@ import { TypewriterDirective } from '../../../shared/directives/typewriter.direc
     NgIf,
     NgFor,
     TypewriterDirective,
+    NeonRectanglesComponent,
   ],
   templateUrl: './project-details.component.html',
   styleUrls: ['./project-details.component.scss'],

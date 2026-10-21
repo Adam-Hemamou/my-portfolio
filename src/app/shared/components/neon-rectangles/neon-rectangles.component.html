@@ -1,0 +1,85 @@
+<!-- Contours : lueur uniforme sur toute la longueur des traits (classe
+     globale .neon-svg sur fond noir, variantes photo et fond clair) -->
+<svg
+  class="nr-layer"
+  [class]="edgeClass"
+  [attr.viewBox]="viewBox"
+  preserveAspectRatio="xMidYMid meet"
+  fill="none"
+  focusable="false"
+  [attr.role]="label ? 'img' : null"
+  [attr.aria-label]="label || null"
+  [attr.aria-hidden]="label ? null : 'true'"
+>
+  <g *ngFor="let r of rects" class="nr-drift-x" [attr.style]="r.style">
+    <g class="nr-drift-y">
+      <g class="nr-sway">
+        <rect
+          [attr.x]="r.x"
+          [attr.y]="r.y"
+          [attr.width]="r.width"
+          [attr.height]="r.height"
+          [attr.stroke]="edgeStroke"
+          [attr.stroke-width]="strokeWidth"
+          [attr.stroke-opacity]="strokeOpacity"
+        />
+      </g>
+    </g>
+  </g>
+</svg>
+
+<!-- Bandes lumineuses : calque superposé, hors de l'ombre décalée du néon,
+     avec les mêmes groupes et animations que les contours (synchronisés).
+     Le flou ne s'applique qu'au halo des bandes. -->
+<svg
+  class="nr-layer nr-layer--bands"
+  [attr.viewBox]="viewBox"
+  preserveAspectRatio="xMidYMid meet"
+  fill="none"
+  focusable="false"
+  aria-hidden="true"
+>
+  <defs>
+    <filter [attr.id]="haloFilter" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur [attr.stdDeviation]="haloBlur" />
+    </filter>
+  </defs>
+  <g *ngFor="let r of banded" class="nr-drift-x" [attr.style]="r.style">
+    <g class="nr-drift-y">
+      <g class="nr-sway">
+        <!-- Halo flou : filtre posé sur chaque tracé animé, pour que le
+             navigateur redessine toute l'étendue du flou à chaque image -->
+        <g>
+          <rect
+            *ngFor="let s of r.band!.halo"
+            class="nr-band"
+            [attr.filter]="'url(#' + haloFilter + ')'"
+            [attr.x]="r.x"
+            [attr.y]="r.y"
+            [attr.width]="r.width"
+            [attr.height]="r.height"
+            [attr.stroke]="s.color"
+            [attr.stroke-width]="s.width"
+            [attr.stroke-opacity]="s.opacity"
+            [attr.style]="s.style"
+          />
+        </g>
+        <!-- Cœur net, sans flou -->
+        <g>
+          <rect
+            *ngFor="let s of r.band!.core"
+            class="nr-band"
+            [attr.x]="r.x"
+            [attr.y]="r.y"
+            [attr.width]="r.width"
+            [attr.height]="r.height"
+            [attr.stroke]="s.color"
+            [attr.stroke-width]="s.width"
+            [attr.stroke-opacity]="s.opacity"
+            [attr.style]="s.style"
+          />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

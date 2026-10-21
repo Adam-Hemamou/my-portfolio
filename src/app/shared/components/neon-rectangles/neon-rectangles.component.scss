@@ -1,0 +1,109 @@
+// Occupe toute la place du conteneur, comme l'ancienne <img>
+:host {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.nr-layer {
+  display: block;
+  width: 100%;
+  height: 100%;
+  // Les formes dérivent de quelques unités : on les laisse dépasser
+  // légèrement plutôt que de couper un contour au bord du cadre.
+  overflow: visible;
+}
+
+// Cadres de la photo (À propos) : même lueur que les anciens pseudo-éléments
+.nr-edges--photo {
+  filter: drop-shadow(0 0 1px #fff) drop-shadow(0 0 1px #bff000)
+    drop-shadow(-10px 10px 1px #bff000);
+}
+
+// Fond blanc : contours foncés, l'écho décalé reste vert citron
+.nr-edges--light {
+  filter: drop-shadow(-20px -20px 0 #bff000);
+}
+
+.nr-layer--bands {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+$ease: cubic-bezier(0.37, 0, 0.63, 1); // proche d'une sinusoïde
+
+// Trois groupes imbriqués aux périodes différentes : le mouvement combiné
+// ne se répète pas à l'identique, et chaque boucle (alternate) est continue.
+.nr-drift-x {
+  animation: nr-drift-x var(--nr-dx) $ease var(--nr-dx-delay) infinite alternate;
+}
+
+.nr-drift-y {
+  animation: nr-drift-y var(--nr-dy) $ease var(--nr-dy-delay) infinite alternate;
+}
+
+.nr-sway {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: nr-sway var(--nr-sw) $ease var(--nr-sw-delay) infinite alternate;
+}
+
+// Bande lumineuse : un tiret qui fait le tour du contour à vitesse constante.
+// Extrémités droites (butt) : aucun bout arrondi, aucun point.
+.nr-band {
+  stroke-linecap: butt;
+  stroke-dashoffset: var(--nr-from);
+  animation: nr-lap var(--nr-lap) linear var(--nr-lap-delay) infinite;
+}
+
+:host(.is-paused) * {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  // Composition fixe : rectangles à leur place d'origine, bandes immobiles
+  .nr-drift-x,
+  .nr-drift-y,
+  .nr-sway,
+  .nr-band {
+    animation: none;
+  }
+}
+
+@keyframes nr-drift-x {
+  from {
+    transform: translateX(calc(-1 * var(--nr-ax)));
+  }
+  to {
+    transform: translateX(var(--nr-ax));
+  }
+}
+
+@keyframes nr-drift-y {
+  from {
+    transform: translateY(calc(-1 * var(--nr-ay)));
+  }
+  to {
+    transform: translateY(var(--nr-ay));
+  }
+}
+
+@keyframes nr-sway {
+  from {
+    transform: rotate(calc(-1 * var(--nr-rot))) scale(calc(2 - var(--nr-scale)));
+  }
+  to {
+    transform: rotate(var(--nr-rot)) scale(var(--nr-scale));
+  }
+}
+
+@keyframes nr-lap {
+  from {
+    stroke-dashoffset: var(--nr-from);
+  }
+  to {
+    stroke-dashoffset: var(--nr-to);
+  }
+}

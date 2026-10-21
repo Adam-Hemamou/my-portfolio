@@ -47,6 +47,8 @@
     data-aos-delay="700"
     data-aos-duration="800"
   >
+    <!-- Les rectangles décoratifs, animés, derrière la photo -->
+    <app-neon-rectangles composition="photo"></app-neon-rectangles>
     <img
       src="/me/me.png"
       alt="Photo professionnelle d'Adam Hemamou, développeur full stack"
@@ -54,7 +56,6 @@
       data-aos-delay="800"
       data-aos-duration="800"
     />
-    <!-- Les rectangles décoratifs en CSS -->
   </div>
 </div>
 <app-animate-band> </app-animate-band>
@@ -82,14 +83,14 @@
       </p>
     </div>
     <div class="journey-svg">
-      <img
-        src="svg/carre-noneon.svg"
-        class="white-neon-svg"
-        alt="Élément décoratif géométrique"
+      <app-neon-rectangles
+        composition="tall"
+        theme="light"
+        label="Élément décoratif géométrique"
         data-aos="fade-left"
         data-aos-delay="100"
         data-aos-duration="800"
-      />
+      ></app-neon-rectangles>
     </div>
   </div>
   <div
