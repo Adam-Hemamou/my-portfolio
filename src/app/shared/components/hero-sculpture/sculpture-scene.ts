@@ -23,7 +23,13 @@ import {
 
 export type SculptureScene = {
   canvas: HTMLCanvasElement;
-  resize(width: number, height: number): void;
+  // Taille CSS du cadre (fractionnaire) et taille exacte en pixels de l'écran
+  resize(
+    width: number,
+    height: number,
+    pixelWidth: number,
+    pixelHeight: number,
+  ): void;
   // Position du pointeur normalisée entre -1 et 1
   setPointer(x: number, y: number): void;
   // Avance l'animation de `delta` secondes puis dessine (0 = image fixe)
@@ -49,6 +55,14 @@ const POINTER_TILT_Y = 0.22;
 const LINE_PERIOD_PX = 4.5;
 const LINE_FREQUENCY_MIN = 24;
 const LINE_FREQUENCY_MAX = 56;
+// Densité maximale du canvas (pixels du canvas par pixel CSS). Sur ordinateur,
+// 2 comme auparavant. Sur mobile, le cadre ne mesure qu'une centaine de pixels
+// CSS : on suit l'écran jusqu'à 3 (iPhone, Android haut de gamme) pour éviter
+// que le navigateur agrandisse un canvas trop petit, ce qui rendait le rendu
+// flou. Un budget de pixels borne le coût sur les grandes tablettes.
+const MAX_DENSITY = 2;
+const MAX_DENSITY_LOW_POWER = 3;
+const PIXEL_BUDGET_LOW_POWER = 1_200_000;
 
 // Studio de réflexion généré en code (aucune image) pour un noir satiné : fond
 // anthracite, plaques noires et bandes blanches d'intensité modérée.
@@ -110,9 +124,6 @@ export function createSculptureScene(
     powerPreference: lowPower ? 'default' : 'high-performance',
   });
   renderer.setClearColor(0x000000, 0);
-  renderer.setPixelRatio(
-    Math.min(window.devicePixelRatio || 1, lowPower ? 1.5 : 2),
-  );
   renderer.toneMapping = ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.05;
   container.appendChild(renderer.domElement);
@@ -158,16 +169,32 @@ export function createSculptureScene(
   return {
     canvas: renderer.domElement,
 
-    resize(width, height) {
-      renderer.setSize(width, height, false);
-      // La masse occupe environ 80 % du cadre et ~1,5 unité le long de l'axe
-      const pixels = Math.min(width, height) * renderer.getPixelRatio();
-      uniforms.uLineFrequency.value = Math.min(
-        Math.max((pixels * 0.8) / LINE_PERIOD_PX / 1.5, LINE_FREQUENCY_MIN),
-        LINE_FREQUENCY_MAX,
+    resize(width, height, pixelWidth, pixelHeight) {
+      // Le canvas est dimensionné en pixels de l'écran : affiché à sa taille
+      // exacte, il n'est jamais rééchantillonné par le navigateur. On ne le
+      // réduit qu'au-delà de la densité maximale ou du budget de pixels.
+      const density = pixelWidth / width;
+      const scale = Math.min(
+        1,
+        (lowPower ? MAX_DENSITY_LOW_POWER : MAX_DENSITY) / density,
+        lowPower
+          ? Math.sqrt(PIXEL_BUDGET_LOW_POWER / (pixelWidth * pixelHeight))
+          : 1,
       );
+      const bufferWidth = Math.max(1, Math.round(pixelWidth * scale));
+      const bufferHeight = Math.max(1, Math.round(pixelHeight * scale));
+      renderer.setDrawingBufferSize(bufferWidth, bufferHeight, 1);
+
       const aspect = width / height;
       const halfFov = Math.tan((FOV * Math.PI) / 360);
+      // Pixels du canvas par unité de scène au niveau de la masse : la demi-
+      // hauteur visible au centre vaut ~1,12 × le rayon de cadrage
+      const pixelsPerUnit =
+        Math.min(bufferWidth, bufferHeight) / (2 * fitRadius * (1 + halfFov / 2));
+      uniforms.uLineFrequency.value = Math.min(
+        Math.max(pixelsPerUnit / LINE_PERIOD_PX, LINE_FREQUENCY_MIN),
+        LINE_FREQUENCY_MAX,
+      );
       camera.aspect = aspect;
       // La sphère englobante tient dans le plus petit côté du cadre
       camera.position.z =

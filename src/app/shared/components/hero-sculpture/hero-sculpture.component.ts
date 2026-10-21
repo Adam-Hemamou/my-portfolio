@@ -112,8 +112,19 @@ export class HeroSculptureComponent implements AfterViewInit, OnDestroy {
     this.reducedMotion = this.motionQuery.matches;
     this.motionQuery.addEventListener('change', this.onMotionChange);
 
-    this.resizeObserver = new ResizeObserver(() => this.resize());
-    this.resizeObserver.observe(this.host);
+    this.resizeObserver = new ResizeObserver((entries) =>
+      this.resize(entries[entries.length - 1]),
+    );
+    try {
+      // Taille exacte en pixels de l'écran (Chrome, Firefox), mise à jour
+      // aussi quand la densité change (zoom, écran externe)
+      this.resizeObserver.observe(this.host, {
+        box: 'device-pixel-content-box',
+      });
+    } catch {
+      // Safari : taille CSS × devicePixelRatio
+      this.resizeObserver.observe(this.host);
+    }
     this.resize();
 
     // La boucle ne tourne que si le hero est à l'écran et l'onglet visible
@@ -155,10 +166,21 @@ export class HeroSculptureComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  private resize() {
-    const { clientWidth, clientHeight } = this.host;
-    if (!this.sculpture || !clientWidth || !clientHeight) return;
-    this.sculpture.resize(clientWidth, clientHeight);
+  // Taille CSS non arrondie (le cadre est en em, donc fractionnaire) : un
+  // canvas arrondi au pixel CSS serait légèrement rééchantillonné à l'affichage
+  private resize(entry?: ResizeObserverEntry) {
+    if (!this.sculpture) return;
+    const box = entry?.contentRect ?? this.host.getBoundingClientRect();
+    const { width, height } = box;
+    if (!width || !height) return;
+    const devicePixels = entry?.devicePixelContentBoxSize?.[0];
+    const ratio = window.devicePixelRatio || 1;
+    this.sculpture.resize(
+      width,
+      height,
+      devicePixels?.inlineSize ?? Math.round(width * ratio),
+      devicePixels?.blockSize ?? Math.round(height * ratio),
+    );
     this.sculpture.render(0);
   }
 

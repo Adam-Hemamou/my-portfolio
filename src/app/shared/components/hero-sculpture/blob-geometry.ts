@@ -6,80 +6,149 @@ import {
 import { MarchingCubes } from 'three/examples/jsm/objects/MarchingCubes.js';
 import { mergeVertices } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 
-// Goutte : centre (x, y, z), demi-longueur dans l'axe de la goutte
-// (direction centre de la masse → centre de la goutte), demi-largeur
-// transverse, et évasement : > 0, la goutte s'élargit vers sa pointe et
-// s'affine à sa base (un « cou » qui creuse le raccord avec la masse).
-type Lobe = [
-  x: number,
-  y: number,
-  z: number,
-  along: number,
-  across: number,
-  flare: number,
+type Vec3 = [number, number, number];
+
+// Doigt courbé : deux segments (base → coude → bout), chacun un cône
+// arrondi dont le rayon varie d'une extrémité à l'autre. Le bout est un peu
+// plus large que le coude : extrémité bombée.
+type Finger = [
+  bx: number, by: number, bz: number,
+  kx: number, ky: number, kz: number,
+  tx: number, ty: number, tz: number,
+  baseRadius: number, kneeRadius: number, tipRadius: number,
 ];
 
-// 14 volumes autour d'un petit noyau : plusieurs grosses gouttes trapues
-// (longueur ≈ 1,05 à 1,2 × largeur), quelques moyennes et trois petites
-// excroissances. Les gros volumes sont groupés en haut à droite et en bas à
-// gauche, les petits ailleurs : la silhouette reste irrégulière et
-// asymétrique, sans pointes en étoile.
-const LOBES: Lobe[] = [
-  [0.0, 0.0, 0.0, 0.33, 0.31, 0],
-  [0.5, 0.14, 0.04, 0.37, 0.33, 0.1],
-  [0.2, 0.54, -0.1, 0.34, 0.3, 0.12],
-  [-0.32, 0.44, 0.12, 0.28, 0.24, 0.12],
-  [-0.56, 0.06, 0.2, 0.26, 0.23, 0.1],
-  [-0.44, -0.2, -0.3, 0.25, 0.22, 0.08],
-  [-0.3, -0.46, 0.14, 0.35, 0.31, 0.08],
-  [0.1, -0.54, 0.0, 0.29, 0.25, 0.12],
-  [0.46, -0.38, -0.14, 0.3, 0.27, 0.1],
-  [0.14, 0.06, 0.48, 0.31, 0.28, 0.06],
-  [-0.06, 0.02, -0.5, 0.3, 0.26, 0.08],
-  [0.38, 0.4, 0.34, 0.19, 0.17, 0.12],
-  [-0.26, -0.22, 0.46, 0.17, 0.15, 0.12],
-  [0.6, -0.12, -0.36, 0.2, 0.18, 0.12],
+// Petit noyau (deux sphères décalées, irrégulier) : la masse est surtout
+// faite des doigts eux-mêmes, comme sur la référence.
+const CORE: [x: number, y: number, z: number, radius: number][] = [
+  [0.0, 0.0, 0.0, 0.26],
+  [0.05, -0.07, -0.11, 0.24],
 ];
 
-// Rayon de fusion : assez large pour des raccords lisses, assez court pour
-// garder des creux marqués entre les gouttes
-const BLEND = 0.13;
+// 11 doigts épais de longueurs différentes, orientés librement et
+// courbés au coude. Composés dans le repère de la caméra puis ramenés dans
+// celui de l'objet (inclinaison de la scène) : en vue de face, un gros lobe
+// à droite qui retombe, deux doigts qui se recourbent vers le haut, une
+// pile de doigts plus petits à gauche, trois doigts courts vers le bas, un vers
+// l'avant et un vers l'arrière.
+const FINGERS: Finger[] = [
+  [0.07, 0.06, -0.06, 0.32, 0.21, -0.19, 0.49, 0.07, -0.26, 0.24, 0.22, 0.27],
+  [-0.03, 0.09, -0.03, -0.1, 0.35, -0.18, -0.32, 0.43, -0.17, 0.2, 0.18, 0.21],
+  [-0.14, 0.09, 0.09, -0.34, 0.3, 0.16, -0.37, 0.48, 0.12, 0.17, 0.15, 0.18],
+  [-0.03, 0.06, -0.13, 0, 0.3, -0.4, 0.1, 0.35, -0.55, 0.18, 0.17, 0.19],
+  [-0.06, 0.02, 0.11, -0.26, 0.11, 0.31, -0.37, 0.07, 0.43, 0.15, 0.13, 0.16],
+  [-0.11, -0.1, -0.02, -0.38, -0.15, 0.01, -0.52, -0.26, 0.1, 0.15, 0.13, 0.16],
+  [-0.03, -0.09, 0.12, -0.19, -0.29, 0.35, -0.34, -0.22, 0.4, 0.2, 0.18, 0.21],
+  [0.03, -0.09, 0.03, 0.15, -0.31, 0.17, 0.12, -0.47, 0.28, 0.19, 0.17, 0.2],
+  [0.16, -0.07, -0.04, 0.39, -0.26, 0, 0.44, -0.46, 0.01, 0.18, 0.17, 0.2],
+  [0.04, 0.04, 0.08, 0.27, 0.09, 0.26, 0.44, 0.1, 0.25, 0.18, 0.16, 0.19],
+  [-0.04, -0.04, -0.08, -0.31, -0.08, -0.27, -0.5, -0.01, -0.32, 0.17, 0.15, 0.18],
+];
+
+// Fusion des doigts avec la masse : courte, pour creuser des plis profonds
+const BLEND = 0.075;
+// Fusion des deux segments d'un même doigt : adoucit le coude
+const KNEE_BLEND = 0.04;
 // La masse doit tenir dans la grille [-1, 1]³ du marching cubes
 const SCALE = 0.84;
+// Allongement maximal des doigts animés par le vertex shader (part de leur
+// longueur) : sert ici à agrandir la sphère englobante, donc le cadrage
+export const FINGER_STRETCH = 0.18;
 const AO_STEP = 0.045;
 const AO_SAMPLES = 5;
 const COARSE_STEP = 4;
 
-type PreparedLobe = {
-  cx: number;
-  cy: number;
-  cz: number;
-  dx: number;
-  dy: number;
-  dz: number;
-  invAlong: number;
-  invAcross: number;
-  minRadius: number;
-  flare: number;
+// Cône arrondi précalculé (formule d'Inigo Quilez)
+type RoundCone = {
+  ax: number;
+  ay: number;
+  az: number;
+  bax: number;
+  bay: number;
+  baz: number;
+  l2: number;
+  rr: number;
+  a2: number;
+  il2: number;
+  r1: number;
+  r2: number;
 };
 
-const PREPARED: PreparedLobe[] = LOBES.map(([x, y, z, along, across, flare]) => {
-  const length = Math.hypot(x, y, z);
-  // Le noyau (centre à l'origine) prend un axe vertical arbitraire
-  const [dx, dy, dz] = length ? [x / length, y / length, z / length] : [0, 1, 0];
+const scaled = (x: number, y: number, z: number): Vec3 => [
+  x * SCALE,
+  y * SCALE,
+  z * SCALE,
+];
+
+function roundCone(a: Vec3, b: Vec3, r1: number, r2: number): RoundCone {
+  const [bax, bay, baz] = [b[0] - a[0], b[1] - a[1], b[2] - a[2]];
+  const l2 = bax * bax + bay * bay + baz * baz;
+  const rr = r1 - r2;
   return {
-    cx: x * SCALE,
-    cy: y * SCALE,
-    cz: z * SCALE,
-    dx,
-    dy,
-    dz,
-    invAlong: 1 / (along * SCALE),
-    invAcross: 1 / (across * SCALE),
-    minRadius: Math.min(along, across) * SCALE,
-    flare,
+    ax: a[0],
+    ay: a[1],
+    az: a[2],
+    bax,
+    bay,
+    baz,
+    l2,
+    rr,
+    a2: l2 - rr * rr,
+    il2: 1 / l2,
+    r1,
+    r2,
   };
-});
+}
+
+function roundConeDistance(c: RoundCone, x: number, y: number, z: number) {
+  const pax = x - c.ax;
+  const pay = y - c.ay;
+  const paz = z - c.az;
+  const py = pax * c.bax + pay * c.bay + paz * c.baz;
+  const pz = py - c.l2;
+  const qx = pax * c.l2 - c.bax * py;
+  const qy = pay * c.l2 - c.bay * py;
+  const qz = paz * c.l2 - c.baz * py;
+  const x2 = qx * qx + qy * qy + qz * qz;
+  const y2 = py * py * c.l2;
+  const z2 = pz * pz * c.l2;
+  const k = Math.sign(c.rr) * c.rr * c.rr * x2;
+  if (Math.sign(pz) * c.a2 * z2 > k) return Math.sqrt(x2 + z2) * c.il2 - c.r2;
+  if (Math.sign(py) * c.a2 * y2 < k) return Math.sqrt(x2 + y2) * c.il2 - c.r1;
+  return (Math.sqrt(x2 * c.a2 * c.il2) + py * c.rr) * c.il2 - c.r1;
+}
+
+// Doigts dans l'espace du maillage : partagés avec le vertex shader, qui
+// anime l'allongement et l'épaisseur de chacun
+export type SculptureFinger = {
+  base: Vec3;
+  knee: Vec3;
+  tip: Vec3;
+  radii: Vec3;
+};
+
+export const SCULPTURE_FINGERS: SculptureFinger[] = FINGERS.map(
+  ([bx, by, bz, kx, ky, kz, tx, ty, tz, rb, rk, rt]) => ({
+    base: scaled(bx, by, bz),
+    knee: scaled(kx, ky, kz),
+    tip: scaled(tx, ty, tz),
+    radii: [rb * SCALE, rk * SCALE, rt * SCALE],
+  }),
+);
+
+export const SCULPTURE_CORE = CORE.map(
+  ([x, y, z, r]): [number, number, number, number] => [
+    ...scaled(x, y, z),
+    r * SCALE,
+  ],
+);
+
+const PREPARED: [RoundCone, RoundCone][] = SCULPTURE_FINGERS.map(
+  ({ base, knee, tip, radii: [rb, rk, rt] }) => [
+    roundCone(base, knee, rb, rk),
+    roundCone(knee, tip, rk, rt),
+  ],
+);
 
 // Union lisse polynomiale : fusionne deux volumes en creusant le raccord
 function smoothMin(a: number, b: number, k: number): number {
@@ -89,30 +158,24 @@ function smoothMin(a: number, b: number, k: number): number {
 
 // Distance signée (approchée) à la sculpture : négative à l'intérieur
 export function sculptureDistance(px: number, py: number, pz: number): number {
-  // Légère torsion du domaine : casse la régularité des ellipsoïdes
+  // Légère torsion du domaine : casse la régularité des volumes
   const x = px + 0.035 * Math.sin(3.1 * py + 1.3) + 0.02 * Math.sin(5.7 * pz);
   const y = py + 0.035 * Math.sin(2.7 * pz + 0.4) + 0.02 * Math.sin(6.1 * px);
   const z = pz + 0.035 * Math.sin(3.3 * px + 2.1) + 0.02 * Math.sin(5.3 * py);
 
   let distance = Infinity;
-  for (const lobe of PREPARED) {
-    const rx = x - lobe.cx;
-    const ry = y - lobe.cy;
-    const rz = z - lobe.cz;
-    const along = rx * lobe.dx + ry * lobe.dy + rz * lobe.dz;
-    const ax = rx - along * lobe.dx;
-    const ay = ry - along * lobe.dy;
-    const az = rz - along * lobe.dz;
-    const a = along * lobe.invAlong;
-    // Largeur variable le long de la goutte : base fine, pointe renflée
-    const width = 1 + lobe.flare * Math.min(Math.max(a, -1), 1);
-    const b =
-      (Math.sqrt(ax * ax + ay * ay + az * az) * lobe.invAcross) / width;
-    const lobeDistance = (Math.sqrt(a * a + b * b) - 1) * lobe.minRadius;
+  for (const [cx, cy, cz, r] of SCULPTURE_CORE) {
+    const sphere = Math.hypot(x - cx, y - cy, z - cz) - r;
     distance =
-      distance === Infinity
-        ? lobeDistance
-        : smoothMin(distance, lobeDistance, BLEND);
+      distance === Infinity ? sphere : smoothMin(distance, sphere, BLEND);
+  }
+  for (const [first, second] of PREPARED) {
+    const finger = smoothMin(
+      roundConeDistance(first, x, y, z),
+      roundConeDistance(second, x, y, z),
+      KNEE_BLEND,
+    );
+    distance = smoothMin(distance, finger, BLEND);
   }
   return distance;
 }
@@ -233,5 +296,31 @@ export function createBlobGeometry(resolution: number): BufferGeometry {
   geometry.setAttribute('normal', new Float32BufferAttribute(normals, 3));
   geometry.setAttribute('aOcclusion', new Float32BufferAttribute(occlusion, 1));
   geometry.computeBoundingSphere();
+  // La scène cadre la sculpture sur cette sphère : on l'agrandit pour qu'elle
+  // contienne aussi chaque doigt à son allongement maximal (bout repoussé
+  // de FINGER_STRETCH × sa longueur dans la direction du dernier segment)
+  const sphere = geometry.boundingSphere!;
+  for (const { base, knee, tip, radii } of SCULPTURE_FINGERS) {
+    const length =
+      Math.hypot(knee[0] - base[0], knee[1] - base[1], knee[2] - base[2]) +
+      Math.hypot(tip[0] - knee[0], tip[1] - knee[1], tip[2] - knee[2]);
+    const tipLength = Math.hypot(
+      tip[0] - knee[0],
+      tip[1] - knee[1],
+      tip[2] - knee[2],
+    );
+    const reach = (FINGER_STRETCH * length) / tipLength;
+    const extended = [0, 1, 2].map(
+      (axis) => tip[axis] + (tip[axis] - knee[axis]) * reach,
+    );
+    sphere.radius = Math.max(
+      sphere.radius,
+      Math.hypot(
+        extended[0] - sphere.center.x,
+        extended[1] - sphere.center.y,
+        extended[2] - sphere.center.z,
+      ) + radii[2],
+    );
+  }
   return geometry;
 }
