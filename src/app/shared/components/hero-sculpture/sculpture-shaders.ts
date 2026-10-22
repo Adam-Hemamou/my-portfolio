@@ -99,18 +99,18 @@ float sculptNoise(vec3 v) {
 // - L'allongement est en partie indépendant du volume : une goutte peut
 //   s'allonger pendant qu'une autre s'épaissit.
 // - Tout s'installe progressivement pendant les premières secondes.
-const BEND_BASE = 0.22;
-const BEND_KNEE = 0.3;
+const BEND_BASE = 0.07;
+const BEND_KNEE = 0.09;
 // Gonflement maximal (part du rayon) : trois plus grosses gouttes,
 // moyennes, petites (classées par rayon du bout)
-const SWELL_DOMINANT = 0.28;
-const SWELL_MEDIUM = 0.22;
-const SWELL_SMALL = 0.16;
+const SWELL_DOMINANT = 0.2;
+const SWELL_MEDIUM = 0.15;
+const SWELL_SMALL = 0.11;
 // Cycle des gouttes dominantes (s) et ralentissement des variations propres
 // de volume (périodes d'environ 11 à 40 s) : la matière gonfle lentement
 const DOMINANT_CYCLE = 22;
 const VOLUME_TIME_SCALE = 0.7;
-const FLOW_BULGE = 0.06;
+const FLOW_BULGE = 0.035;
 const KNEE_LAG = 2.5;
 const WAVE_DELAY = 3.5;
 const RAMP_SECONDS = 6;
@@ -486,7 +486,7 @@ varying float vSculptOcclusion;
 // Les courbes de niveau sont des tranches parallèles de la sculpture au
 // repos le long d'un axe incliné, légèrement ondulées par un bruit fixe.
 const vec3 SCULPT_LINE_AXIS = vec3(0.28, 0.94, 0.19);
-const float SCULPT_LINE_WIDTH = 0.34;
+const float SCULPT_LINE_WIDTH = 0.3;
 const float SCULPT_LINE_WARP = 0.9;
 
 float sculptLines() {

@@ -1,3 +1,32 @@
+<!-- Fond clair : cadres d'ombre (écho décalé des contours foncés) sur leur
+     propre calque, pour régler leur halo sans toucher aux contours foncés.
+     Mêmes groupes et animations que les contours (synchronisés). -->
+<svg
+  *ngIf="echoStroke"
+  class="nr-layer nr-layer--echo"
+  [attr.viewBox]="viewBox"
+  preserveAspectRatio="xMidYMid meet"
+  fill="none"
+  focusable="false"
+  aria-hidden="true"
+>
+  <g *ngFor="let r of rects" class="nr-drift-x" [attr.style]="r.style">
+    <g class="nr-drift-y">
+      <g class="nr-sway">
+        <rect
+          [attr.x]="r.x"
+          [attr.y]="r.y"
+          [attr.width]="r.width"
+          [attr.height]="r.height"
+          [attr.stroke]="echoStroke"
+          [attr.stroke-width]="strokeWidth"
+          stroke-opacity="0.4"
+        />
+      </g>
+    </g>
+  </g>
+</svg>
+
 <!-- Contours : lueur uniforme sur toute la longueur des traits (classe
      globale .neon-svg sur fond noir, variantes photo et fond clair) -->
 <svg
@@ -47,37 +76,40 @@
   <g *ngFor="let r of banded" class="nr-drift-x" [attr.style]="r.style">
     <g class="nr-drift-y">
       <g class="nr-sway">
-        <!-- Halo flou : filtre posé sur chaque tracé animé, pour que le
-             navigateur redessine toute l'étendue du flou à chaque image -->
-        <g>
-          <rect
-            *ngFor="let s of r.band!.halo"
-            class="nr-band"
+        <!-- Une seule bande par contour, pilotée par UNE animation (.nr-band) :
+             tous ses tracés en héritent leur position, ils avancent donc
+             forcément ensemble. Halo flou (le flou ne touche que lui), cœur
+             net, puis cœur chaud, chacun fait de paliers très rapprochés. -->
+        <g class="nr-band" [attr.style]="r.band!.style">
+          <g
             [attr.filter]="'url(#' + haloFilter + ')'"
-            [attr.x]="r.x"
-            [attr.y]="r.y"
-            [attr.width]="r.width"
-            [attr.height]="r.height"
-            [attr.stroke]="s.color"
-            [attr.stroke-width]="s.width"
-            [attr.stroke-opacity]="s.opacity"
-            [attr.style]="s.style"
-          />
-        </g>
-        <!-- Cœur net, sans flou -->
-        <g>
-          <rect
-            *ngFor="let s of r.band!.core"
-            class="nr-band"
-            [attr.x]="r.x"
-            [attr.y]="r.y"
-            [attr.width]="r.width"
-            [attr.height]="r.height"
-            [attr.stroke]="s.color"
-            [attr.stroke-width]="s.width"
-            [attr.stroke-opacity]="s.opacity"
-            [attr.style]="s.style"
-          />
+            [attr.opacity]="r.band!.halo.opacity"
+            [attr.stroke]="r.band!.halo.color"
+            [attr.stroke-width]="r.band!.halo.width"
+            stroke-linejoin="round"
+          >
+            <path
+              *ngFor="let s of r.band!.halo.steps"
+              class="nr-dash"
+              [attr.d]="r.band!.d"
+              [attr.stroke-opacity]="s.opacity"
+              [attr.style]="s.style"
+            />
+          </g>
+          <g
+            *ngFor="let l of [r.band!.core, r.band!.hot]"
+            [attr.opacity]="l.opacity"
+            [attr.stroke]="l.color"
+            [attr.stroke-width]="l.width"
+          >
+            <path
+              *ngFor="let s of l.steps"
+              class="nr-dash"
+              [attr.d]="r.band!.d"
+              [attr.stroke-opacity]="s.opacity"
+              [attr.style]="s.style"
+            />
+          </g>
         </g>
       </g>
     </g>

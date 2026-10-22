@@ -1,8 +1,9 @@
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  HostBinding,
   Input,
   OnChanges,
   OnDestroy,
@@ -106,10 +107,14 @@ type Look = {
   edgeClass: string; // lueur et écho décalé des contours
   unit: number; // échelle des bandes, en unités du viewBox
   lapReference: number; // périmètre parcouru en 9 à 15,5 s
+  lapSpeed: number; // accélération des bandes (1 = rythme d'origine)
 };
 
-// Un tracé pointillé du contour : un seul tiret visible, qui fait le tour
-type BandStroke = { style: string; width: number; color: string; opacity: number };
+// Palier d'une couche : un tracé pointillé du contour, un seul tiret visible
+type BandStep = { style: string; opacity: number };
+
+// Couche de la bande (halo flou, cœur, cœur chaud) : paliers superposés
+type BandLayer = { width: number; color: string; opacity: number; steps: BandStep[] };
 
 type RectView = {
   x: number;
@@ -117,7 +122,8 @@ type RectView = {
   width: number;
   height: number;
   style: string;
-  band?: { halo: BandStroke[]; core: BandStroke[] };
+  // style : l'unique animation de la bande, dont héritent tous ses tracés
+  band?: { d: string; style: string; halo: BandLayer; core: BandLayer; hot: BandLayer };
 };
 
 let nextId = 0;
@@ -138,31 +144,42 @@ const round = (value: number, digits = 3) => +value.toFixed(digits);
 const LIME = '#bff000';
 const HOT = '#f6ffd2'; // cœur presque blanc-jaune
 const HOT_ON_LIGHT = '#a8d600'; // cœur vert citron soutenu, lisible sur blanc
+const BLACK_EDGE = '#3a3a3a'; // néon noir : bords et halo gris anthracite
+const BLACK_HOT = '#050505'; // néon noir : cœur presque noir
+const ECHO = '#2a2a2a'; // fond clair : cadres d'ombre gris anthracite
 
-// Une bande = plusieurs tirets superposés, centrés au même point, de plus en
-// plus courts : la lumière s'additionne vers le centre et décroît
-// progressivement vers les bords, sans extrémité marquée.
-// [part de la longueur de la bande, couleur, opacité]
-const CORE_LEVELS: [number, string, number][] = [
-  [1, LIME, 0.3],
-  [0.85, LIME, 0.35],
-  [0.7, LIME, 0.4],
-  [0.55, LIME, 0.45],
-  [0.4, HOT, 0.55],
-  [0.27, HOT, 0.7],
-  [0.15, HOT, 0.85],
-];
-const HALO_LEVELS: [number, string, number][] = [
-  [1.15, LIME, 0.4],
-  [0.8, LIME, 0.45],
-  [0.5, LIME, 0.55],
-  [0.25, HOT, 0.5],
-];
+// Une bande = trois couches (halo flou, cœur, cœur chaud) qui suivent le
+// contour d'un trait continu. Chaque couche est faite de paliers : des tirets
+// centrés au même point, de plus en plus courts, très rapprochés (quelques %
+// chacun, invisibles à l'œil), qui reproduisent le profil cos(πu/2)^p
+// (u : 0 au centre, 1 aux extrémités). Peints du plus long au plus court,
+// d'opacité 1/(n - i) : la luminosité couverte par k paliers vaut k/n.
+function profileSteps(count: number, power: number) {
+  return Array.from({ length: count }, (_, i) => ({
+    part: (2 / Math.PI) * Math.acos(Math.pow((i + 0.5) / count, 1 / power)),
+    opacity: round(1 / (count - i), 4),
+  }));
+}
+const SOFT_STEPS = profileSteps(16, 1); // cœur : dégradé ample
+const HALO_STEPS = profileSteps(10, 1); // halo : même profil, le flou lisse les paliers
+const HOT_STEPS = profileSteps(12, 4); // cœur chaud : resserré au centre
+
+// Contour fermé qui commence au milieu du côté haut : quand la bande passe
+// par le début du tracé, elle se raccorde sur une ligne droite, jamais dans
+// un angle (un <rect> commence au coin haut-gauche, où la bande serait
+// coupée en deux morceaux sans jonction d'angle).
+function outline(x: number, y: number, width: number, height: number) {
+  const r = (v: number) => round(v, 2);
+  return (
+    `M${r(x + width / 2)} ${r(y)}H${r(x + width)}V${r(y + height)}` +
+    `H${r(x)}V${r(y)}Z`
+  );
+}
 
 @Component({
   selector: 'app-neon-rectangles',
   standalone: true,
-  imports: [NgFor],
+  imports: [NgFor, NgIf],
   templateUrl: './neon-rectangles.component.html',
   styleUrls: ['./neon-rectangles.component.scss'],
 })
@@ -179,6 +196,13 @@ export class NeonRectanglesComponent implements OnInit, OnChanges, OnDestroy {
   // dark : néon sur fond noir. light : contours foncés et accents vert
   // citron, pour un fond blanc.
   @Input() theme: 'dark' | 'light' = 'dark';
+  // Couleur des bandes lumineuses : lime (par défaut) ou néon noir
+  @Input() bandTone: 'lime' | 'black' = 'lime';
+
+  // Amplitude nulle : rectangles fixes, seules les bandes circulent
+  @HostBinding('class.is-still') get still() {
+    return this.amplitude <= 0;
+  }
 
   private host: HTMLElement = inject(ElementRef).nativeElement;
   private observer?: IntersectionObserver;
@@ -193,6 +217,7 @@ export class NeonRectanglesComponent implements OnInit, OnChanges, OnDestroy {
   edgeStroke = '#BFF000';
   strokeWidth: number | null = null;
   edgeClass = 'neon-svg';
+  echoStroke: string | null = null; // cadres d'ombre (fond clair)
   rects: RectView[] = [];
   banded: RectView[] = [];
   haloBlur = 1;
@@ -248,18 +273,19 @@ export class NeonRectanglesComponent implements OnInit, OnChanges, OnDestroy {
       // que sur les autres pages
       unit: photo ? 0.9 : comp.width / 600,
       lapReference: photo ? 830 : 1300,
+      // Néon vert : bandes 35 % plus rapides, 38 % autour de la photo ;
+      // néon noir : rythme inchangé
+      lapSpeed: light ? 1 : photo ? 1.38 : 1.35,
     };
+    // Néon noir : bords gris anthracite, cœur presque noir
+    const black = this.bandTone === 'black';
+    const base = black ? BLACK_EDGE : LIME;
     // Sur fond blanc, un cœur blanc-jaune serait invisible : il reste vert
-    const hot = light ? HOT_ON_LIGHT : HOT;
+    const hot = black ? BLACK_HOT : light ? HOT_ON_LIGHT : HOT;
     // Sur blanc, un halo flou ferait des taches : il est plus discret, et le
-    // cœur plus épais porte la couleur.
-    const glow = light ? 0.45 : 1;
-    const tint = (levels: [number, string, number][], fade = 1) =>
-      levels.map(([part, color, opacity]): [number, string, number] => [
-        part,
-        color === HOT ? hot : color,
-        opacity * fade,
-      ]);
+    // cœur plus épais porte la couleur. Le halo noir, plus fumé, est un peu
+    // plus présent pour rester perceptible.
+    const glow = black ? 0.75 : light ? 0.45 : 1;
     const random = seeded(this.composition === 'wide' ? 7 : photo ? 11 : 3);
     const between = (min: number, max: number) => min + random() * (max - min);
     const speed = Math.max(0.05, this.speed);
@@ -277,7 +303,9 @@ export class NeonRectanglesComponent implements OnInit, OnChanges, OnDestroy {
     this.edgeStroke = look.stroke;
     this.strokeWidth = look.strokeWidth;
     this.edgeClass = look.edgeClass;
-    this.haloBlur = round(5 * unit, 2);
+    this.echoStroke = light ? ECHO : null;
+    // Photo : halo plus large et plus diffus pour que la lumière ressorte
+    this.haloBlur = round((photo ? 7 : 5) * unit, 2);
 
     this.rects = comp.rects.map(([x, y, width, height], index) => {
       const driftX = between(14, 24);
@@ -305,45 +333,57 @@ export class NeonRectanglesComponent implements OnInit, OnChanges, OnDestroy {
       if (spec) {
         const perimeter = 2 * (width + height);
         const length = perimeter * between(0.1, 0.16);
-        const lap = between(9, 15.5) * (perimeter / look.lapReference);
+        const lap = (between(9, 15.5) * (perimeter / look.lapReference)) / look.lapSpeed;
         const center = between(0, perimeter);
         const timing = { duration: seconds(lap), delay: phase(lap) };
-        const strokes = (levels: [number, string, number][], strokeWidth: number) =>
-          levels.map(([part, color, opacity]) =>
-            this.stroke(length * part, center, perimeter, spec.reverse ?? false, timing, {
-              width: round(strokeWidth * unit, 2),
-              color,
-              opacity,
-            }),
-          );
-        view.band = { halo: strokes(tint(HALO_LEVELS, glow), 9), core: strokes(tint(CORE_LEVELS), light ? 3.2 : 2.4) };
+        // Le dégradé atténue les extrémités : tiret un peu plus long pour
+        // garder la même longueur apparente qu'avant
+        const span = length * 1.25;
+        const layer = (
+          steps: { part: number; opacity: number }[],
+          strokeWidth: number,
+          color: string,
+          opacity: number,
+        ): BandLayer => ({
+          width: round(strokeWidth * unit, 2),
+          color,
+          opacity,
+          steps: steps.map(({ part, opacity: stepOpacity }) => ({
+            style: this.dash(span * part, center, perimeter),
+            opacity: stepOpacity,
+          })),
+        });
+        // Sens horaire : le décalage diminue d'un périmètre par tour
+        const travel = spec.reverse ? -perimeter : perimeter;
+        view.band = {
+          d: outline(x, y, width, height),
+          style: [
+            `--nr-travel:${round(travel, 2)}px`,
+            `--nr-lap:${timing.duration}`,
+            `--nr-lap-delay:${timing.delay}`,
+          ].join(';'),
+          halo: layer(
+            HALO_STEPS,
+            photo ? 12 : black ? 10.5 : 9,
+            base,
+            photo ? 1 : round(0.85 * glow, 3),
+          ),
+          core: layer(SOFT_STEPS, photo ? 2.8 : light ? 3.2 : 2.4, base, 1),
+          hot: layer(HOT_STEPS, light ? 2.4 : photo ? 1.8 : 1.6, hot, black || photo ? 1 : 0.95),
+        };
       }
       return view;
     });
     this.banded = this.rects.filter((r) => r.band);
   }
 
-  // Tiret de longueur `length` centré sur `center`. Le motif a pour période
-  // exacte le périmètre : décaler d'un périmètre boucle sans saut.
-  private stroke(
-    length: number,
-    center: number,
-    perimeter: number,
-    reverse: boolean,
-    timing: { duration: string; delay: string },
-    look: { width: number; color: string; opacity: number },
-  ): BandStroke {
-    const from = length / 2 - center;
-    const to = reverse ? from + perimeter : from - perimeter;
-    return {
-      ...look,
-      style: [
-        `stroke-dasharray:${round(length, 2)} ${round(perimeter - length, 2)}`,
-        `--nr-from:${round(from, 2)}px`,
-        `--nr-to:${round(to, 2)}px`,
-        `--nr-lap:${timing.duration}`,
-        `--nr-lap-delay:${timing.delay}`,
-      ].join(';'),
-    };
+  // Tiret de longueur `length` centré sur `center` au départ. Le motif a
+  // pour période exacte le périmètre : un seul tiret visible, et décaler d'un
+  // périmètre (--nr-travel, piloté par l'animation de la bande) boucle sans saut.
+  private dash(length: number, center: number, perimeter: number): string {
+    return [
+      `stroke-dasharray:${round(length, 2)} ${round(perimeter - length, 2)}`,
+      `--nr-from:${round(length / 2 - center, 2)}px`,
+    ].join(';');
   }
 }

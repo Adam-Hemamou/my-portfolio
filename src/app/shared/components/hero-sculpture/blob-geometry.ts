@@ -8,9 +8,9 @@ import { mergeVertices } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 
 type Vec3 = [number, number, number];
 
-// Doigt courbé : deux segments (base → coude → bout), chacun un cône
-// arrondi dont le rayon varie d'une extrémité à l'autre. Le bout est un peu
-// plus large que le coude : extrémité bombée.
+// Lobe : deux segments (base → coude → bout), chacun un cône arrondi dont
+// le rayon varie d'une extrémité à l'autre. Le bout est plus large que le
+// coude : extrémité bombée, raccord un peu resserré vers la masse.
 type Finger = [
   bx: number, by: number, bz: number,
   kx: number, ky: number, kz: number,
@@ -18,47 +18,76 @@ type Finger = [
   baseRadius: number, kneeRadius: number, tipRadius: number,
 ];
 
-// Petit noyau (deux sphères décalées, irrégulier) : la masse est surtout
-// faite des doigts eux-mêmes, comme sur la référence.
+// Inclinaison de la sculpture dans la scène (BASE_TILT_* de
+// sculpture-scene.ts) : les volumes sont composés dans le repère de la
+// caméra (x à droite, y en haut, z vers l'observateur), puis ramenés dans
+// celui de l'objet.
+const TILT: Vec3 = [0.32, -0.5, -0.18];
+
+// Rotation inverse de l'Euler XYZ de three.js (objet = Rᵀ · caméra)
+const toObject = (() => {
+  const [a, b, c, d, e, f] = [
+    Math.cos(TILT[0]), Math.sin(TILT[0]),
+    Math.cos(TILT[1]), Math.sin(TILT[1]),
+    Math.cos(TILT[2]), Math.sin(TILT[2]),
+  ];
+  const m = [
+    [c * e, -c * f, d],
+    [a * f + b * e * d, a * e - b * f * d, -b * c],
+    [b * f - a * e * d, b * e + a * f * d, a * c],
+  ];
+  return (x: number, y: number, z: number): Vec3 => [
+    m[0][0] * x + m[1][0] * y + m[2][0] * z,
+    m[0][1] * x + m[1][1] * y + m[2][1] * z,
+    m[0][2] * x + m[1][2] * y + m[2][2] * z,
+  ];
+})();
+
+// Masse principale : deux grosses sphères décalées, irrégulières une fois
+// fusionnées. Elle porte l'essentiel du volume.
 const CORE: [x: number, y: number, z: number, radius: number][] = [
-  [0.0, 0.0, 0.0, 0.26],
-  [0.05, -0.07, -0.11, 0.24],
+  [0.02, 0.02, 0, 0.29],
+  [-0.1, -0.1, -0.06, 0.26],
 ];
 
-// 11 doigts épais de longueurs différentes, orientés librement et
-// courbés au coude. Composés dans le repère de la caméra puis ramenés dans
-// celui de l'objet (inclinaison de la scène) : en vue de face, un gros lobe
-// à droite qui retombe, deux doigts qui se recourbent vers le haut, une
-// pile de doigts plus petits à gauche, trois doigts courts vers le bas, un vers
-// l'avant et un vers l'arrière.
-// Profil en goutte : base rétrécie qui rejoint la masse, corps un peu plus
-// large, bout bombé plus volumineux. Hiérarchie : trois gouttes dominantes
-// (gros lobe de droite, lobe bas-gauche, doigt bas-droite : bout ×1,15),
-// cinq moyennes (×1,10) et trois petites (×1,05). Le bout est reculé du gain
-// de rayon : la portée et le cadrage ne changent pas.
+// Huit gros lobes de tailles différentes, en vue de face : un lobe dominant
+// à droite, un lobe haut à gauche et deux plus petits empilés derrière lui,
+// un large lobe en haut vers l'arrière, un à gauche, un gros vers le bas et
+// un petit en bas à gauche. Lobes courts et épais : ils gonflent la masse
+// au lieu de s'en détacher.
 const FINGERS: Finger[] = [
-  [0.07, 0.06, -0.06, 0.32, 0.21, -0.19, 0.46, 0.095, -0.248, 0.197, 0.236, 0.311],
-  [-0.03, 0.09, -0.03, -0.1, 0.35, -0.18, -0.301, 0.423, -0.171, 0.164, 0.189, 0.23],
-  [-0.14, 0.09, 0.09, -0.34, 0.3, 0.16, -0.369, 0.472, 0.122, 0.139, 0.154, 0.189],
-  [-0.03, 0.06, -0.13, 0, 0.3, -0.4, 0.09, 0.345, -0.535, 0.148, 0.178, 0.208],
-  [-0.06, 0.02, 0.11, -0.26, 0.11, 0.31, -0.365, 0.072, 0.425, 0.123, 0.133, 0.168],
-  [-0.11, -0.1, -0.02, -0.38, -0.15, 0.01, -0.515, -0.256, 0.097, 0.123, 0.133, 0.168],
-  [-0.03, -0.09, 0.12, -0.19, -0.29, 0.35, -0.313, -0.233, 0.391, 0.164, 0.193, 0.241],
-  [0.03, -0.09, 0.03, 0.15, -0.31, 0.17, 0.123, -0.454, 0.269, 0.156, 0.178, 0.219],
-  [0.16, -0.07, -0.04, 0.39, -0.26, 0, 0.433, -0.431, 0.009, 0.148, 0.182, 0.23],
-  [0.04, 0.04, 0.08, 0.27, 0.09, 0.26, 0.422, 0.099, 0.251, 0.148, 0.168, 0.208],
-  [-0.04, -0.04, -0.08, -0.31, -0.08, -0.27, -0.484, -0.016, -0.316, 0.139, 0.157, 0.197],
+  // Dominant à droite, bout très bombé
+  [0.05, 0, 0.02, 0.246, 0.051, 0.071, 0.432, 0.111, 0.054, 0.2, 0.195, 0.24],
+  // Haut à gauche, qui monte
+  [-0.06, 0.08, 0.04, -0.162, 0.267, 0.091, -0.247, 0.437, 0.057, 0.18, 0.165, 0.18],
+  // Deux lobes plus petits empilés derrière, vers la gauche
+  [-0.1, 0.06, -0.06, -0.287, 0.196, -0.162, -0.406, 0.264, -0.23, 0.17, 0.145, 0.15],
+  // (second lobe empilé)
+  [-0.12, -0.02, -0.06, -0.324, 0.031, -0.128, -0.469, 0.065, -0.162, 0.17, 0.145, 0.145],
+  // Large lobe en haut, vers l'arrière
+  [0.04, 0.1, -0.08, 0.074, 0.27, -0.199, 0.125, 0.397, -0.284, 0.2, 0.185, 0.2],
+  // À gauche, vers l'avant
+  [-0.12, -0.12, 0.04, -0.298, -0.188, 0.125, -0.443, -0.222, 0.142, 0.18, 0.155, 0.15],
+  // Gros lobe vers le bas, qui avance un peu
+  [0.04, -0.12, 0.02, 0.116, -0.298, 0.088, 0.193, -0.443, 0.088, 0.2, 0.175, 0.195],
+  // Petit lobe en bas à gauche
+  [-0.08, -0.18, 0.06, -0.173, -0.307, 0.128, -0.224, -0.401, 0.145, 0.15, 0.125, 0.12],
+  // Lobe tourné vers l'observateur
+  [0.05, -0.05, 0.08, 0.135, -0.092, 0.25, 0.195, -0.109, 0.352, 0.18, 0.155, 0.16],
+  // Lobe arrière
+  [0, 0, -0.1, 0.102, -0.043, -0.27, 0.17, -0.068, -0.397, 0.19, 0.165, 0.18],
 ];
 
-// Fusion des doigts avec la masse : courte, pour creuser des plis profonds
-const BLEND = 0.075;
-// Fusion des deux segments d'un même doigt : adoucit le coude
-const KNEE_BLEND = 0.07;
+// Fusion des lobes avec la masse : large, pour des transitions douces et
+// des creux arrondis plutôt que des plis
+const BLEND = 0.11;
+// Fusion des deux segments d'un même lobe : adoucit le coude
+const KNEE_BLEND = 0.1;
 // La masse doit tenir dans la grille [-1, 1]³ du marching cubes
 const SCALE = 0.84;
 // Allongement maximal des doigts animés par le vertex shader (part de leur
 // longueur) : sert ici à agrandir la sphère englobante, donc le cadrage
-export const FINGER_STRETCH = 0.18;
+export const FINGER_STRETCH = 0.08;
 const ANIMATION_MARGIN = 0.02;
 const AO_STEP = 0.045;
 const AO_SAMPLES = 5;
@@ -80,11 +109,8 @@ type RoundCone = {
   r2: number;
 };
 
-const scaled = (x: number, y: number, z: number): Vec3 => [
-  x * SCALE,
-  y * SCALE,
-  z * SCALE,
-];
+const scaled = (x: number, y: number, z: number): Vec3 =>
+  toObject(x, y, z).map((v) => v * SCALE) as Vec3;
 
 function roundCone(a: Vec3, b: Vec3, r1: number, r2: number): RoundCone {
   const [bax, bay, baz] = [b[0] - a[0], b[1] - a[1], b[2] - a[2]];

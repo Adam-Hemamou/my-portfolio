@@ -21,9 +21,22 @@
     drop-shadow(-10px 10px 1px #bff000);
 }
 
-// Fond blanc : contours foncés, l'écho décalé reste vert citron
+// Fond blanc : contours foncés avec une lueur sombre (inchangée)
 .nr-edges--light {
-  filter: drop-shadow(-20px -20px 0 #bff000);
+  position: relative; // au-dessus du calque des cadres d'ombre
+  filter: drop-shadow(0 0 1px rgba(10, 10, 10, 0.45));
+}
+
+// Cadres d'ombre : écho des contours décalé de 20 px, en gris anthracite.
+// Trait fin et net, puis halo serré et diffusion douce, assez légère pour
+// que les cadres superposés restent distincts.
+.nr-layer--echo {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transform: translate(-20px, -20px);
+  filter: drop-shadow(0 0 2px rgba(30, 30, 30, 1))
+    drop-shadow(0 0 6px rgba(30, 30, 30, 0.6));
 }
 
 .nr-layer--bands {
@@ -50,12 +63,35 @@ $ease: cubic-bezier(0.37, 0, 0.63, 1); // proche d'une sinusoïde
   animation: nr-sway var(--nr-sw) $ease var(--nr-sw-delay) infinite alternate;
 }
 
-// Bande lumineuse : un tiret qui fait le tour du contour à vitesse constante.
-// Extrémités droites (butt) : aucun bout arrondi, aucun point.
+// Avancement d'une bande sur son contour (0 → 1 tour). Propriété typée :
+// le navigateur l'interpole en continu, et les tracés de la bande en héritent.
+@property --nr-progress {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+// Bande lumineuse : une seule animation par bande, à vitesse constante.
 .nr-band {
-  stroke-linecap: butt;
-  stroke-dashoffset: var(--nr-from);
   animation: nr-lap var(--nr-lap) linear var(--nr-lap-delay) infinite;
+}
+
+// Chaque tracé de la bande se place d'après l'avancement commun : impossible
+// qu'un tracé prenne de l'avance ou du retard sur les autres.
+// Extrémités droites (butt) : aucun bout arrondi, aucun point.
+.nr-dash {
+  stroke-linecap: butt;
+  stroke-dashoffset: calc(var(--nr-from) - var(--nr-progress) * var(--nr-travel));
+}
+
+// Rectangles fixes : aucune dérive (ni position, ni rotation, ni taille),
+// les contours et leur écho décalé restent immobiles
+:host(.is-still) {
+  .nr-drift-x,
+  .nr-drift-y,
+  .nr-sway {
+    animation: none;
+  }
 }
 
 :host(.is-paused) * {
@@ -101,9 +137,9 @@ $ease: cubic-bezier(0.37, 0, 0.63, 1); // proche d'une sinusoïde
 
 @keyframes nr-lap {
   from {
-    stroke-dashoffset: var(--nr-from);
+    --nr-progress: 0;
   }
   to {
-    stroke-dashoffset: var(--nr-to);
+    --nr-progress: 1;
   }
 }
