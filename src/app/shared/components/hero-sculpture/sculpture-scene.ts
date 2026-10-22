@@ -54,7 +54,7 @@ const POINTER_TILT_Y = 0.22;
 // pour qu'elles restent nettes, quelle que soit la taille du canvas
 const LINE_PERIOD_PX = 4.5;
 const LINE_FREQUENCY_MIN = 24;
-const LINE_FREQUENCY_MAX = 56;
+const LINE_FREQUENCY_MAX = 96;
 // Densité maximale du canvas (pixels du canvas par pixel CSS). Sur ordinateur,
 // 2 comme auparavant. Sur mobile, le cadre ne mesure qu'une centaine de pixels
 // CSS : on suit l'écran jusqu'à 3 (iPhone, Android haut de gamme) pour éviter
@@ -89,21 +89,25 @@ function createEnvironment(renderer: WebGLRenderer): WebGLRenderTarget {
     scene.add(mesh);
   };
 
-  // Fond anthracite : reflété à ~4 % par la matière, il ne fait que nuancer
-  // le noir de base
-  add(0x5e6166, 1, [0, 0, 0], [24, 24, 24], true);
+  // Fond presque noir : la matière, métallique, le reflète tel quel, d'où
+  // le noir profond des flancs et des creux
+  add(0x14151a, 1, [0, 0, 0], [24, 24, 24], true);
   add(0x000000, 1, [0, -11, 0], [22, 0.5, 22]);
   // Grande plaque noire sur un côté : zones noires profondes
   add(0x000000, 1, [9, 2, 8], [0.5, 12, 10]);
-  // Bandes lumineuses : reflétées à ~4 % sur une surface satinée, elles
-  // deviennent des dégradés anthracite doux qui dessinent les volumes
-  add(0xffffff, 14, [0, 11, 2], [10, 0.5, 1.6]);
-  add(0xffffff, 10, [-11, 3, 4], [0.5, 9, 1.4]);
-  add(COOL_WHITE, 7, [11, -1, 1], [0.5, 1.2, 12]);
-  add(0xffffff, 6, [4, 2, 11], [1.2, 7, 0.5]);
-  // Deux petits spots : quelques reflets subtils sur les sommets
-  add(0xffffff, 8, [-4, 8, 8], [1.6, 1.6, 0.5]);
-  add(COOL_WHITE, 6, [7, 6, -6], [1.4, 1.4, 0.5]);
+  // Grand panneau lumineux au plafond, avancé vers l'observateur : reflets
+  // blanc argenté sur le dessus de chaque lobe
+  add(0xffffff, 4, [-1, 11, 4], [14, 0.5, 12]);
+  // Panneau en haut à gauche : prolonge ces reflets sur les flancs tournés
+  // vers la gauche
+  add(0xffffff, 2.5, [-10, 7, 3], [0.5, 6, 10]);
+  // Bandes plus nettes : reflets francs qui soulignent les arrondis
+  add(0xffffff, 6, [-11, 4, 4], [0.5, 8, 3]);
+  add(COOL_WHITE, 3, [11, -1, 1], [0.5, 1.2, 12]);
+  add(0xffffff, 1.2, [3, 3, 11], [6, 4, 0.5]);
+  // Deux spots : points de brillance sur les sommets
+  add(0xffffff, 12, [-4, 8, 8], [1.6, 1.6, 0.5]);
+  add(COOL_WHITE, 8, [7, 6, -6], [1.4, 1.4, 0.5]);
 
   const pmrem = new PMREMGenerator(renderer);
   const target = pmrem.fromScene(scene, 0.02);
@@ -147,11 +151,12 @@ export function createSculptureScene(
     uLineFrequency: { value: LINE_FREQUENCY_MAX },
   };
   const material = new MeshStandardMaterial({
-    // Noir carbone satiné, non métallique : le reflet d'un diélectrique (~4 %)
-    // reste anthracite, avec un léger éclat en bord de volume (Fresnel)
-    color: 0x2a2c30,
-    metalness: 0.15,
-    roughness: 0.38,
+    // Noir brillant presque métallique : la couleur reste sombre là où la
+    // matière reflète le studio noir, mais les panneaux lumineux s'y
+    // reflètent en blanc argenté (contraste fort, comme du métal liquide)
+    color: 0x7c8088,
+    metalness: 0.9,
+    roughness: 0.25,
   });
   applySculptureShaders(material, uniforms);
 

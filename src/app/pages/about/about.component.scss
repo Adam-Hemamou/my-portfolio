@@ -179,6 +179,26 @@
   cursor: default;
 
   @include grid-backdrop;
+
+  // Canvas interactif : même place et même fondu que le décor ::before,
+  // qu'il remplace une fois prêt (souris uniquement)
+  > app-grid-warp {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      #000 18%,
+      #000 82%,
+      transparent
+    );
+  }
+
+  &.has-grid-warp::before {
+    visibility: hidden;
+  }
 }
 
 .skills-header {

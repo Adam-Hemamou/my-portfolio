@@ -18,6 +18,7 @@ import { SEOService } from '../../shared/services/seo.service';
 import { StackService } from '../../shared/services/stack.service';
 import { TypewriterDirective } from '../../shared/directives/typewriter.directive';
 import { NeonRectanglesComponent } from '../../shared/components/neon-rectangles/neon-rectangles.component';
+import { GridWarpComponent } from '../../shared/components/grid-warp/grid-warp.component';
 
 @Component({
   selector: 'app-about',
@@ -33,6 +34,7 @@ import { NeonRectanglesComponent } from '../../shared/components/neon-rectangles
     RouterLink,
     TypewriterDirective,
     NeonRectanglesComponent,
+    GridWarpComponent,
   ],
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss'],
