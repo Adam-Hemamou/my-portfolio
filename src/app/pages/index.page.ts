@@ -34,7 +34,8 @@ import { HeroSculptureComponent } from '../shared/components/hero-sculpture/hero
           data-aos="fade-up"
           data-aos-delay="600"
           data-aos-duration="800"
-          >WEB<app-hero-sculpture></app-hero-sculpture></span
+          ><span class="web-title-text">WEB</span
+          ><app-hero-sculpture></app-hero-sculpture></span
         >
       </h1>
       <div class="hero-info">
@@ -72,6 +73,7 @@ import { HeroSculptureComponent } from '../shared/components/hero-sculpture/hero
     <app-recent-project></app-recent-project>
     <app-footer></app-footer>
   `,
+  styleUrls: ['./index.page.scss'],
 })
 export default class HomeComponent implements OnInit {
   private seoService = inject(SEOService);

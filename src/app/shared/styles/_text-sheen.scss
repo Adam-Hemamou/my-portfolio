@@ -1,0 +1,41 @@
+// Reflet lent qui traverse un mot vert citron cerné de noir (« 404 », « WEB ») :
+// un dégradé clair glisse dans le remplissage du texte, le contour reste net.
+// À inclure sur un élément qui ne contient que le texte : sa couleur et son
+// contour sont hérités du parent, seul le remplissage est remplacé.
+
+@mixin text-sheen {
+  display: inline-block;
+  // Interligne serré : les lettres dépassent de la boîte. Le fond (et donc le
+  // remplissage du texte) est prolongé dessus et dessous, sans changer la
+  // mise en page.
+  padding-block: 0.12em;
+  margin-block: -0.12em;
+  background: linear-gradient(
+      105deg,
+      var(--color-primary) 42%,
+      #f6ffd2 50%,
+      var(--color-primary) 58%
+    )
+    0 0 / 300% 100% no-repeat;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-sheen 7s ease-in-out 1.6s infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none !important;
+  }
+
+  @at-root {
+    @keyframes text-sheen {
+      0% {
+        background-position: 100% 0;
+      }
+      45%,
+      100% {
+        background-position: 0% 0;
+      }
+    }
+  }
+}

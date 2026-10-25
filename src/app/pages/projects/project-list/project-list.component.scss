@@ -1,3 +1,5 @@
+@use "../../../shared/styles/cta-motion" as *;
+
 .projects-hero {
   background: var(--color-dark);
   color: #fff;
@@ -53,10 +55,9 @@
   width: 220px;
   min-height: 46px;
   text-decoration: none;
-  transition:
-    background 0.2s,
-    color 0.2s;
   padding: 0;
+  // Même animation que le bouton de la page 404
+  @include cta-motion(".about-arrow", "span:last-child");
 
   .about-arrow {
     background: var(--color-primary);

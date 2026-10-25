@@ -1,0 +1,8 @@
+@use "../shared/styles/text-sheen" as *;
+
+// Reflet du « WEB » : même animation que le « 404 ». Couleur, contour et
+// mise en page restent ceux de .web-title (styles globaux) ; seul le texte
+// est visé, la sculpture 3D voisine n'est pas concernée.
+.web-title-text {
+  @include text-sheen;
+}

@@ -1,0 +1,460 @@
+// Page 404 : reprend le langage du hero de l'accueil (mot XXL noir chevauché
+// par un mot vert citron cerné de noir) et du hero noir des pages Projets /
+// Contact. Les tailles du titre sont en unités de conteneur (cqi) : elles
+// suivent la largeur réellement disponible (sans les bandes de navigation sur
+// ordinateur), sans cascade de points de rupture.
+
+@use "../../shared/styles/cta-motion" as *;
+@use "../../shared/styles/text-sheen" as *;
+
+$ease: $cta-ease; // courbe des boutons du site
+$bands: 240px; // bandes de navigation fixes, à droite (≥ 1024 px)
+
+:host {
+  display: block;
+}
+
+// ---------------------------------------------------------------- Hero
+
+.nf-hero {
+  container-type: inline-size;
+  position: relative;
+  margin-top: 92px; // sous le menu fixe (mobile)
+  padding: 0 1rem 2.2rem;
+  cursor: default;
+  overflow: hidden; // les mots XXL ne débordent jamais de l'écran
+}
+
+.nf-title {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-weight: inherit;
+  line-height: 0.82;
+}
+
+.nf-word {
+  position: relative;
+  z-index: 2; // au-dessus du 404, comme DÉVELOPPEUR au-dessus de WEB
+  align-self: center;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 23cqi;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--color-dark);
+}
+
+.nf-code {
+  position: relative;
+  z-index: 1;
+  align-self: flex-end;
+  margin-top: -0.2em; // chevauche le bas du mot
+  margin-right: 2cqi;
+  font-family: "Oswald", sans-serif;
+  font-size: 36cqi;
+  font-weight: 700;
+  line-height: 0.86;
+  white-space: nowrap;
+}
+
+// Vert citron cerné de noir (comme WEB), avec un reflet lent qui traverse
+// les chiffres : seule animation continue du hero (partagée avec le WEB de
+// l'accueil)
+.nf-code-inner {
+  color: var(--color-primary);
+  -webkit-text-stroke: clamp(1px, 0.14cqi, 2px) var(--color-dark);
+  @include text-sheen;
+}
+
+// Lu par les lecteurs d'écran (« Introuvable — erreur 404 »), invisible
+.nf-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+// Bloc d'infos à gauche, sous le mot, à côté du 404 (comme « Portfolio /
+// Adam Hemamou / Open to work »)
+.nf-info {
+  position: absolute;
+  z-index: 3;
+  left: 1rem;
+  // Mobile : le texte passe sur deux lignes, le bloc descend un peu sous la
+  // base du 404 pour ne pas toucher le mot
+  bottom: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  // Reste à gauche du 404 : le texte passe à la ligne plutôt que de le toucher
+  max-width: 40cqi;
+  font-family: "Montserrat", sans-serif;
+}
+
+.nf-kicker {
+  margin: 0;
+  font-size: clamp(0.95rem, 3.6cqi, 2.6rem);
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--color-dark);
+}
+
+.nf-lead {
+  margin: 0.15em 0 0;
+  font-size: clamp(0.8rem, 3cqi, 2.1rem);
+  text-wrap: balance; // « Cette page / n'existe pas », sans mot isolé
+  line-height: 1.2;
+  color: #222;
+}
+
+.nf-pill {
+  display: inline-flex;
+  align-items: center;
+  margin: 0.5rem 0 0;
+  padding: 0.35em 1.1em 0.35em 0.7em;
+  border-radius: 2rem;
+  background: var(--color-dark);
+  color: #fff;
+  font-size: clamp(0.78rem, 2.5cqi, 1.8rem);
+  white-space: nowrap;
+}
+
+// Point vert qui clignote doucement : le signal est perdu
+.nf-dot {
+  width: 0.5em;
+  height: 0.5em;
+  margin-right: 0.7em;
+  border-radius: 50%;
+  background: var(--color-primary);
+  animation: nf-blink 2.4s ease-in-out infinite;
+}
+
+// ---------------------------------------------------------------- Bloc noir
+
+.nf-panel {
+  display: flex;
+  flex-direction: column;
+  padding: 2.4rem 1.25rem 2.6rem;
+  background: var(--color-dark);
+  color: #fff;
+  font-family: "Montserrat", sans-serif;
+  cursor: default;
+}
+
+.nf-panel-content {
+  max-width: 34rem;
+}
+
+.nf-panel-title {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.nf-panel-text {
+  margin: 1rem 0 1.6rem;
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+// Bouton principal : même construction que « Me contacter » (carré vert
+// citron avec la flèche, libellé sur fond noir, bordure verte) et même
+// animation (mixin partagée)
+.nf-cta {
+  --size: 52px;
+  display: inline-flex;
+  align-items: stretch;
+  min-width: 260px;
+  height: var(--size);
+  border: 1px solid var(--color-primary);
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  overflow: hidden;
+  @include cta-motion(".nf-cta-arrow", ".nf-cta-label");
+
+  &:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 4px;
+  }
+}
+
+.nf-cta-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size);
+  flex-shrink: 0;
+  background: var(--color-primary);
+
+  img {
+    width: 42%;
+    height: 42%;
+  }
+}
+
+.nf-cta-label {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.2em;
+  background: var(--color-dark);
+  white-space: nowrap;
+}
+
+// Raccourcis : liens soulignés au survol, flèche vert citron
+.nf-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.6rem;
+  margin: 1.4rem 0 0;
+  padding: 0;
+  list-style: none;
+
+  a {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+    padding: 0.35em 0;
+    color: #fff;
+    font-size: 1rem;
+    text-decoration: none;
+
+    // Soulignement vert qui se déroule (comme dans le pied de page)
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0.1em;
+      height: 1px;
+      background: var(--color-primary);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.35s $ease;
+    }
+
+    &:hover::after,
+    &:focus-visible::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 3px;
+    }
+  }
+
+  img {
+    width: 0.8em;
+    height: 0.8em;
+    // flèche noire d'origine → vert citron
+    filter: invert(83%) sepia(76%) saturate(1066%) hue-rotate(21deg)
+      brightness(104%) contrast(104%);
+  }
+}
+
+// Néons : masqués sur mobile, comme sur les pages Projets et Contact
+.nf-panel-neon {
+  display: none;
+}
+
+// ---------------------------------------------------------------- Tablette
+
+@media (min-width: 768px) {
+  .nf-hero {
+    margin-top: 118px;
+    padding: 0 2rem 3rem;
+  }
+
+  .nf-info {
+    left: 2rem;
+    bottom: 3.6rem;
+  }
+
+  .nf-pill {
+    margin-top: 0.8rem;
+  }
+
+  .nf-panel {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 3rem 2rem 3rem 2.5rem;
+  }
+
+  .nf-panel-content {
+    flex: 1 1 0;
+    max-width: 380px;
+  }
+
+  .nf-panel-title {
+    font-size: 2rem;
+  }
+
+  .nf-panel-neon {
+    display: block;
+    width: 300px;
+    height: 300px;
+    flex-shrink: 0;
+  }
+}
+
+// ---------------------------------------------------------------- Ordinateur
+// Les bandes de navigation occupent 240 px à droite : le hero s'arrête avant
+
+@media (min-width: 1024px) {
+  .nf-hero {
+    // Menu dans le flux sur ordinateur : on laisse respirer le logo
+    margin: 3.2rem $bands 0 0;
+    padding: 0 2.5rem 3.2rem;
+  }
+
+  .nf-info {
+    left: 2.5rem;
+    bottom: 4.2rem;
+  }
+
+  .nf-panel {
+    padding: 3.5rem calc(#{$bands} + 3rem) 3.5rem 3rem;
+  }
+
+  .nf-panel-content {
+    max-width: 460px;
+  }
+
+  .nf-panel-title {
+    font-size: 2.4rem;
+  }
+
+  .nf-panel-text {
+    font-size: 1.15rem;
+  }
+
+  .nf-cta {
+    --size: 60px;
+    min-width: 320px;
+    font-size: 1.25rem;
+  }
+
+  .nf-links a {
+    font-size: 1.1rem;
+  }
+
+  .nf-panel-neon {
+    width: 360px;
+    height: 360px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .nf-hero {
+    padding: 0 4rem 3.6rem;
+  }
+
+  .nf-info {
+    left: 4rem;
+    bottom: 5rem;
+  }
+
+  .nf-panel {
+    padding: 4rem calc(#{$bands} + 4rem) 4rem 5.5rem;
+  }
+
+  .nf-panel-content {
+    max-width: 560px;
+  }
+
+  .nf-panel-title {
+    font-size: 2.8rem;
+  }
+
+  .nf-panel-text {
+    font-size: 1.3rem;
+  }
+
+  .nf-cta {
+    --size: 70px;
+    min-width: 360px;
+    font-size: 1.4rem;
+  }
+
+  .nf-links a {
+    font-size: 1.25rem;
+  }
+
+  .nf-panel-neon {
+    width: 440px;
+    height: 440px;
+  }
+}
+
+@media (min-width: 1800px) {
+  .nf-panel {
+    padding: 4.5rem calc(#{$bands} + 6rem) 4.5rem 8rem;
+  }
+
+  .nf-panel-content {
+    max-width: 680px;
+  }
+
+  .nf-panel-title {
+    font-size: 3.4rem;
+  }
+
+  .nf-panel-text {
+    font-size: 1.5rem;
+  }
+
+  .nf-cta {
+    --size: 80px;
+    min-width: 430px;
+    font-size: 1.6rem;
+  }
+
+  .nf-links a {
+    font-size: 1.4rem;
+  }
+
+  .nf-panel-neon {
+    width: 500px;
+    height: 500px;
+  }
+}
+
+// ---------------------------------------------------------------- Animations
+
+@keyframes nf-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+// Réduction des animations : clignotement et soulignement immobiles (le
+// reflet et le bouton gèrent cette préférence dans leurs mixins, les néons
+// dans leur composant)
+@media (prefers-reduced-motion: reduce) {
+  .nf-dot {
+    animation: none !important;
+  }
+
+  .nf-links a::after {
+    transition: none;
+  }
+}
