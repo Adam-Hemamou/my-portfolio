@@ -21,9 +21,20 @@ export class SEOService {
       content: data.description,
     });
 
-    // Canonical URL
+    // Indexation : remise à « index, follow » sur chaque page, sauf demande
+    // contraire (page 404)
+    this.metaService.updateTag({
+      name: 'robots',
+      content: data.robots ?? 'index, follow',
+    });
+
+    // Canonical URL (retirée si la page n'en a pas, comme la 404)
     if (data.url) {
       this.updateCanonical(data.url);
+    } else {
+      this.document.head
+        .querySelector('link[rel="canonical"]')
+        ?.remove();
     }
 
     // Open Graph (pour partages)

@@ -384,6 +384,10 @@
 @media (min-width: 1024px) {
   .footer {
     padding: 2rem 2rem 1.5rem;
+    // Les bandes de navigation fixes occupent 240 px à droite : le pied de
+    // page s'arrête avant elles (comme le hero), au lieu de passer par-dessus
+    // leurs libellés ou de cacher son propre contenu dessous
+    margin-right: 240px;
   }
 
   .footer-nav ul li a::after {

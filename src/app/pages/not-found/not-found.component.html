@@ -1,2 +1,100 @@
-<app-do-not-click-trigger></app-do-not-click-trigger>
-<p>not-found works!</p>
+<app-menu></app-menu>
+
+<!-- Même composition que le hero de l'accueil : un mot XXL noir
+     (DÉVELOPPEUR → INTROUVABLE) chevauché par un mot vert citron cerné de
+     noir (WEB → 404), avec le bloc d'infos à gauche, sous le mot. -->
+<section class="nf-hero" aria-labelledby="nf-title">
+  <h1 id="nf-title" class="nf-title">
+    <span
+      class="nf-word"
+      data-aos="fade-up"
+      data-aos-delay="200"
+      data-aos-duration="800"
+      >Introuvable</span
+    ><span class="nf-sr"> — erreur </span
+    ><span
+      class="nf-code"
+      data-aos="fade-up"
+      data-aos-delay="500"
+      data-aos-duration="800"
+      ><span class="nf-code-inner">404</span></span
+    >
+  </h1>
+
+  <div class="nf-info">
+    <div data-aos="fade-right" data-aos-delay="400" data-aos-duration="800">
+      <p class="nf-kicker">Erreur 404</p>
+      <p class="nf-lead">Cette page n'existe pas</p>
+    </div>
+    <p
+      class="nf-pill"
+      data-aos="fade-right"
+      data-aos-delay="700"
+      data-aos-duration="800"
+    >
+      <span class="nf-dot" aria-hidden="true"></span>
+      <span>Lien perdu</span>
+    </p>
+  </div>
+</section>
+
+<app-animate-band></app-animate-band>
+
+<!-- Bloc noir façon hero des pages Projets / Contact : message, bouton
+     principal et raccourcis, néons à droite à partir de la tablette -->
+<section class="nf-panel">
+  <div class="nf-panel-content">
+    <h2
+      class="nf-panel-title"
+      data-aos="fade-right"
+      data-aos-delay="100"
+      data-aos-duration="800"
+    >
+      Vous êtes hors piste
+    </h2>
+    <p
+      class="nf-panel-text"
+      data-aos="fade-right"
+      data-aos-delay="200"
+      data-aos-duration="800"
+    >
+      Le lien est peut-être cassé, ou la page a changé d'adresse. Pas de
+      panique : tout le reste du portfolio est toujours là.
+    </p>
+
+    <div data-aos="fade-right" data-aos-delay="300" data-aos-duration="800">
+      <a class="nf-cta" href="/" (click)="go($event, '')">
+        <span class="nf-cta-arrow" aria-hidden="true">
+          <img src="/svg/arrow.svg" alt="" />
+        </span>
+        <span class="nf-cta-label">Retour à l'accueil</span>
+      </a>
+    </div>
+
+    <ul
+      class="nf-links"
+      aria-label="Autres pages"
+      data-aos="fade-right"
+      data-aos-delay="400"
+      data-aos-duration="800"
+    >
+      <li *ngFor="let link of links">
+        <a [href]="'/' + link.route" (click)="go($event, link.route)">
+          <span>{{ link.label }}</span>
+          <img src="/svg/arrow.svg" alt="" aria-hidden="true" />
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div
+    class="nf-panel-neon"
+    data-aos="fade-up"
+    data-aos-delay="400"
+    data-aos-duration="800"
+  >
+    <app-neon-rectangles composition="tall"></app-neon-rectangles>
+  </div>
+</section>
+
+<app-footer></app-footer>

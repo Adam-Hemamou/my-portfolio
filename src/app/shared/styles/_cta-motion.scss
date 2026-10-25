@@ -1,0 +1,91 @@
+// Animation des boutons « flèche + libellé » (bouton de la page 404, « Me
+// contacter ») : au survol, le fond vert citron glisse depuis la flèche sous
+// le libellé, le texte passe au noir et la flèche part en diagonale pour
+// revenir par le coin opposé. Seul le mouvement est défini ici : couleurs,
+// tailles et bordures restent propres à chaque bouton.
+//
+// À inclure dans la règle du bouton :
+//   @include cta-motion(".mon-bouton-fleche", ".mon-bouton-libelle");
+
+$cta-ease: cubic-bezier(0.77, 0, 0.18, 1); // courbe des boutons du site
+
+@mixin cta-motion($arrow, $label, $ease: $cta-ease) {
+  transition: color 0.3s $ease;
+
+  #{$arrow} {
+    position: relative;
+    overflow: hidden; // la flèche disparaît en sortant de son carré
+
+    img {
+      transition: transform 0.45s $ease;
+    }
+  }
+
+  #{$label} {
+    position: relative;
+    isolation: isolate; // le fond animé reste sous le texte
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: var(--color-primary);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.45s $ease;
+    }
+  }
+
+  // Survol réservé aux souris : pas d'état collé après un tap sur mobile
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      color: var(--color-dark);
+
+      #{$label}::before {
+        transform: scaleX(1);
+      }
+
+      #{$arrow} img {
+        animation: cta-arrow 0.6s $ease;
+      }
+    }
+  }
+
+  &:focus-visible {
+    color: var(--color-dark);
+
+    #{$label}::before {
+      transform: scaleX(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+
+    #{$label}::before {
+      transition: none;
+    }
+
+    #{$arrow} img {
+      animation: none !important;
+    }
+  }
+
+  @at-root {
+    @keyframes cta-arrow {
+      0% {
+        transform: translate(0, 0);
+      }
+      45% {
+        transform: translate(140%, -140%);
+      }
+      46% {
+        transform: translate(-140%, 140%);
+      }
+      100% {
+        transform: translate(0, 0);
+      }
+    }
+  }
+}
