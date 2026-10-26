@@ -12,7 +12,7 @@ export class StackService {
       icon: '/stacks/javascript.png',
       category: 'Language',
     },
-    { name: 'Angular.js', icon: '/stacks/angular.png', category: 'Frontend' },
+    { name: 'Angular', icon: '/stacks/angular.png', category: 'Frontend' },
     { name: 'React.js', icon: '/stacks/react.png', category: 'Frontend' },
     { name: 'HTML5', icon: '/stacks/html5.png', category: 'Frontend' },
     { name: 'CSS3', icon: '/stacks/css3.png', category: 'Frontend' },

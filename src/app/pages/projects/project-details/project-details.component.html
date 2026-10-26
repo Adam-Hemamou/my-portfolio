@@ -60,7 +60,7 @@
   </div>
   <app-animate-band></app-animate-band>
   <div class="project-main-layout">
-    <h3 class="challenge-title">Challenge</h3>
+    <h2 class="challenge-title">Challenge</h2>
     <ul class="challenge-list">
       <li *ngFor="let c of project.challenge">
         <img src="/svg/puce.svg" alt="puce liste" class="challenge-puce" />
@@ -76,6 +76,8 @@
       <img
         [src]="project.image"
         [alt]="'Capture d\'écran du projet ' + project.title"
+        width="1254"
+        height="1254"
         class="project-photo"
         data-aos="fade-up"
         data-aos-delay="400"
@@ -83,7 +85,7 @@
       />
     </div>
     <div class="solution-section" *ngIf="project.solution">
-      <h3 class="solution-title">Solution</h3>
+      <h2 class="solution-title">Solution</h2>
       <p class="solution-content">
         {{ project.solution }}
       </p>
@@ -92,8 +94,8 @@
 </div>
 <div class="tools-section" *ngIf="project">
   <div class="tools-content">
-    <h3 class="tools-title">Les outils utilisés</h3>
-    <div class="tools-subtitle">Languages et logiciels</div>
+    <h2 class="tools-title">Les outils utilisés</h2>
+    <div class="tools-subtitle">Langages et logiciels</div>
   </div>
   <div class="tools-grid">
     <app-stacks-card
@@ -104,7 +106,7 @@
   </div>
 </div>
 <div class="img-section">
-  <h3 class="img-section-title">Images du projet</h3>
+  <h2 class="img-section-title">Images du projet</h2>
   <swiper-container
     *ngIf="project"
     class="project-images-carousel"
@@ -119,6 +121,8 @@
           [src]="img"
           [alt]="'Image du projet ' + project.title"
           style="width: 100%"
+          loading="lazy"
+          decoding="async"
         />
       </div>
     </swiper-slide>
@@ -130,11 +134,15 @@
         class="img-landscape"
         [src]="project.images[0]"
         [alt]="'Image du projet ' + project.title"
+        loading="lazy"
+        decoding="async"
       />
       <img
         class="img-square"
         [src]="project.images[1]"
         [alt]="'Image du projet ' + project.title"
+        loading="lazy"
+        decoding="async"
       />
     </div>
     <div class="row">
@@ -142,11 +150,15 @@
         class="img-square"
         [src]="project.images[2]"
         [alt]="'Image du projet ' + project.title"
+        loading="lazy"
+        decoding="async"
       />
       <img
         class="img-landscape"
         [src]="project.images[3]"
         [alt]="'Image du projet ' + project.title"
+        loading="lazy"
+        decoding="async"
       />
     </div>
   </div>

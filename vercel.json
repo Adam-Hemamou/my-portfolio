@@ -1,13 +1,46 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "trailingSlash": false,
-  "rewrites": [
-    { "source": "/about", "destination": "/index.html" },
-    { "source": "/contact", "destination": "/index.html" },
-    { "source": "/project", "destination": "/index.html" },
+  "routes": [
     {
-      "source": "/project/:id(ondeo|ecoscan|wow-game|babyplace|elegance|green-point)",
-      "destination": "/index.html"
-    }
+      "src": "^/(.*)\\/$",
+      "status": 308,
+      "headers": { "Location": "/$1" }
+    },
+    {
+      "src": "^/(.*)$",
+      "continue": true,
+      "headers": {
+        "X-Content-Type-Options": "nosniff",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "X-Frame-Options": "DENY",
+        "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+        "Content-Security-Policy": "frame-ancestors 'none'",
+        "Content-Security-Policy-Report-Only": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.emailjs.com; object-src 'none'; base-uri 'self'; form-action 'self'"
+      }
+    },
+    {
+      "src": "^/assets/(.*)$",
+      "continue": true,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "^/(project-img|me|stacks|activity|svg|capcha|videos|logo-web)/(.*)$",
+      "continue": true,
+      "headers": {
+        "Cache-Control": "public, max-age=86400, stale-while-revalidate=604800"
+      }
+    },
+    { "handle": "filesystem" },
+    { "src": "^/about$", "dest": "/index.html", "check": true },
+    { "src": "^/contact$", "dest": "/index.html", "check": true },
+    { "src": "^/project$", "dest": "/index.html", "check": true },
+    {
+      "src": "^/project/(ondeo|ecoscan|wow-game|babyplace|elegance|green-point)$",
+      "dest": "/index.html",
+      "check": true
+    },
+    { "src": "^/(.*)$", "status": 404, "dest": "/404.html" }
   ]
 }

@@ -13,6 +13,8 @@ import { NgIf } from '@angular/common';
 })
 export class ProjectCardComponent {
   @Input() project!: Project;
+  // Différé par défaut ; « eager » pour une carte visible dès l'arrivée
+  @Input() loading: 'lazy' | 'eager' = 'lazy';
 
   isDesktopNav = window.innerWidth >= 1024;
 

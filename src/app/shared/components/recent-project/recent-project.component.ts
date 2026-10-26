@@ -14,7 +14,7 @@ export class RecentProjectComponent {
   projects: Project[] = [
     {
       id: 'ondeo',
-      image: '/project-img/ondeo/0.png',
+      image: '/project-img/ondeo/0.webp',
       label: 'WEBSITE',
       title: 'ONDEO',
       subtitle: 'Agence créative',
@@ -26,7 +26,7 @@ export class RecentProjectComponent {
     },
     {
       id: 'ecoscan',
-      image: '/project-img/eco-scan/5.png',
+      image: '/project-img/eco-scan/5.webp',
       label: 'APPLICATION',
       title: 'ECOSCAN',
       subtitle: 'Application écoresponsable',

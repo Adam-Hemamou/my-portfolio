@@ -51,9 +51,9 @@ export default defineConfig(({ mode }) => ({
           '/project/elegance',
           '/project/green-point',
         ],
-        sitemap: {
-          host: 'https://www.adamh-dev.com',
-        },
+        // Pas d'option « sitemap » : le générateur d'Analog écrit l'espace de
+        // noms en https (invalide) et écraserait public/sitemap.xml, qui fait
+        // foi. Penser à y ajouter tout nouveau projet.
       },
     }),
     notFoundPage(),

@@ -44,8 +44,9 @@
     data-aos="fade-up"
     data-aos-delay="100"
     data-aos-duration="800"
-    *ngFor="let project of projects"
+    *ngFor="let project of projects; let first = first"
     [project]="project"
+    [loading]="first ? 'eager' : 'lazy'"
   ></app-project-card>
 </div>
 
