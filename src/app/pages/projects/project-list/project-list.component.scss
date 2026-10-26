@@ -217,7 +217,9 @@
       }
       span:last-child {
         font-size: 1rem;
-        height: 40px;
+        // La flèche garde ses 46 px minimum (règle de base) : le libellé suit
+        // la hauteur réelle du bouton au lieu de 40 px fixes
+        height: auto;
       }
     }
 
