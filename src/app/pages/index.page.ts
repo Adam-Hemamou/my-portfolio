@@ -28,7 +28,7 @@ import { HeroSculptureComponent } from '../shared/components/hero-sculpture/hero
           data-aos-delay="200"
           data-aos-duration="800"
           >DÉVELOPPEUR</span
-        >
+        ><span class="sr-only">{{ ' ' }}</span>
         <span
           class="web-title"
           data-aos="fade-up"

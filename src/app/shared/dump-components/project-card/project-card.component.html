@@ -1,7 +1,14 @@
 <div class="project-card-link" *ngIf="isDesktopNav" (click)="onCardClick()">
   <div class="project-card">
     <div class="project-image">
-      <img [src]="project.image" [alt]="project.title" />
+      <img
+        [src]="project.image"
+        [alt]="project.title"
+        width="1254"
+        height="1254"
+        [attr.loading]="loading"
+        decoding="async"
+      />
       <span class="project-label">{{ project.label }}</span>
     </div>
     <div class="project-content">
@@ -28,7 +35,14 @@
 >
   <div class="project-card">
     <div class="project-image">
-      <img [src]="project.image" [alt]="project.title" />
+      <img
+        [src]="project.image"
+        [alt]="project.title"
+        width="1254"
+        height="1254"
+        [attr.loading]="loading"
+        decoding="async"
+      />
       <span class="project-label">{{ project.label }}</span>
     </div>
     <div class="project-content">
