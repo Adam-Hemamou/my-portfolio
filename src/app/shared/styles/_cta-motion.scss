@@ -1,5 +1,6 @@
 // Animation des boutons « flèche + libellé » (bouton de la page 404, « Me
-// contacter ») : au survol, le fond vert citron glisse depuis la flèche sous
+// contacter », « Visiter le site » / « Voir le projet » des pages projet) :
+// au survol, le fond vert citron glisse depuis la flèche sous
 // le libellé, le texte passe au noir et la flèche part en diagonale pour
 // revenir par le coin opposé. Seul le mouvement est défini ici : couleurs,
 // tailles et bordures restent propres à chaque bouton.
@@ -24,6 +25,10 @@ $cta-ease: cubic-bezier(0.77, 0, 0.18, 1); // courbe des boutons du site
   #{$label} {
     position: relative;
     isolation: isolate; // le fond animé reste sous le texte
+    // Le fond animé couvre la boîte du libellé : celui-ci doit occuper toute
+    // la hauteur du bouton (sinon bandes noires en haut et en bas au survol).
+    // Sans effet si le bouton fixe déjà au libellé la même hauteur.
+    align-self: stretch;
 
     &::before {
       content: "";
