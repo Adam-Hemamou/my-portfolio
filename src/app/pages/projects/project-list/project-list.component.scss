@@ -43,7 +43,9 @@
 
 .about-cta {
   display: flex;
-  align-items: center;
+  // La hauteur du bouton vient du carré de la flèche : le libellé (et son
+  // fond animé) s'étire sur toute cette hauteur, sans hauteur fixe à part
+  align-items: stretch;
   border: 1px solid var(--color-primary, #c6ff1a);
   color: #fff;
   font-family: "Montserrat", sans-serif;
@@ -53,7 +55,6 @@
   border-radius: 0;
   overflow: hidden;
   width: 220px;
-  min-height: 46px;
   text-decoration: none;
   padding: 0;
   // Même animation que le bouton de la page 404
@@ -78,7 +79,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 46px;
     padding: 0 1em;
     font-size: 1.1rem;
     background: var(--color-dark);
@@ -110,7 +110,6 @@
       }
       span:last-child {
         font-size: 1.15rem;
-        height: 50px;
       }
     }
   }
@@ -142,7 +141,6 @@
       }
       span:last-child {
         font-size: 1.18rem;
-        height: 54px;
       }
     }
   }
@@ -217,9 +215,6 @@
       }
       span:last-child {
         font-size: 1rem;
-        // La flèche garde ses 46 px minimum (règle de base) : le libellé suit
-        // la hauteur réelle du bouton au lieu de 40 px fixes
-        height: auto;
       }
     }
 
@@ -274,7 +269,6 @@
       }
       span:last-child {
         font-size: 1.4rem;
-        height: 60px;
       }
     }
   }
@@ -321,7 +315,6 @@
 
       span:last-child {
         font-size: 1.8rem;
-        height: 70px;
       }
     }
   }
@@ -383,7 +376,7 @@
         }
 
         span:last-child {
-          font-size: 2.5rem;
+          font-size: 2rem; // 2.5rem passait sur deux lignes et dépassait le carré de 80px
         }
       }
     }
