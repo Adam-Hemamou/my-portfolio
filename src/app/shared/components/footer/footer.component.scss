@@ -1,10 +1,24 @@
+// Largeur occupée par les bandes de navigation fixes (4 × 60 px, voir
+// band-aniamtion). Au survol, elles se décalent vers la droite : elles
+// n'occupent jamais plus que cette largeur.
+$nav-bands-width: 240px;
+
+// Enveloppe : fond et trait du haut sur toute la largeur de la fenêtre.
+// Sans position ni z-index : elle se peint sous les bandes fixes, qui restent
+// donc visibles par-dessus le vert.
 .footer {
-  position: relative;
-  z-index: 2000;
+  display: block;
   border-top: 1px solid #111;
   background: var(--color-primary, #c6ff1a);
   color: var(--color-dark);
   font-family: "Montserrat", sans-serif;
+}
+
+// Conteneur intérieur : le contenu et sa mise en page (z-index 2000 inchangé,
+// le menu fixe s'appuie dessus)
+.footer-inner {
+  position: relative;
+  z-index: 2000;
   padding: 1.5rem 1rem 1rem 1rem;
   display: flex;
   flex-direction: column;
@@ -212,7 +226,7 @@
 }
 
 @media (min-width: 375px) {
-  .footer {
+  .footer-inner {
     padding: 2rem 1.3rem;
     font-size: 1.05rem;
   }
@@ -252,7 +266,7 @@
 }
 
 @media (min-width: 414px) {
-  .footer {
+  .footer-inner {
     padding: 2rem 1.3rem 1rem 1.3rem;
     font-size: 1.05rem;
   }
@@ -295,7 +309,7 @@
 }
 
 @media (min-width: 768px) {
-  .footer {
+  .footer-inner {
     padding: 2rem 1.5rem 1.5rem 1.5rem;
   }
   .footer-nav {
@@ -382,12 +396,12 @@
 }
 
 @media (min-width: 1024px) {
-  .footer {
+  .footer-inner {
     padding: 2rem 2rem 1.5rem;
-    // Les bandes de navigation fixes occupent 240 px à droite : le pied de
-    // page s'arrête avant elles (comme le hero), au lieu de passer par-dessus
-    // leurs libellés ou de cacher son propre contenu dessous
-    margin-right: 240px;
+    // Breakpoint d'apparition des bandes (isDesktop : largeur ≥ 1024 px).
+    // Seul le contenu s'arrête avant elles ; le fond vert de l'enveloppe
+    // continue jusqu'au bord droit, derrière les bandes.
+    margin-right: $nav-bands-width;
   }
 
   .footer-nav ul li a::after {
@@ -413,6 +427,13 @@
     position: relative;
     overflow: hidden;
     transition: color 0.2s;
+  }
+  // Téléphone : avec overflow: hidden, un inline-block prend le bas de sa
+  // boîte comme ligne de base, et le numéro remontait au-dessus de « Adam: ».
+  // overflow: clip coupe le soulignement de la même façon, sans déplacer la
+  // ligne de base (hidden reste en repli pour les anciens navigateurs).
+  .footer-section.footer-contact a[href^="tel:"] {
+    overflow: clip;
   }
   .footer-section.footer-links a::after,
   .footer-section.footer-contact a::after {
@@ -477,7 +498,7 @@
 }
 
 @media (min-width: 1280px) {
-  .footer {
+  .footer-inner {
     padding: 2rem 3rem 1.5rem;
   }
   .footer-nav {

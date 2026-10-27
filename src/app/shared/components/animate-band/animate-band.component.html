@@ -1,12 +1,17 @@
 <div class="band-container">
+  <!-- Deux groupes identiques : la piste se déplace exactement de la largeur d'un groupe -->
   <div class="band-track">
-    <span class="band-text">
-      - WEBSITE -- DÉVELOPPEMENT WEB -- APPLICATIONS MODERNES -- E-COMMERCE --
-      SITES VITRINES -- FREELANCE -- ANGULAR -- REACT -- NODE.JS -- FULL STACK -
-    </span>
-    <span class="band-text">
-      - WEBSITE -- DÉVELOPPEMENT WEB -- APPLICATIONS MODERNES -- E-COMMERCE --
-      SITES VITRINES -- FREELANCE -- ANGULAR -- REACT -- NODE.JS -- FULL STACK -
-    </span>
+    @for (group of groups; track group) {
+      <div class="band-group" [attr.aria-hidden]="group === 1 ? 'true' : null">
+        <!-- Le texte est répété dans chaque groupe pour qu'un groupe couvre toujours l'écran -->
+        @for (copy of copies; track copy) {
+          <!-- Le séparateur final "--" + espace insécable relie FULL STACK à WEBSITE
+               comme les autres séparateurs, sans couper le "--" entre deux éléments -->
+          <span class="band-text">
+            WEBSITE -- DÉVELOPPEMENT WEB -- APPLICATIONS MODERNES -- E-COMMERCE --
+            SITES VITRINES -- FREELANCE -- ANGULAR -- REACT -- NODE.JS -- FULL STACK --&nbsp;</span>
+        }
+      </div>
+    }
   </div>
 </div>

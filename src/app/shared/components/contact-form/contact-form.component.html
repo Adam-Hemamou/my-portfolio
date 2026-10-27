@@ -1,37 +1,175 @@
+<!-- Chaque champ : un en-tête (label + message d'erreur éventuel juste en
+     dessous), puis la zone de saisie. Au repos, l'en-tête ne contient que le
+     label : la mise en page est identique à un label seul. -->
 <form
   #contactForm="ngForm"
   class="contact-form"
+  [attr.aria-busy]="sending"
   (submit)="sendEmail($event, contactForm)"
 >
-  <label>NOM *</label>
-  <input type="text" name="name" [(ngModel)]="formData.name" required />
+  <div class="contact-field-head">
+    <label for="contact-name">NOM *</label>
+    <p
+      *ngIf="showError(nameCtrl, contactForm)"
+      id="contact-name-error"
+      class="field-error"
+    >
+      Veuillez indiquer votre nom.
+    </p>
+  </div>
+  <input
+    id="contact-name"
+    #nameCtrl="ngModel"
+    type="text"
+    name="name"
+    autocomplete="family-name"
+    [(ngModel)]="formData.name"
+    required
+    [pattern]="notBlank"
+    [attr.aria-invalid]="showError(nameCtrl, contactForm)"
+    [attr.aria-describedby]="
+      showError(nameCtrl, contactForm) ? 'contact-name-error' : null
+    "
+  />
 
-  <label>PRÉNOM *</label>
-  <input type="text" name="surname" [(ngModel)]="formData.surname" required />
+  <div class="contact-field-head">
+    <label for="contact-surname">PRÉNOM *</label>
+    <p
+      *ngIf="showError(surnameCtrl, contactForm)"
+      id="contact-surname-error"
+      class="field-error"
+    >
+      Veuillez indiquer votre prénom.
+    </p>
+  </div>
+  <input
+    id="contact-surname"
+    #surnameCtrl="ngModel"
+    type="text"
+    name="surname"
+    autocomplete="given-name"
+    [(ngModel)]="formData.surname"
+    required
+    [pattern]="notBlank"
+    [attr.aria-invalid]="showError(surnameCtrl, contactForm)"
+    [attr.aria-describedby]="
+      showError(surnameCtrl, contactForm) ? 'contact-surname-error' : null
+    "
+  />
 
-  <label>TÉLÉPHONE *</label>
-  <input type="tel" name="phone" [(ngModel)]="formData.phone" required />
+  <div class="contact-field-head">
+    <label for="contact-phone">TÉLÉPHONE *</label>
+    <p
+      *ngIf="showError(phoneCtrl, contactForm)"
+      id="contact-phone-error"
+      class="field-error"
+    >
+      Veuillez indiquer votre numéro de téléphone.
+    </p>
+  </div>
+  <input
+    id="contact-phone"
+    #phoneCtrl="ngModel"
+    type="tel"
+    name="phone"
+    autocomplete="tel"
+    [(ngModel)]="formData.phone"
+    required
+    [pattern]="notBlank"
+    [attr.aria-invalid]="showError(phoneCtrl, contactForm)"
+    [attr.aria-describedby]="
+      showError(phoneCtrl, contactForm) ? 'contact-phone-error' : null
+    "
+  />
 
-  <label>EMAIL *</label>
-  <input type="email" name="email" [(ngModel)]="formData.email" required />
+  <div class="contact-field-head">
+    <label for="contact-email">EMAIL *</label>
+    <p
+      *ngIf="showError(emailCtrl, contactForm)"
+      id="contact-email-error"
+      class="field-error"
+    >
+      {{
+        emailCtrl.errors?.["required"]
+          ? "Veuillez indiquer votre adresse e-mail."
+          : "Adresse e-mail invalide (exemple : nom@domaine.fr)."
+      }}
+    </p>
+  </div>
+  <input
+    id="contact-email"
+    #emailCtrl="ngModel"
+    type="email"
+    name="email"
+    autocomplete="email"
+    [(ngModel)]="formData.email"
+    required
+    [pattern]="emailPattern"
+    [attr.aria-invalid]="showError(emailCtrl, contactForm)"
+    [attr.aria-describedby]="
+      showError(emailCtrl, contactForm) ? 'contact-email-error' : null
+    "
+  />
 
-  <label>MESSAGE *</label>
-  <input type="text" name="msg" [(ngModel)]="formData.msg" required />
-  <button type="submit" class="contact-btn">
-    <div class="contact-btn-arrow-container">
+  <div class="contact-field-head">
+    <label for="contact-msg">MESSAGE *</label>
+    <p
+      *ngIf="showError(msgCtrl, contactForm)"
+      id="contact-msg-error"
+      class="field-error"
+    >
+      Veuillez écrire votre message.
+    </p>
+  </div>
+  <!-- Zone multiligne : une ligne au repos comme les autres champs, puis elle
+       s'agrandit avec le texte -->
+  <textarea
+    id="contact-msg"
+    #msgCtrl="ngModel"
+    name="msg"
+    rows="1"
+    [(ngModel)]="formData.msg"
+    required
+    [pattern]="notBlank"
+    [attr.aria-invalid]="showError(msgCtrl, contactForm)"
+    [attr.aria-describedby]="
+      showError(msgCtrl, contactForm) ? 'contact-msg-error' : null
+    "
+  ></textarea>
+
+  <!-- Piège anti-robots : souvent rempli par les robots, jamais par les
+       visiteurs. S'il est rempli, rien n'est envoyé. L'attribut « hidden »
+       le masque sans dépendre du CSS (aucune place, hors tabulation, non lu
+       par les lecteurs d'écran). -->
+  <div class="contact-hp" hidden aria-hidden="true">
+    <input
+      id="contact-website"
+      type="text"
+      name="website"
+      tabindex="-1"
+      autocomplete="off"
+      [(ngModel)]="honeypot"
+    />
+  </div>
+
+  <button type="submit" class="contact-btn" [disabled]="sending">
+    <div class="contact-btn-arrow-container" aria-hidden="true">
       <span class="contact-btn-arrow">
-        <img src="/svg/arrow.svg" alt="flèche" />
+        <img src="/svg/arrow.svg" alt="" />
       </span>
       <span class="contact-btn-arrow-hover">
-        <img src="/svg/arrow.svg" alt="flèche" />
+        <img src="/svg/arrow.svg" alt="" />
       </span>
     </div>
-    <span class="contact-txt">Envoyer mon message</span>
+    <span class="contact-txt">{{
+      sending ? "Envoi en cours…" : "Envoyer mon message"
+    }}</span>
   </button>
 </form>
 <div
   class="form-notification"
   *ngIf="notification"
+  aria-hidden="true"
   [ngClass]="[
     notification.type,
     notification.active ? 'active' : '',
@@ -40,3 +178,5 @@
 >
   {{ notification.message }}
 </div>
+<!-- Annonce des notifications aux lecteurs d'écran (zone toujours présente) -->
+<p class="sr-only" role="status" aria-live="polite">{{ announcement }}</p>

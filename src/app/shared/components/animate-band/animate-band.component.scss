@@ -9,17 +9,25 @@
 .band-track {
   display: flex;
   width: max-content;
-  min-width: 100vw;
-  animation: scroll-band 16s linear infinite;
+  // Un cycle = la largeur d'un groupe (2 copies du texte).
+  // 44s : environ 22 % plus lent qu'avant, en tenant compte du texte 8 % plus large.
+  animation: scroll-band 44s linear infinite;
 }
 
+.band-group {
+  display: flex;
+  flex-shrink: 0;
+}
+
+// Texte agrandi d'environ 8 %. Les marges verticales sont réduites d'autant
+// pour garder la hauteur d'origine du bandeau (39 / 44 / 69 / 85 px).
 .band-text {
   font-family: "Bebas Neue", sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.97rem;
   font-weight: 500;
   letter-spacing: 0.08em;
   color: var(--color-dark);
-  padding: 0.7em 0em;
+  padding: 0.6rem 0;
   white-space: nowrap;
 }
 
@@ -34,20 +42,20 @@
 
 @media (min-width: 414px) {
   .band-text {
-    font-size: 1.1rem;
-    padding: 0.6em 0em;
+    font-size: 1.19rem;
+    padding: 0.597rem 0;
   }
 }
 
 @media (min-width: 768px) {
   .band-text {
-    font-size: 1.5rem;
-    padding: 0.8em 0em;
+    font-size: 1.62rem;
+    padding: 1.106rem 0;
   }
 }
 @media (min-width: 1280px) {
   .band-text {
-    font-size: 1.7rem;
-    padding: 0.9em 0em;
+    font-size: 1.84rem;
+    padding: 1.467rem 0;
   }
 }
