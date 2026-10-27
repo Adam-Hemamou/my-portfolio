@@ -24,6 +24,10 @@ $cta-ease: cubic-bezier(0.77, 0, 0.18, 1); // courbe des boutons du site
   #{$label} {
     position: relative;
     isolation: isolate; // le fond animé reste sous le texte
+    // Le fond animé couvre la boîte du libellé : celui-ci doit occuper toute
+    // la hauteur du bouton (sinon bandes noires en haut et en bas au survol).
+    // Sans effet si le bouton fixe déjà au libellé la même hauteur.
+    align-self: stretch;
 
     &::before {
       content: "";

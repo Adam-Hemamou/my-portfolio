@@ -56,10 +56,10 @@
   overflow: hidden;
   min-width: 220px;
   text-decoration: none;
-  transition:
-    background 0.2s,
-    color 0.2s;
   padding: 0;
+  // Même animation que les boutons « Me contacter » (remplace l'ancienne
+  // transition background/color, sans état de survol associé)
+  @include cta-motion(".arrow", "span:last-child");
   .arrow {
     background: var(--color-primary, #c6ff1a);
     display: flex;
