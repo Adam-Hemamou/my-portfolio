@@ -14,7 +14,8 @@
   letter-spacing: 1px;
 }
 
-.contact-form input {
+.contact-form input,
+.contact-form textarea {
   border: none;
   border-bottom: 2px solid #222;
   border-image: linear-gradient(to right, #222 60%, #c6ff1a 100%);
@@ -28,8 +29,50 @@
   transition: border-color 0.2s;
 }
 
-.contact-form input:focus {
+.contact-form input:focus,
+.contact-form textarea:focus {
   border-bottom: 2px solid #c6ff1a;
+}
+
+// Message : même rendu que les autres champs au repos (une ligne), puis la
+// zone grandit avec le texte (navigateurs récents) ; sinon défilement interne
+.contact-form textarea {
+  display: block;
+  color: inherit;
+  line-height: normal;
+  resize: none;
+  overflow-y: auto;
+  field-sizing: content;
+  max-height: 12lh;
+}
+
+// Champ en erreur : soulignement rouge, message juste en dessous
+$field-error-color: #c81e1e; // rouge lisible sur fond clair (contraste AA)
+
+.contact-form [aria-invalid="true"] {
+  border-image: linear-gradient(to right, $field-error-color, $field-error-color)
+    1;
+}
+
+// En-tête de champ : label, puis message d'erreur éventuel juste en dessous.
+// Le label est en bloc, comme lorsqu'il était directement dans la colonne
+// flex : au repos, l'en-tête a exactement la hauteur du label.
+.contact-field-head label {
+  display: block;
+}
+
+.contact-form .field-error {
+  margin-top: 0.35em;
+  color: $field-error-color;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+// Piège anti-robots : masqué par l'attribut « hidden » ; on s'assure qu'aucune
+// règle display ne l'annule
+.contact-hp[hidden] {
+  display: none !important;
 }
 
 .contact-btn {
@@ -50,6 +93,12 @@
   margin-top: 0.8em;
   transition: background 0.2s, color 0.2s;
   padding: 0;
+
+  // Envoi en cours : bouton inactif (pas de double envoi)
+  &:disabled {
+    cursor: progress;
+    opacity: 0.7;
+  }
 }
 
 .contact-btn-arrow-container {
@@ -177,7 +226,8 @@
   .contact-form label {
     font-size: 1.05rem;
   }
-  .contact-form input {
+  .contact-form input,
+  .contact-form textarea {
     font-size: 1.15rem;
     padding: 0 0.2em 0.7em;
   }
@@ -207,7 +257,8 @@
   .contact-form label {
     font-size: 1.1rem;
   }
-  .contact-form input {
+  .contact-form input,
+  .contact-form textarea {
     font-size: 1.18rem;
     padding: 0 0.2em 0.8em;
   }
@@ -235,7 +286,8 @@
   .contact-form label {
     font-size: 1.4rem;
   }
-  .contact-form input {
+  .contact-form input,
+  .contact-form textarea {
     font-size: 1.3rem;
     padding: 0 0.2em 1em;
   }
@@ -274,7 +326,8 @@
   .contact-form label {
     font-size: 1.25rem;
   }
-  .contact-form input {
+  .contact-form input,
+  .contact-form textarea {
     font-size: 1.15rem;
     padding: 0 0.2em 0.9em;
   }
@@ -320,7 +373,8 @@
   .contact-form label {
     font-size: 1.4rem;
   }
-  .contact-form input {
+  .contact-form input,
+  .contact-form textarea {
     font-size: 1.3rem;
     padding: 0 0.2em 1em;
   }
@@ -366,7 +420,8 @@
   .contact-form label {
     font-size: 1.6rem;
   }
-  .contact-form input {
+  .contact-form input,
+  .contact-form textarea {
     font-size: 1.6rem;
   }
   .contact-btn {
