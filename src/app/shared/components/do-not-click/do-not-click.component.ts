@@ -47,6 +47,10 @@ type Tile = {
 const CAPTCHA_ROOT = '/capcha';
 // Photo affichée à la fin du gag de la croix : déposer le fichier à cet emplacement
 const FINAL_PHOTO = `${CAPTCHA_ROOT}/final.png`;
+// Versions WebP allégées (480 px max, qualité 80) : même nom, extension .webp.
+// Les noms d'origine restent les identifiants des cases (images, correctImages).
+const OPTIMIZED_ROOT = `${CAPTCHA_ROOT}/optimized`;
+const toOptimizedName = (file: string) => file.replace(/\.[^.]+$/, '.webp');
 
 const CROSS_SIZE = 40;
 const CROSS_MARGIN = 8;
@@ -435,7 +439,7 @@ export class DoNotClickComponent implements AfterViewChecked {
         (file) => ({
           file,
           // encodeURI : garde les virgules telles quelles (sinon fichier introuvable)
-          src: `${CAPTCHA_ROOT}/${step.folder}/${encodeURI(file)}`,
+          src: `${OPTIMIZED_ROOT}/${step.folder}/${encodeURI(toOptimizedName(file))}`,
           selected: false,
         }),
       ),
